@@ -1,0 +1,28 @@
+package com.example.cookingovereasy;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+
+public class Welcome extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_welcome);
+
+        SharedPreferences preferences = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
+        String firstTime = preferences.getString("FirstTimeInstall", "");
+
+        if(firstTime.equals("Yes")){
+            Intent i = new Intent(Welcome.this, Login.class);
+            startActivity(i);
+        }else{
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("FirstTimeInstall", "Yes");
+            editor.apply();
+        }
+    }
+}
