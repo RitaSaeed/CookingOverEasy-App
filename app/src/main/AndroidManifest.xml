@@ -16,11 +16,6 @@
         <activity
             android:name=".Welcome"
             android:exported="false" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         <activity
             android:name=".Register"
             android:theme="@style/Theme.Material3.Light.NoActionBar"
@@ -29,6 +24,11 @@
             android:name=".Login"
             android:theme="@style/Theme.Material3.Light.NoActionBar"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
