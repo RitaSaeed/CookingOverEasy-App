@@ -7,26 +7,38 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
-public class SplashScreen extends AppCompatActivity {
+import java.util.Timer;
+import java.util.TimerTask;
 
+public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
         SharedPreferences preferences = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
-        String firstTime = preferences.getString("FirstTimeInstall", "");
+        String firstTimeWelcome = preferences.getString("FirstTimeWelcome", "");
 
-        if(firstTime.equals("Yes")){
-          // new Handler().postDelayed
-                  //  ({var i = new Intent(this@SplashScreen, )}, 3000);
+        if(firstTimeWelcome.equals("Yes")){
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask(){
+                @Override
+                public void run(){
+                    startActivity(new Intent(SplashScreen.this, Welcome.class));
+                }
+            }, 3000);
         }else{
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("FirstTimeInstall", "Yes");
+            editor.putString("FirstTimeWelcome", "Yes");
             editor.apply();
-
-            Intent i2 = new Intent(SplashScreen.this, Welcome.class);
-            startActivity(i2);
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask(){
+                @Override
+                public void run(){
+                    startActivity(new Intent(SplashScreen.this, Welcome.class));
+                }
+            }, 3000);
         }
+
     }
 }

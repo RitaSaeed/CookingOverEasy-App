@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 public class Welcome extends AppCompatActivity {
 
@@ -24,5 +25,9 @@ public class Welcome extends AppCompatActivity {
             editor.putString("FirstTimeInstall", "Yes");
             editor.apply();
         }
+    }
+
+    public void openLogin(View v){
+        startActivity(new Intent(Welcome.this, Login.class));
     }
 }
