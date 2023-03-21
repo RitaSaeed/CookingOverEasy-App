@@ -8,4 +8,6 @@
     <string name="click_to_register">Click to Register</string>
     <string name="logout">Logout</string>
     <string name="get_started">Get Started!</string>
+    <string name="splash">Splash</string>
+    <string name="splashScreenAlt">Splash screen with app logo.</string>
 </resources>
