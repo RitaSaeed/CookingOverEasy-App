@@ -28,6 +28,8 @@ public class Welcome extends AppCompatActivity {
     }
 
     public void openLogin(View v){
-        startActivity(new Intent(Welcome.this, Login.class));
+        Intent i = new Intent(this, Login.class);
+        startActivity(i);
+        overridePendingTransition(R.anim.slide_right, R.anim.slide_out_left);
     }
 }
