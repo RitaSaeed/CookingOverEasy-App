@@ -9,7 +9,7 @@ Projected Sprint Development Plan:
 - Sprint 3: user can add/remove items to grocery list, user can organize grocery list into categories, user can create/modify recipes
 
 Tech Stack Information:
-We are using Java, MySQL, and Android Studio
+We are using Java, Firebase, MySQL, and Android Studio
 
 Deployment Instructions: 
 When we finish the app, we'll test and push any final changes to git. We'll make sure code is consistent througout all team members and that there are no conflicts during testing. 
