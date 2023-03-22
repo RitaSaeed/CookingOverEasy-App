@@ -1,5 +1,18 @@
 # DevProject
+Profile: Cooking Over Easy (Rita Saeed, Tyler Chitwood, Skyla Lloyd, Karen Jank)
 
+Project Scope: An application that is designed to provide assistance to users looking for help in their culinary journey. This application will include an organized grocery list, a recipe search function, a saved recipes function, and the ability for users to input their own recipes. The application will at present only function on mobile devices running Android, including phones and tablets. It will consist of multiple menus that the user will be able to navigate through using a persistent navigation bar located at the bottom of the screen. 
+
+Projected Sprint Development Plan:
+- Sprint 1: user can modify app settings, user can change preferences, system has solid structure and easy layout, splash screen and welcome screen to greet new users, found API, designed mockups, created project in android studio, login credentials, create account function
+- Sprint 2: system can make request to ingredients and recipe APIs and output data, user can search for recipes, user can filter search and create/store saved recipes in personal CookBook
+- Sprint 3: user can add/remove items to grocery list, user can organize grocery list into categories, user can create/modify recipes
+
+Tech Stack Information:
+We are using Java, MySQL, and Android Studio
+
+Deployment Instructions: 
+When we finish the app, we'll test and push any final changes to git. We'll make sure code is consistent througout all team members and that there are no conflicts during testing. 
 
 
 ## Getting started
