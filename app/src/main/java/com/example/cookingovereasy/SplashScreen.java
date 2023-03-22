@@ -26,7 +26,7 @@ public class SplashScreen extends AppCompatActivity {
                 public void run(){
                     startActivity(new Intent(SplashScreen.this, Welcome.class));
                 }
-            }, 3000);
+            }, 1000);
         }else{
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("FirstTimeWelcome", "Yes");
@@ -37,7 +37,7 @@ public class SplashScreen extends AppCompatActivity {
                 public void run(){
                     startActivity(new Intent(SplashScreen.this, Welcome.class));
                 }
-            }, 3000);
+            }, 1000);
         }
 
     }
