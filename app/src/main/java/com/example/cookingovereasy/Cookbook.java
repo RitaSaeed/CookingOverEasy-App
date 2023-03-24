@@ -21,7 +21,7 @@ public class Cookbook extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_cookbook);
 
         auth = FirebaseAuth.getInstance();
         button = findViewById(R.id.logout);
