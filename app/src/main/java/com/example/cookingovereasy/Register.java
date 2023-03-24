@@ -47,7 +47,7 @@ public class Register extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_cookbook);
         mAuth = FirebaseAuth.getInstance();
         editTextUser = findViewById(R.id.username);
         editTextEmail = findViewById(R.id.email);
