@@ -10,4 +10,6 @@
     <string name="get_started">Get Started!</string>
     <string name="splash">Splash</string>
     <string name="splashScreenAlt">Splash screen with app logo.</string>
+    <string name="name">Name</string>
+    <string name="username">Username</string>
 </resources>
