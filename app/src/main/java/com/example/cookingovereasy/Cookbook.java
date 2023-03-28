@@ -3,6 +3,7 @@ package com.example.cookingovereasy;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -29,23 +30,32 @@ public class Cookbook extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         getSupportFragmentManager().beginTransaction().replace(R.id.navbarcontainer,cookBookFragment).commit();
+        getFragmentManager().beginTransaction();
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.cookbook:
+                        getFragmentManager().beginTransaction().remove(settingsFragment).commit();
                         getSupportFragmentManager().beginTransaction().replace(R.id.navbarcontainer,cookBookFragment).commit();
                         return true;
                     case R.id.addrecipe:
+                        getFragmentManager().beginTransaction().remove(settingsFragment).commit();
                         getSupportFragmentManager().beginTransaction().replace(R.id.navbarcontainer,createRecipeFragment).commit();
                         return true;
                     case R.id.grocerylist:
+                        getFragmentManager().beginTransaction().remove(settingsFragment).commit();
                         getSupportFragmentManager().beginTransaction().replace(R.id.navbarcontainer,groceryListFragment).commit();
                         return true;
                     case R.id.settings:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.navbarcontainer,settingsFragment).commit();
+                        getSupportFragmentManager().beginTransaction().remove(cookBookFragment).commit();
+                        getSupportFragmentManager().beginTransaction().remove(searchFragment).commit();
+                        getSupportFragmentManager().beginTransaction().remove(groceryListFragment).commit();
+                        getSupportFragmentManager().beginTransaction().remove(createRecipeFragment).commit();
+                        getFragmentManager().beginTransaction().replace(R.id.navbarcontainer,settingsFragment).commit();
                         return true;
                     case R.id.search:
+                        getFragmentManager().beginTransaction().remove(settingsFragment).commit();
                         getSupportFragmentManager().beginTransaction().replace(R.id.navbarcontainer,searchFragment).commit();
                         return true;
                 }
