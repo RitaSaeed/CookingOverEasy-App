@@ -2,6 +2,8 @@ package com.example.cookingovereasy;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,6 +49,10 @@ public class Cookbook extends AppCompatActivity {
                         return true;
                     case R.id.search:
                         getSupportFragmentManager().beginTransaction().replace(R.id.navbarcontainer,searchFragment).commit();
+                        //FragmentManager fragmentManager = getSupportFragmentManager();
+                        //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        //fragmentTransaction.replace(R.id.navbarcontainer, searchFragment);
+                        //fragmentTransaction.commit();
                         return true;
                 }
                 return false;
