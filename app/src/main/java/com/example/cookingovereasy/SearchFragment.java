@@ -64,22 +64,24 @@ public class SearchFragment extends Fragment {
                 getString(R.string.head_8),
                 getString(R.string.head_9),
                 getString(R.string.head_10),
-                getString(R.string.head_11)
+                getString(R.string.head_11),
+                getString(R.string.head_12)
 
         };
 
         imageResourceID = new int[]{
                 R.drawable.a,
-                R.drawable.a,
-                R.drawable.a,
-                R.drawable.a,
-                R.drawable.a,
-                R.drawable.a,
-                R.drawable.a,
-                R.drawable.a,
-                R.drawable.a,
-                R.drawable.a,
-                R.drawable.a,
+                R.drawable.b,
+                R.drawable.c,
+                R.drawable.d,
+                R.drawable.e,
+                R.drawable.f,
+                R.drawable.g,
+                R.drawable.h,
+                R.drawable.i,
+                R.drawable.j,
+                R.drawable.k,
+                R.drawable.l
 
         };
 

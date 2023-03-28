@@ -18,18 +18,20 @@
     <string name="searchCategory">Category</string>
     <string name="searchDescription">Description</string>
 
-    <string name="head_1">Delicious oven-fired five cheese pizza.</string>
-    <string name="head_2">Delicious oven-fired five cheese pizza.</string>
-    <string name="head_3">Delicious oven-fired five cheese pizza.</string>
-    <string name="head_4">Delicious oven-fired five cheese pizza.</string>
-    <string name="head_5">Delicious oven-fired five cheese pizza.</string>
-    <string name="head_6">Delicious oven-fired five cheese pizza.</string>
-    <string name="head_7">Delicious oven-fired five cheese pizza.</string>
-    <string name="head_8">Delicious oven-fired five cheese pizza.</string>
-    <string name="head_9">Delicious oven-fired five cheese pizza.</string>
-    <string name="head_10">Delicious oven-fired five cheese pizza.</string>
-    <string name="head_11">Delicious oven-fired five cheese pizza.</string>
-    <string name="head_12">Delicious oven-fired five cheese pizza.</string>
+    <string name="head_1">Five Cheese Pizza</string>
+    <string name="head_2">Beef Stroganoff</string>
+    <string name="head_3">Honey Garlic Glazed Salmon</string>
+    <string name="head_4">Barbacoa Beef Tacos</string>
+    <string name="head_5">Blue Crab Bisque</string>
+    <string name="head_6">Gumbo</string>
+    <string name="head_7">Pot Roast</string>
+    <string name="head_8">Mapo Tofu</string>
+    <string name="head_9">Tomato and Herb Focaccia</string>
+    <string name="head_10">Spaghetti Carbonara</string>
+    <string name="head_11">Classic Parmesan Risotto</string>
+    <string name="head_12">Eat-The-Rainbow Chopped Salad</string>
+
+    <string name="welcomeMessage">Welcome to Cooking Over Easy!</string>
 
 
 </resources>
