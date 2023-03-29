@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="Preferences">
+        <MultiSelectListPreference
+            android:defaultValue="@android:array/imProtocols"
+            android:entries="@array/dietList"
+            android:entryValues="@array/dietList"
+            android:key="multi_select_list_preference_1"
+            android:title="Diets" />
+
+        <MultiSelectListPreference
+            android:defaultValue="@android:array/imProtocols"
+            android:entries="@array/allergyList"
+            android:entryValues="@array/allergyList"
+            android:key="multi_select_list_preference_2"
+            android:title="Allergies" />
+
+        <MultiSelectListPreference
+            android:defaultValue="@android:array/imProtocols"
+            android:entries="@array/preferredProteins"
+            android:entryValues="@array/preferredProteins"
+            android:key="multi_select_list_preference_3"
+            android:title="Preferred Protein" />
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
