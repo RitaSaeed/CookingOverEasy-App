@@ -45,7 +45,7 @@
         <item>Vegetarian</item> <!--' '-->
         <item>Pescatarian</item> <!--' '-->
     </string-array> <!--' '-->
-    
+
     <string-array name="allergyList"> <!--' '-->
         <item>Lactose</item><!--' '-->
         <item>Gluten</item><!--' '-->
