@@ -28,15 +28,6 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-//        View view = inflater.inflate(R.layout.fragment_search, container, false);
-//        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-//        recyclerView.setAdapter(new RandomNumListAdapter(1234));
-
-//        return view;
-        // Inflate the layout for this fragment
          return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
