@@ -33,6 +33,7 @@
     <string name="head_12">Eat-The-Rainbow Chopped Salad</string>
 
     <string name="welcomeMessage">Welcome to Cooking Over Easy!</string>
+    <string name="logOutButton">logOutButton</string>
 
 
     <string-array name="dietList"> <!--' '-->
