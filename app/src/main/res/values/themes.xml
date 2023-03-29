@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
     </style>
 
     <!-- Used for the cards in the recycleview -->
@@ -33,4 +34,6 @@
         <item name="cornerSizeBottomRight">20%</item>
 
     </style>
+
+
 </resources>

@@ -12,4 +12,9 @@
     <color name="underline">#D8D6D6</color>
     <color name="deletecolor">#DD3124</color>
     <color name="archiveColor">#3AE015</color>
+    <color name="lightyellow">#fcfa6f</color>
+    <color name="ripplecolor">#fcfa44</color>
+
+
+
 </resources>
