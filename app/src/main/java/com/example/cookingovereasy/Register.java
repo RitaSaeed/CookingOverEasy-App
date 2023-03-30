@@ -1,11 +1,14 @@
 package com.example.cookingovereasy;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -24,12 +27,14 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Register extends AppCompatActivity {
 
     TextInputEditText editTextUser, editTextEmail, editTextPassword;
     Button buttonReg;
     FirebaseAuth mAuth;
-    ProgressBar progressBar;
     TextView textView;
     FirebaseFirestore db;
 
@@ -53,7 +58,6 @@ public class Register extends AppCompatActivity {
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         buttonReg = findViewById(R.id.btn_register);
-        progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.loginNow);
 
         db = FirebaseFirestore.getInstance();
@@ -69,7 +73,6 @@ public class Register extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
                 String username, email, password;
                 username = String.valueOf(editTextUser.getText());
                 email = String.valueOf(editTextEmail.getText());
@@ -94,7 +97,6 @@ public class Register extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     Toast.makeText(Register.this, "Account created.",
                                             Toast.LENGTH_SHORT).show();
@@ -115,19 +117,23 @@ public class Register extends AppCompatActivity {
     }
 
     private void addDataToFirestore(String username) {
-        CollectionReference dbUsers = db.collection("Users");
-        Users user = new Users(username);
 
-        dbUsers.add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(Register.this, "User added to database", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Register.this, "Failed to add user to database", Toast.LENGTH_SHORT).show();
-            }
-        });
+        Map<String, Object> data = new HashMap<>();
+        data.put("name", username);
+
+        db.collection("users")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
     }
 }
