@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:layout_height="match_parent"
-    tools:context=".Cookbook">
-    
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/navbarcontainer"
-        android:layout_above="@id/bottom_navigation"/>
+    tools:context=".CookBookFragment">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="170dp"
+        android:layout_height="235dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/cookbookicon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Cook Book Fragment"
+        android:textSize="25dp" />
+
+    <Button
+        android:id="@+id/addCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bottom_navigation"
-        android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_nav_menu"/>
+        android:text="Create a Category"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-</RelativeLayout>
+</FrameLayout>
