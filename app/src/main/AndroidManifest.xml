@@ -54,7 +54,7 @@
         <activity
             android:name=".Cookbook"
             android:exported="true"
-            android:theme="@style/Theme.Material3.Light.NoActionBar">
+            android:theme="@style/navBarStyle">
         </activity>
     </application>
 
