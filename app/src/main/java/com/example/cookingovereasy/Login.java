@@ -55,6 +55,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Register.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_right, R.anim.slide_out_left);
                 finish();
             }
         });
@@ -62,6 +63,7 @@ public class Login extends AppCompatActivity {
         buttonForgot.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), ForgotPassword.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_right, R.anim.slide_out_left);
             finish();
         });
 

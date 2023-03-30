@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +33,7 @@ import java.util.Map;
 
 public class Register extends AppCompatActivity {
 
-    TextInputEditText editTextUser, editTextEmail, editTextPassword;
+    EditText editTextUser, editTextEmail, editTextPassword;
     Button buttonReg;
     FirebaseAuth mAuth;
     TextView textView;
@@ -55,10 +56,10 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
         editTextUser = findViewById(R.id.username);
-        editTextEmail = findViewById(R.id.email);
-        editTextPassword = findViewById(R.id.password);
-        buttonReg = findViewById(R.id.btn_register);
-        textView = findViewById(R.id.loginNow);
+        editTextEmail = findViewById(R.id.emailRegister);
+        editTextPassword = findViewById(R.id.passwordRegister);
+        buttonReg = findViewById(R.id.registerBtn);
+        textView = findViewById(R.id.loginRegister);
 
         db = FirebaseFirestore.getInstance();
         textView.setOnClickListener(new View.OnClickListener(){
@@ -66,6 +67,7 @@ public class Register extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_left, R.anim.slide_out_right);
                 finish();
             }
         });

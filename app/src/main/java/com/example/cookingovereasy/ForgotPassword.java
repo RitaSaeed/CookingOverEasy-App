@@ -59,6 +59,7 @@ public class ForgotPassword extends AppCompatActivity {
         textView.setOnClickListener((v) -> {
             Intent intent = new Intent(this, Login.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_left, R.anim.slide_out_right);
             finish();
         });
     }
