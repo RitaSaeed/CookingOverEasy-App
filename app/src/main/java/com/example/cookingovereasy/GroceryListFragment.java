@@ -53,7 +53,6 @@ public class GroceryListFragment extends Fragment {
         for (int i = 0; i < ingredientName.length; i++) {
             Ingredient ingredient = new Ingredient(ingredientName[i]);
             ingredientArrayList.add(ingredient);
-            System.out.println(ingredient.name);
         }
     }
 }
