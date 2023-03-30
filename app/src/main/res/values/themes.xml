@@ -35,5 +35,13 @@
 
     </style>
 
+    <style name="navBarStyle" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="itemRippleColor">@color/ripplecolor</item>
+        <item name="rippleColor">@color/ripplecolor</item>
+        <item name="itemIconTint">@color/black</item>
+        <item name="itemTextColor">@color/black</item>
+        <item name="">@color/white</item>
+    </style>
+
 
 </resources>
