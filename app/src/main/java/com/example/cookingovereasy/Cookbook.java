@@ -29,35 +29,35 @@ public class Cookbook extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cookbook);
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        getSupportFragmentManager().beginTransaction().replace(R.id.navbarcontainer,cookBookFragment).commit();
-        getFragmentManager().beginTransaction();
+        bottomNavigationView = findViewById(R.id.bottom_navigation); // here
+        getSupportFragmentManager().beginTransaction().replace(R.id.navbarcontainer,cookBookFragment).commit(); // here
+        getFragmentManager().beginTransaction(); // here
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.cookbook:
-                        getFragmentManager().beginTransaction().remove(settingsFragment).commit();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.navbarcontainer,cookBookFragment).commit();
+                        getFragmentManager().beginTransaction().remove(settingsFragment).commit(); // here
+                        getSupportFragmentManager().beginTransaction().replace(R.id.navbarcontainer,cookBookFragment).commit(); // here
                         return true;
                     case R.id.addrecipe:
-                        getFragmentManager().beginTransaction().remove(settingsFragment).commit();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.navbarcontainer,createRecipeFragment).commit();
+                        getFragmentManager().beginTransaction().remove(settingsFragment).commit(); // here
+                        getSupportFragmentManager().beginTransaction().replace(R.id.navbarcontainer,createRecipeFragment).commit(); // here
                         return true;
                     case R.id.grocerylist:
-                        getFragmentManager().beginTransaction().remove(settingsFragment).commit();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.navbarcontainer,groceryListFragment).commit();
+                        getFragmentManager().beginTransaction().remove(settingsFragment).commit(); //here
+                        getSupportFragmentManager().beginTransaction().replace(R.id.navbarcontainer,groceryListFragment).commit(); //here
                         return true;
                     case R.id.settings:
-                        getSupportFragmentManager().beginTransaction().remove(cookBookFragment).commit();
-                        getSupportFragmentManager().beginTransaction().remove(searchFragment).commit();
-                        getSupportFragmentManager().beginTransaction().remove(groceryListFragment).commit();
-                        getSupportFragmentManager().beginTransaction().remove(createRecipeFragment).commit();
-                        getFragmentManager().beginTransaction().replace(R.id.navbarcontainer,settingsFragment).commit();
-                        return true;
+                        getSupportFragmentManager().beginTransaction().remove(cookBookFragment).commit(); //here
+                        getSupportFragmentManager().beginTransaction().remove(searchFragment).commit(); // here
+                        getSupportFragmentManager().beginTransaction().remove(groceryListFragment).commit(); //here
+                        getSupportFragmentManager().beginTransaction().remove(createRecipeFragment).commit(); // here
+                        getFragmentManager().beginTransaction().replace(R.id.navbarcontainer,settingsFragment).commit(); //here
+                        return true; // here
                     case R.id.search:
-                        getFragmentManager().beginTransaction().remove(settingsFragment).commit();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.navbarcontainer,searchFragment).commit();
+                        getFragmentManager().beginTransaction().remove(settingsFragment).commit(); // here
+                        getSupportFragmentManager().beginTransaction().replace(R.id.navbarcontainer,searchFragment).commit(); // here
                         //FragmentManager fragmentManager = getSupportFragmentManager();
                         //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         //fragmentTransaction.replace(R.id.navbarcontainer, searchFragment);
