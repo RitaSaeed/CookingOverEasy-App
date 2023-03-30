@@ -25,7 +25,7 @@ public class Login extends AppCompatActivity {
     EditText editTextEmail, editTextPassword;
     Button buttonLogin;
     FirebaseAuth mAuth;
-    TextView textView;
+    TextView textView, buttonForgot;
 
     @Override
     public void onStart() {
@@ -47,6 +47,7 @@ public class Login extends AppCompatActivity {
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         buttonLogin = findViewById(R.id.loginBtn);
+        buttonForgot = findViewById(R.id.loginForgotPass);
         //progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.loginRegister);
         textView.setOnClickListener(new View.OnClickListener(){
@@ -58,39 +59,39 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email, password;
-                email = String.valueOf(editTextEmail.getText());
-                password = String.valueOf(editTextPassword.getText());
+        buttonForgot.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), ForgotPassword.class);
+            startActivity(intent);
+            finish();
+        });
 
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(Login.this, "Enter email", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        buttonLogin.setOnClickListener(v -> {
+            String email, password;
+            email = String.valueOf(editTextEmail.getText());
+            password = String.valueOf(editTextPassword.getText());
 
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(Login.this, "Enter password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), Cookbook.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    Toast.makeText(Login.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+            if (TextUtils.isEmpty(email)) {
+                Toast.makeText(Login.this, "Enter email", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            if (TextUtils.isEmpty(password)) {
+                Toast.makeText(Login.this, "Enter password", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), Cookbook.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(Login.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
         });
     }
 }
