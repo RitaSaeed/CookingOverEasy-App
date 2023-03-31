@@ -43,11 +43,13 @@ public class CookBookFragment extends Fragment {
             }
         });
 
-//        public void onCreateCategoryButtonClicked(View view) {
-//            Intent intent = new Intent(getActivity(), CreateFolder.class);
-//            startActivity(intent);
-//        }
 
+
+//        public void onCreateCategoryButtonClicked(View view) {
+//         Intent intent = new Intent(getActivity(), CreateFolder.class);
+//           startActivity(intent);
+//        }
+//
 
         return view;
     }
