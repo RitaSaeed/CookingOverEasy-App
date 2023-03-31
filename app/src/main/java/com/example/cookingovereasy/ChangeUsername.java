@@ -41,7 +41,7 @@ public class ChangeUsername extends AppCompatActivity {
         back.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), SettingsFragment.class);
+                Intent i = new Intent(getApplicationContext(), Cookbook.class);
                 startActivity(i);
             }
         }));
