@@ -10,10 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Grocery List"
+        android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
         android:textSize="30dp"
         android:gravity="center"
-        android:background="@color/logoYellow"/>
+        android:background="@color/lightyellow"/>
 
 
 
@@ -21,7 +22,7 @@
         android:id="@+id/recycler_grocery_view"
         android:layout_width="match_parent"
         android:paddingTop="50dp"
-        android:layout_height="677dp"
+        android:layout_height="match_parent"
         tools:listitem="@layout/grocery_item" />
 
 </FrameLayout>
