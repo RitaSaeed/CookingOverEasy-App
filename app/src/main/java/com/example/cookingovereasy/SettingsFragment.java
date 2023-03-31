@@ -37,7 +37,7 @@ public class SettingsFragment extends PreferenceFragment {
         else {
             addPreferencesFromResource(R.xml.settings);
         }
-
+        
         Preference button = findPreference(getString(R.string.logOutButton));
         button.setOnPreferenceClickListener(preference -> {
             FirebaseAuth.getInstance().signOut();
@@ -46,6 +46,17 @@ public class SettingsFragment extends PreferenceFragment {
             Toast.makeText(getActivity(), "Successfully logged out.",
                     Toast.LENGTH_SHORT).show();
             return true;
+        });
+
+        Preference changeUsernameBtn = findPreference("changeUsernameBtn");
+
+        changeUsernameBtn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference){
+                Intent intent = new Intent(getActivity(), ChangeUsername.class);
+                startActivity(intent);
+                return true;
+            }
         });
     }
 }
