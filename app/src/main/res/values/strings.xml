@@ -41,6 +41,7 @@
     <string name="sendReset">Send Reset</string>
     <string name="backToLogin">Go Back To Login</string>
     <string name="forgotPasswordHeading">Forgot Password?</string>
+    <string name="welcomeBackgroundDesc">Welcome background picture</string>
 
 
     <string-array name="dietList"> <!--' '-->
