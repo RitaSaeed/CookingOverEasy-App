@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/welcomeBackground" />
+        app:srcCompat="@drawable/welcomebackground" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
