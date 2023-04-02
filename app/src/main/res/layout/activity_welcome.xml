@@ -7,23 +7,23 @@
     tools:context=".Welcome">
 
     <ImageView
-        android:id="@+id/welcomeBackground"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/welcomebackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/welcomeBackground" />
+        app:srcCompat="@drawable/welcomebackgroundnoodles" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/welcomeBackground"
-        app:layout_constraintStart_toStartOf="parent"
         app:cardBackgroundColor="#95ffffff"
-        app:layout_constraintTop_toTopOf="@+id/welcomeBackground">
+        app:layout_constraintBottom_toBottomOf="@+id/welcomebackground"
+        app:layout_constraintEnd_toEndOf="@+id/welcomebackground"
+        app:layout_constraintStart_toStartOf="@+id/welcomebackground"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,25 +34,25 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/welcomeMessage"
-                android:textStyle="bold"
-                android:textColor="@color/black"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
                 android:layout_marginBottom="10dp"
-                android:textSize="20sp" />
+                android:text="@string/welcomeMessage"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/getStartedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/lightyellow"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/lightyellow"
                 android:onClick="openLogin"
                 android:text="@string/get_started"
-                android:layout_gravity="center_horizontal"
                 android:textColor="@color/black" />
         </LinearLayout>
 
