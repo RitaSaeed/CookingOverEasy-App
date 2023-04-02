@@ -17,7 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
+        android:scaleX="1.35"
+        android:scaleY="1.35"
         app:srcCompat="@drawable/welcomebackgroundnoodles" />
 
     <androidx.cardview.widget.CardView
