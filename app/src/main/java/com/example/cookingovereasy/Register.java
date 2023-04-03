@@ -124,24 +124,4 @@ public class Register extends AppCompatActivity {
             }
         });
     }
-
-    private void addDataToFirestore(String username) {
-
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-//                .setDisplayName(username).build();
-//
-//        user.updateProfile(profileUpdates)
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if (task.isSuccessful()) {
-//                            Toast.makeText(Register.this, "User profile updated.", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-
-
-    }
 }
