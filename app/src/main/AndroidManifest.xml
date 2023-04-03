@@ -58,7 +58,7 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Cookbook"
+            android:name=".HomePage"
             android:exported="true"
             android:theme="@style/navBarStyle"></activity>
     </application>

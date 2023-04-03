@@ -24,13 +24,8 @@ public class ChangeUsername extends AppCompatActivity {
     EditText editUsername;
     Button update;
     Button back;
-    FirebaseAuth mAuth;
-    TextView textView;
     FirebaseFirestore db;
     FirebaseUser user;
-
-    DocumentReference docref;
-    FirebaseFirestore ff = FirebaseFirestore.getInstance();
 
     /* onCreate: sets up change username activity and creates on click listeners for the update
     and back button */
@@ -38,13 +33,11 @@ public class ChangeUsername extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //user = mAuth.getInstance();
         setContentView(R.layout.activity_change_username);
 
         editUsername = findViewById(R.id.newUsername);
         update = findViewById(R.id.updateBtn);
         back = findViewById(R.id.backBtn);
-        //getSupportActionBar().setTitle("hello test");
 
         update.setOnClickListener(new View.OnClickListener() { //button listener for update btn
             @Override
