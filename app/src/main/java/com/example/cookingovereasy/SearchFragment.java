@@ -17,6 +17,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Provides functionality for the search fragment.
+ */
 public class SearchFragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -24,23 +27,44 @@ public class SearchFragment extends Fragment {
     private String[] foodHeading;
     private int[] imageResourceID;
     private SearchView searchView;
-
     private SearchAdapter adapter;
 
+    /**
+     * Creates an inflated layout of the search fragment.
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return inflatedLayout
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
          return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
+    /**
+     * Pulls the view from onCreateView and does the bulk of the logic with it.
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        dataInitialize();
+        dataInitialize(); // adds test data to the recycler view
 
         searchView = view.findViewById(R.id.searchViewSearch);
         searchView.clearFocus();
+
+        /**
+         * QueryTextListener for the search bar.
+         */
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -63,6 +87,10 @@ public class SearchFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * Filters the food arrayList based on the current text in the search field.
+     * @param text
+     */
     private void filterList(String text) {
         List<Food> filteredList = new ArrayList<>();
         for (Food food : foodArrayList) {
@@ -78,6 +106,10 @@ public class SearchFragment extends Fragment {
         }
     }
 
+    /**
+     * Adds initial test data to the recipe search recyclerview. This will eventually be
+     * completely refactored to host the contents of the data returned from the API query.
+     */
     private void dataInitialize() {
 
         foodArrayList = new ArrayList<>();
