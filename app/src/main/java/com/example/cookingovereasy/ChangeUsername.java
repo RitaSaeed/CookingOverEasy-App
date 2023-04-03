@@ -21,6 +21,9 @@ public class ChangeUsername extends AppCompatActivity {
     Button back;
     DocumentReference docref;
     FirebaseFirestore ff = FirebaseFirestore.getInstance();
+
+    /* onCreate: sets up change username activity and creates on click listeners for the update
+    and back button */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +33,7 @@ public class ChangeUsername extends AppCompatActivity {
         update = findViewById(R.id.updateBtn);
         back = findViewById(R.id.backBtn);
 
-        update.setOnClickListener(new View.OnClickListener() {
+        update.setOnClickListener(new View.OnClickListener() { //button listener for update btn
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "Successfully changed username.",
@@ -38,7 +41,7 @@ public class ChangeUsername extends AppCompatActivity {
             }
         });
 
-        back.setOnClickListener((new View.OnClickListener() {
+        back.setOnClickListener((new View.OnClickListener() { //button listener for back btn
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), Cookbook.class);

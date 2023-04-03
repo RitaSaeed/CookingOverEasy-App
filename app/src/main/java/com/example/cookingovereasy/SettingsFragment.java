@@ -18,13 +18,17 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SettingsFragment extends PreferenceFragment {
 
+    // instance vars needed for preferences
     String[] dietList;
     String[] allergyList;
     String[] preferredProteins;
 
+    // instance vars needed for logout functionality:
     FirebaseUser user;
     FirebaseAuth auth;
 
+    /* onCreate sets up settings fragment layout and includes functionality for logging out,
+    * updating username, and changing diet, allergy, and protein preferences */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -37,7 +41,8 @@ public class SettingsFragment extends PreferenceFragment {
         else {
             addPreferencesFromResource(R.xml.settings);
         }
-        
+
+        //code for logout button:
         Preference button = findPreference(getString(R.string.logOutButton));
         button.setOnPreferenceClickListener(preference -> {
             FirebaseAuth.getInstance().signOut();
@@ -48,6 +53,7 @@ public class SettingsFragment extends PreferenceFragment {
             return true;
         });
 
+        //code for switching to change username activity:
         Preference changeUsernameBtn = findPreference("changeUsernameBtn");
 
         changeUsernameBtn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
