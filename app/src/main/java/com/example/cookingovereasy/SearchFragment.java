@@ -11,8 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchFragment extends Fragment {
 
@@ -20,6 +23,9 @@ public class SearchFragment extends Fragment {
     private ArrayList<Food> foodArrayList;
     private String[] foodHeading;
     private int[] imageResourceID;
+    private SearchView searchView;
+
+    private SearchAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,12 +39,43 @@ public class SearchFragment extends Fragment {
 
         dataInitialize();
 
+        searchView = view.findViewById(R.id.searchViewSearch);
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+
+
         recyclerView = view.findViewById(R.id.recycler_view_search);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        SearchAdapter adapter = new SearchAdapter(getContext(), foodArrayList);
+        adapter = new SearchAdapter(getContext(), foodArrayList);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    private void filterList(String text) {
+        List<Food> filteredList = new ArrayList<>();
+        for (Food food : foodArrayList) {
+            if (food.getHeading().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(food);
+            }
+        }
+
+        if (filteredList.isEmpty()) {
+            Toast.makeText(getContext(), "Recipe not found", Toast.LENGTH_SHORT).show();
+        } else {
+            adapter.setFilteredList(filteredList);
+        }
     }
 
     private void dataInitialize() {

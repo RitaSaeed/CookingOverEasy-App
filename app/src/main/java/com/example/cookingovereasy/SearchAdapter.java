@@ -14,15 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHolder> {
 
     Context context;
-    ArrayList<Food> foodArrayList;
+    List<Food> foodArrayList;
 
     public SearchAdapter(Context context, ArrayList<Food> foodArrayList) {
         this.context = context;
         this.foodArrayList = foodArrayList;
+    }
+
+    public void setFilteredList(List<Food> filteredList) {
+        this.foodArrayList = filteredList;
+        notifyDataSetChanged();
     }
 
     @NonNull

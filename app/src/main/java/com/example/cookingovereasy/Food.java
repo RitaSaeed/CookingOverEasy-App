@@ -9,4 +9,9 @@ public class Food {
         this.heading = heading;
         this.titleImage = titleImage;
     }
+
+    public String getHeading() {
+        return heading;
+    }
+
 }
