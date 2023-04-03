@@ -19,6 +19,20 @@ public class GroceryListFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<Ingredient> ingredientArrayList;
     private String[] ingredientName;
+
+    /**
+     * Creates the fragment that can be interacted with. Views created from onCreateView
+     * are inflated here so the user can interact with the application.
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -26,6 +40,13 @@ public class GroceryListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_grocery_list, container, false);
     }
 
+    /**
+     * Creates the view for the fragment. Constructs the design that will be generated with the
+     * onCreateView method.
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -37,6 +58,10 @@ public class GroceryListFragment extends Fragment {
         dataInitialize();
     }
 
+    /**
+     * Creates a list of cards containing ingredient names and checkboxes. When the
+     * checkboxes are clicked, the user will have the option of deleting the ingredient.
+     */
     private void dataInitialize() {
 
         ingredientArrayList = new ArrayList<>();
