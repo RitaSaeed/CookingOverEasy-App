@@ -42,6 +42,8 @@
     <string name="backToLogin">Go Back To Login</string>
     <string name="forgotPasswordHeading">Forgot Password?</string>
     <string name="welcomeBackgroundDesc">Welcome background picture</string>
+    <string name="updateUserHeader">Update Username:</string>
+    <string name="usernameHint">Enter new username here</string>
 
 
     <string-array name="dietList"> <!--' '-->

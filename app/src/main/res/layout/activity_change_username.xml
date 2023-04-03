@@ -37,8 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ChangeUsername"
-        android:background="@color/white">
+        android:backgroundTint="#000000"
+        tools:context=".ChangeUsername">
 
         <TextView
             android:layout_width="wrap_content"
@@ -46,11 +46,15 @@
             android:layout_weight="1"
             android:layout_gravity="center"
             android:padding="10dp"
-            android:text="Type in a new username below:"
+            android:text="@string/updateUserHeader"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:textColor="@color/black"/>
 
         <EditText
             android:id="@+id/newUsername"
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
@@ -58,27 +62,26 @@
             android:autofillHints=""
             android:ems="10"
             android:fontFamily="sans-serif-light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
-            android:textColorHint="@color/grey"
-            android:hint="new username"
-            android:layout_margin="50dp"/>
+            android:textColorHint="#000000"
+            android:textColor="@color/black"
+            android:hint="@string/usernameHint" />
 
         <Button
             android:id="@+id/updateBtn"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
             android:text="Update"
             android:backgroundTint="@color/lightyellow"
             android:textColor="@color/black"/>
 
         <Button
             android:id="@+id/backBtn"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
             android:backgroundTint="@color/lightyellow"
             android:text="Back"
             android:textColor="@color/black"/>
