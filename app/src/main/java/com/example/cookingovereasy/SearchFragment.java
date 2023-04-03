@@ -33,7 +33,7 @@ public class SearchFragment extends Fragment {
 
         dataInitialize();
 
-        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView = view.findViewById(R.id.recycler_view_search);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         SearchAdapter adapter = new SearchAdapter(getContext(), foodArrayList);

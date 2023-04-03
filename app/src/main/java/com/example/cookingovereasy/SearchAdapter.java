@@ -4,9 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
@@ -39,6 +41,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
         holder.tvHeading.setText(food.heading);
         holder.titleImage.setImageResource(food.titleImage);
 
+        //holder.cardView.startAnimation(AnimationUtils.loadAnimation(holder.cardView.getContext(),
+        //        R.anim.anim_search_one));
+
     }
 
     @Override
@@ -50,9 +55,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
 
         ShapeableImageView titleImage;
         TextView tvHeading;
+        CardView cardView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            cardView = itemView.findViewById(R.id.recycler_view_search);
             titleImage = itemView.findViewById(R.id.title_image);
             tvHeading = itemView.findViewById(R.id.tvHeading);
         }
