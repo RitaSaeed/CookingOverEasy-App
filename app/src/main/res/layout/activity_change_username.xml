@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:backgroundTint="#000000"
+        android:background="@color/white"
         tools:context=".ChangeUsername">
 
         <TextView
@@ -64,6 +64,7 @@
             android:fontFamily="sans-serif-light"
             android:textColorHint="#000000"
             android:textColor="@color/black"
+            android:backgroundTint="@color/black"
             android:hint="@string/usernameHint" />
 
         <Button
