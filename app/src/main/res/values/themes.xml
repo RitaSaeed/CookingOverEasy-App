@@ -42,5 +42,13 @@
         <item name="itemTextColor">@color/black</item>
     </style>
 
+    <style name="SplashTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/logoYellow</item>
+        <item name="colorPrimary">@color/logoYellow</item>
+        <item name="colorPrimaryDark">@color/logoYellow</item>
+        <item name="colorAccent">@color/lightyellow</item>
+        <item name="android:statusBarColor">@color/lightyellow</item>
+    </style>
+
 
 </resources>

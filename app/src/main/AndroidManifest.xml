@@ -19,18 +19,18 @@
             android:exported="false" />
         <activity
             android:name=".ChangeUsername"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/SplashTheme"/>
         <activity
             android:name=".ForgotPassword"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/SplashTheme" />
         <activity
             android:name=".Welcome"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/SplashTheme">
              <intent-filter>
              <action android:name="android.intent.action.MAIN" />
-
 
              <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
@@ -38,11 +38,11 @@
         <activity
             android:name=".Register"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/SplashTheme" />
         <activity
             android:name=".Login"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/SplashTheme" />
         <activity
             android:name=".HomePage"
             android:exported="true"
