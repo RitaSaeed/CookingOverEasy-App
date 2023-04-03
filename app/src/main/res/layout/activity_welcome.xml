@@ -17,8 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:adjustViewBounds="true"
-        android:scaleX="1.35"
-        android:scaleY="1.35"
+        android:scaleX="1.4"
+        android:scaleY="1.4"
         app:srcCompat="@drawable/welcomebackgroundnoodles" />
 
     <androidx.cardview.widget.CardView
@@ -39,6 +39,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="8dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="15dp"
@@ -46,7 +47,8 @@
                 android:text="@string/welcomeMessage"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@color/lightyellow"/>
 
             <Button
                 android:id="@+id/getStartedButton"
