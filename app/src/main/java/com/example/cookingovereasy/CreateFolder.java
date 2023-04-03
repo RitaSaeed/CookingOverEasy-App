@@ -31,9 +31,6 @@ public class CreateFolder extends AppCompatActivity {
         // Commit the transaction
         fragmentTransaction.commit();
 
-
-
-
     }
 }
 

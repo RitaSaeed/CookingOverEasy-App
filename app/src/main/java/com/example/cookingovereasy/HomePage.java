@@ -8,6 +8,9 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+/**
+ * The main page of the app, holds the fragments and the navigation bar at the bottom.
+ */
 public class HomePage extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
@@ -17,6 +20,14 @@ public class HomePage extends AppCompatActivity {
     SearchFragment searchFragment = new SearchFragment();
     SettingsFragment settingsFragment = new SettingsFragment();
 
+    /**
+     * Does the bulk of the work for this page, initializes the xml page objects and sets
+     * their action listeners.
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +37,11 @@ public class HomePage extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.navbarcontainer,cookBookFragment).commit();
         getFragmentManager().beginTransaction();
+
+        /**
+         * Switch statement that determines which fragment to load onto the page by which button
+         * in the navigation bar is selected by the user.
+         */
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
