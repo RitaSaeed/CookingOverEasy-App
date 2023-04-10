@@ -27,7 +27,7 @@
         tools:listitem="@layout/grocery_item" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/addIcon"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="end"

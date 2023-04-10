@@ -1,5 +1,6 @@
 package com.example.cookingovereasy;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -19,6 +21,8 @@ public class GroceryListFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<Ingredient> ingredientArrayList;
     private String[] ingredientName;
+
+    private ImageView add;
 
     /**
      * Creates the fragment that can be interacted with. Views created from onCreateView
@@ -50,6 +54,16 @@ public class GroceryListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        add = view.findViewById(R.id.addIcon);
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addIntent = new Intent(getActivity(), AddToGroceryList.class);
+                startActivity(addIntent);
+            }
+        });
 
         recyclerView = view.findViewById(R.id.recycler_grocery_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
