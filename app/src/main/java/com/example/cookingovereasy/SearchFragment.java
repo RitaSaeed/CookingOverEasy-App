@@ -84,24 +84,24 @@ public class SearchFragment extends Fragment {
         // end new stuff
 
         // og sprint one stuff
-//        searchView = view.findViewById(R.id.searchViewSearch);
-//        searchView.clearFocus();
+        searchView = view.findViewById(R.id.searchViewSearch);
+        searchView.clearFocus();
 
         /**
          * QueryTextListener for the search bar.
          */
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                filterList(newText);
-//                return true;
-//            }
-//        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
 
             // og sprint one stuff
 //        recyclerView = view.findViewById(R.id.recycler_view_search);
@@ -136,17 +136,24 @@ public class SearchFragment extends Fragment {
      * @param text
      */
     private void filterList(String text) {
-        List<Food> filteredList = new ArrayList<>();
-        for (Food food : foodArrayList) {
-            if (food.getHeading().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(food);
+//        List<Food> filteredList = new ArrayList<>();
+//        for (Food food : foodArrayList) {
+//            if (food.getHeading().toLowerCase().contains(text.toLowerCase())) {
+//                filteredList.add(food);
+//            }
+//        }
+
+        List<Recipe> filteredList = new ArrayList<>();
+        for (Recipe recipe : recipeList) {
+            if (recipe.title.toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(recipe);
             }
         }
 
         if (filteredList.isEmpty()) {
             Toast.makeText(getContext(), "Recipe not found", Toast.LENGTH_SHORT).show();
         } else {
-            adapter.setFilteredList(filteredList);
+            randomRecipeAdapter.setFilteredList(filteredList);
         }
     }
 

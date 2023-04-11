@@ -44,6 +44,15 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
     public int getItemCount() {
         return list.size();
     }
+
+    /**
+     * Used in search function, updates list to include filtered data only.
+     * @param filteredList
+     */
+    public void setFilteredList(List<Recipe> filteredList) {
+        this.list = filteredList;
+        notifyDataSetChanged();
+    }
 }
 
 class RandomRecipeViewHolder extends RecyclerView.ViewHolder {
