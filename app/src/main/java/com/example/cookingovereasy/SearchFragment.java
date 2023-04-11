@@ -18,6 +18,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.cookingovereasy.Models.RandomRecipeApiResponse;
+import com.example.cookingovereasy.Models.Recipe;
 import com.example.cookingovereasy.listeners.RandomRecipeResponseListener;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class SearchFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ArrayList<Food> foodArrayList;
+    private List<Recipe> recipeList;
     private String[] foodHeading;
     private int[] imageResourceID;
     private SearchView searchView;
@@ -82,24 +84,24 @@ public class SearchFragment extends Fragment {
         // end new stuff
 
         // og sprint one stuff
-        searchView = view.findViewById(R.id.searchViewSearch);
-        searchView.clearFocus();
+//        searchView = view.findViewById(R.id.searchViewSearch);
+//        searchView.clearFocus();
 
         /**
          * QueryTextListener for the search bar.
          */
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filterList(newText);
-                return true;
-            }
-        });
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                filterList(newText);
+//                return true;
+//            }
+//        });
 
             // og sprint one stuff
 //        recyclerView = view.findViewById(R.id.recycler_view_search);
@@ -118,6 +120,7 @@ public class SearchFragment extends Fragment {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
             randomRecipeAdapter = new RandomRecipeAdapter(getActivity(), response.recipes);
+            recipeList = response.recipes;
             recyclerView.setAdapter(randomRecipeAdapter);
             randomRecipeAdapter.notifyDataSetChanged();
         }

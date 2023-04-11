@@ -37,7 +37,7 @@
                 android:singleLine="true"
                 android:text="Dish Name"
                 android:textColor="@color/logoYellow"
-                android:textSize="22sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <LinearLayout
