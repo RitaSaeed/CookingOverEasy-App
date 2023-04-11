@@ -93,12 +93,21 @@ public class GroceryListFragment extends Fragment implements PopupMenu.OnMenuIte
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch(menuItem.getItemId()){
                             case R.id.rmSelectItems:
+                                ArrayList<Ingredient> selectedItems = new ArrayList<>();
                                 for(int i = 0; i < adapter.ingredientArrayList.size(); i++){
                                     if(adapter.ingredientArrayList.get(i).getSelected()){
-                                        adapter.ingredientArrayList.remove(i);
-                                        adapter.notifyItemRemoved(i);
+                                        selectedItems.add(adapter.ingredientArrayList.get(i));
+                                        adapter.notifyDataSetChanged();
                                     }
                                 }
+                                int index = 0;
+                                for(Ingredient i : selectedItems){
+                                    adapter.ingredientArrayList.remove(i);
+                                    adapter.notifyItemRemoved(index);
+                                    index++;
+                                }
+                               adapter.notifyDataSetChanged();
+
                                 return true;
                             case R.id.rmAll:
                                 adapter.ingredientArrayList.removeAll(adapter.ingredientArrayList);
