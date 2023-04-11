@@ -45,6 +45,9 @@
     <string name="updateUserHeader">Update Username:</string>
     <string name="usernameHint">Enter new username here</string>
 
+    <string name="spoonKey">9e04972ece824835815ca07e5783211d</string>
+    <string name="spoonBase">https://api.spoonacular.com/</string>
+
 
     <string-array name="dietList"> <!--' '-->
         <item>Low-Carb</item> <!--' '-->
