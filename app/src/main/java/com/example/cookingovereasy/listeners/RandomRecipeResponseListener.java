@@ -1,5 +1,7 @@
 package com.example.cookingovereasy.listeners;
 
+import android.view.View;
+
 import com.example.cookingovereasy.Models.RandomRecipeApiResponse;
 
 public interface RandomRecipeResponseListener {

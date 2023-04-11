@@ -16,7 +16,7 @@ import retrofit2.http.Query;
 public class RequestManager {
     Context context;
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(context.getString(R.string.spoonBase))
+            .baseUrl("https://api.spoonacular.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
@@ -30,7 +30,7 @@ public class RequestManager {
      */
     public void getRandomRecipes(RandomRecipeResponseListener listener) {
         CallRandomRecipes callRandomRecipes = retrofit.create(CallRandomRecipes.class);
-        Call<RandomRecipeApiResponse> call = callRandomRecipes.callRandomRecipe(context.getString(R.string.google_api_key), "10");
+        Call<RandomRecipeApiResponse> call = callRandomRecipes.callRandomRecipe(context.getString(R.string.spoonKey), "10");
         call.enqueue(new Callback<RandomRecipeApiResponse>() {
             @Override
             public void onResponse(Call<RandomRecipeApiResponse> call, Response<RandomRecipeApiResponse> response) {

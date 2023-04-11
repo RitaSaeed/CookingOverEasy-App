@@ -1,18 +1,24 @@
 package com.example.cookingovereasy;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
+
+import com.example.cookingovereasy.Models.RandomRecipeApiResponse;
+import com.example.cookingovereasy.listeners.RandomRecipeResponseListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +34,10 @@ public class SearchFragment extends Fragment {
     private int[] imageResourceID;
     private SearchView searchView;
     private SearchAdapter adapter;
+    RequestManager manager;
+    RandomRecipeAdapter randomRecipeAdapter;
+    ProgressDialog dialog;
+    View listenerView;
 
     /**
      * Creates an inflated layout of the search fragment.
@@ -57,8 +67,21 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        dataInitialize(); // adds test data to the recycler view
+        // og sprint one stuff
+//        dataInitialize(); // adds test data to the recycler view
 
+        // new stuff
+        dialog = new ProgressDialog(getActivity()); // might need to be getActivity
+        dialog.setTitle("Loading...");
+
+        manager = new RequestManager(getActivity()); // might need to be getActivity
+        listenerView = view;
+        manager.getRandomRecipes(randomRecipeResponseListener);
+        dialog.show();
+
+        // end new stuff
+
+        // og sprint one stuff
         searchView = view.findViewById(R.id.searchViewSearch);
         searchView.clearFocus();
 
@@ -78,14 +101,32 @@ public class SearchFragment extends Fragment {
             }
         });
 
-
-        recyclerView = view.findViewById(R.id.recycler_view_search);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true);
-        adapter = new SearchAdapter(getContext(), foodArrayList);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+            // og sprint one stuff
+//        recyclerView = view.findViewById(R.id.recycler_view_search);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        recyclerView.setHasFixedSize(true);
+//        adapter = new SearchAdapter(getContext(), foodArrayList);
+//        recyclerView.setAdapter(adapter);
+//        adapter.notifyDataSetChanged();
     }
+
+    private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
+        @Override
+        public void didFetch(RandomRecipeApiResponse response, String message) {
+            dialog.dismiss();
+            recyclerView = listenerView.findViewById(R.id.recycler_view_search);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+            randomRecipeAdapter = new RandomRecipeAdapter(getActivity(), response.recipes);
+            recyclerView.setAdapter(randomRecipeAdapter);
+            randomRecipeAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void didError(String message) {
+            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        }
+    };
 
     /**
      * Filters the food arrayList based on the current text in the search field.
