@@ -10,19 +10,29 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import android.widget.PopupMenu;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
-public class GroceryListFragment extends Fragment {
+public class GroceryListFragment extends Fragment implements PopupMenu.OnMenuItemClickListener {
 
     private RecyclerView recyclerView;
     private ArrayList<Ingredient> ingredientArrayList;
+
+    ImageView remove;
     private String[] ingredientName;
 
+
     private ImageView add;
+
+    IngredientAdapter adapter;
+
 
     /**
      * Creates the fragment that can be interacted with. Views created from onCreateView
@@ -67,9 +77,57 @@ public class GroceryListFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_grocery_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new IngredientAdapter(ingredientArrayList);
+        recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 
         dataInitialize();
+
+        remove = view.findViewById(R.id.imageViewRemove);
+        remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu p = new PopupMenu(getActivity(), view);
+                p.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch(menuItem.getItemId()){
+                            case R.id.rmSelectItems:
+                                for(int i = 0; i < adapter.ingredientArrayList.size(); i++){
+                                    if(adapter.ingredientArrayList.get(i).getSelected()){
+                                        adapter.ingredientArrayList.remove(i);
+                                        adapter.notifyItemRemoved(i);
+                                    }
+                                }
+                                return true;
+                            case R.id.rmAll:
+                                adapter.ingredientArrayList.removeAll(adapter.ingredientArrayList);
+                                adapter.notifyDataSetChanged();
+                                return true;
+                            case R.id.uncheckAll:
+                                for(int i = 0; i < adapter.ingredientArrayList.size(); i++){
+                                    if(adapter.ingredientArrayList.get(i).getSelected()){
+                                        adapter.ingredientArrayList.get(i).setSelected(false);
+                                        adapter.notifyItemChanged(i);
+                                    }
+                                }
+                                return true;
+                            default:
+                                return false;
+                        }
+
+                    }
+                });
+
+                p.inflate(R.menu.rm_popup_menu);
+                p.show();
+            }
+        });
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item){
+        return false;
     }
 
     /**
@@ -91,7 +149,7 @@ public class GroceryListFragment extends Fragment {
             ingredientArrayList.add(ingredient);
         }
 
-        IngredientAdapter adapter = new IngredientAdapter(ingredientArrayList);
+        adapter = new IngredientAdapter(ingredientArrayList);
         ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);

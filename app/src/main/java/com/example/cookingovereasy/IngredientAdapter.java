@@ -142,6 +142,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.My
             rowView = itemView;
             checkBox = (CheckBox) itemView.findViewById(R.id.checkBoxIngredient);
             ingredientName = itemView.findViewById(R.id.ingredientName);
+
         }
     }
 }
