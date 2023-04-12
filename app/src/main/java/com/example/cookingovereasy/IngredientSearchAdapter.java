@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,13 @@ public class IngredientSearchAdapter extends RecyclerView.Adapter<IngredientSear
     public void onBindViewHolder(@NonNull IngredientSearchViewHolder holder, int position) {
         holder.textView_title.setText(list.get(position).name);
         holder.textView_title.setSelected(true);
+
+        holder.addToGroceryListIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
@@ -52,9 +60,15 @@ class IngredientSearchViewHolder extends RecyclerView.ViewHolder{
     CardView ingredient_list_container;
     TextView textView_title;
 
+    ImageView addToGroceryListIcon;
+
+
     public IngredientSearchViewHolder(@NonNull View itemView){
         super(itemView);
         ingredient_list_container = itemView.findViewById(R.id.ingredient_list_container);
         textView_title = itemView.findViewById(R.id.textView_title);
+
+        addToGroceryListIcon = itemView.findViewById(R.id.addToGroceryListIcon);
+
     }
 }
