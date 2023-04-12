@@ -93,13 +93,17 @@ public class SearchFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                tags.clear();
+                tags.add(query);
+                manager.getRandomRecipes(randomRecipeResponseListener, tags);
+                dialog.show();
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterList(newText);
-                return true;
+                //filterList(newText);
+                return false; // change to true when text is filtered and submit is disabled
             }
         });
 
