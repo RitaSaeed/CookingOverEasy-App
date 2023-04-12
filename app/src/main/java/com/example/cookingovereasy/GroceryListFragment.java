@@ -1,5 +1,6 @@
 package com.example.cookingovereasy;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -31,6 +32,7 @@ public class GroceryListFragment extends Fragment implements PopupMenu.OnMenuIte
 
     private ImageView add;
 
+    Activity context;
     IngredientAdapter adapter;
 
 
@@ -50,6 +52,7 @@ public class GroceryListFragment extends Fragment implements PopupMenu.OnMenuIte
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_grocery_list, container, false);
     }
@@ -67,11 +70,15 @@ public class GroceryListFragment extends Fragment implements PopupMenu.OnMenuIte
 
         add = view.findViewById(R.id.addIcon);
 
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent addIntent = new Intent(getActivity(), AddToGroceryList.class);
-                startActivity(addIntent);
+//                Intent addIntent = new Intent(getActivity(), AddToGroceryList.class);
+//                getActivity().startActivity(addIntent);
+
+                Intent intent = new Intent(getActivity(), AddToGroceryList.class);
+                startActivity(intent);
             }
         });
 
