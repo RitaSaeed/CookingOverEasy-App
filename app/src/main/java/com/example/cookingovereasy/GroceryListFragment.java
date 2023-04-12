@@ -74,8 +74,6 @@ public class GroceryListFragment extends Fragment implements PopupMenu.OnMenuIte
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent addIntent = new Intent(getActivity(), AddToGroceryList.class);
-//                getActivity().startActivity(addIntent);
 
                 Intent intent = new Intent(getActivity(), AddToGroceryList.class);
                 startActivity(intent);

@@ -2,7 +2,9 @@ package com.example.cookingovereasy;
 
 import android.content.Context;
 
+import com.example.cookingovereasy.Models.IngredientResponse;
 import com.example.cookingovereasy.Models.RandomRecipeApiResponse;
+import com.example.cookingovereasy.listeners.IngredientResponseListener;
 import com.example.cookingovereasy.listeners.RandomRecipeResponseListener;
 
 import java.util.List;
@@ -50,6 +52,27 @@ public class RequestManager {
         });
     }
 
+    public void getIngredients(IngredientResponseListener listener, boolean includeChildren, String query) {
+        //CallRandomRecipes callRandomRecipes = retrofit.create(CallRandomRecipes.class);
+        CallIngredients callIngredients = retrofit.create(CallIngredients.class);
+        Call<IngredientResponse> call = callIngredients.callIngredient(context.getString(R.string.spoonKey), "10", query, includeChildren);
+        call.enqueue(new Callback<IngredientResponse>() {
+            @Override
+            public void onResponse(Call<IngredientResponse> call, Response<IngredientResponse> response) {
+                if (!response.isSuccessful()){
+                    listener.didError(response.message());
+                    return;
+                }
+                listener.didFetch(response.body(), response.message());
+            }
+
+            @Override
+            public void onFailure(Call<IngredientResponse> call, Throwable t) {
+                listener.didError(t.getMessage());
+            }
+        });
+    }
+
     /**
      * Interface that provides the call method for calling random recipes
      */
@@ -59,6 +82,16 @@ public class RequestManager {
                 @Query("apiKey") String apiKey,
                 @Query("number") String number,
                 @Query("tags") List<String> tags
+        );
+    }
+
+    private interface CallIngredients {
+        @GET("food/ingredients/search")
+        Call<IngredientResponse> callIngredient(
+                @Query("apiKey") String apiKey,
+                @Query("number") String number,
+                @Query("query") String query,
+                @Query("addChildren") boolean includeChildren
         );
     }
 }

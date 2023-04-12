@@ -66,6 +66,10 @@
         <item>drink</item>
     </string-array>
 
+    <string-array name="ingredientTags">
+        <item>Place-Holder</item>
+    </string-array>
+
     <string-array name="dietList"> <!--' '-->
         <item>Low-Carb</item> <!--' '-->
         <item>Low-Fat</item> <!--' '-->

@@ -26,14 +26,14 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/grocery_item" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/addIcon"
-        android:background="@color/black"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="end"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
+        android:src="@drawable/groceryadd"
         />
 
     <ImageView
