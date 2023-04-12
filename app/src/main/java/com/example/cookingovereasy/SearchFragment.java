@@ -13,8 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.cookingovereasy.Models.RandomRecipeApiResponse;
@@ -40,6 +43,8 @@ public class SearchFragment extends Fragment {
     RandomRecipeAdapter randomRecipeAdapter;
     ProgressDialog dialog;
     View listenerView;
+    Spinner spinner;
+    List<String> tags = new ArrayList<>();
 
     /**
      * Creates an inflated layout of the search fragment.
@@ -78,10 +83,20 @@ public class SearchFragment extends Fragment {
 
         manager = new RequestManager(getActivity()); // might need to be getActivity
         listenerView = view;
-        manager.getRandomRecipes(randomRecipeResponseListener);
-        dialog.show();
+//        manager.getRandomRecipes(randomRecipeResponseListener);
+//        dialog.show();
 
         // end new stuff
+
+        spinner = view.findViewById(R.id.spinnerSearch);
+        ArrayAdapter arrayAdapter = ArrayAdapter.createFromResource(
+                getActivity(),
+                R.array.tags,
+                R.layout.search_spinner_text
+        );
+        arrayAdapter.setDropDownViewResource(R.layout.search_spinner_inner_text);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(spinnerSelectedListener);
 
         // og sprint one stuff
         searchView = view.findViewById(R.id.searchViewSearch);
@@ -93,13 +108,17 @@ public class SearchFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                tags.clear();
+                tags.add(query);
+                manager.getRandomRecipes(randomRecipeResponseListener, tags);
+                dialog.show();
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterList(newText);
-                return true;
+//                filterList(newText);
+                return false; // change to true when text is filtered and submit is disabled
             }
         });
 
@@ -156,6 +175,21 @@ public class SearchFragment extends Fragment {
             randomRecipeAdapter.setFilteredList(filteredList);
         }
     }
+
+    private final AdapterView.OnItemSelectedListener spinnerSelectedListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            tags.clear();
+            tags.add(parent.getSelectedItem().toString());
+            manager.getRandomRecipes(randomRecipeResponseListener, tags);
+            dialog.show();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
 
     /**
      * Adds initial test data to the recipe search recyclerview. This will eventually be
