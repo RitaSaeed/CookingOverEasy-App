@@ -10,30 +10,47 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:backgroundTint="@color/lightyellow">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/seachFragmentLinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <SearchView
-                android:id="@+id/searchViewSearch"
-                android:layout_width="275dp"
+            <TextView
+                android:id="@+id/textViewSearch"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/search_view_bg"
-                android:iconifiedByDefault="false"
-                android:queryHint="Search here ..." />
+                android:text="TextView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/spinnerSearch"/>
 
             <Spinner
                 android:id="@+id/spinnerSearch"
-                android:gravity="center"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
                 android:entries="@array/tags"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                android:gravity="center"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/textViewSearch"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <SearchView
+            android:id="@+id/searchViewSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_view_bg"
+            android:iconifiedByDefault="false"
+            android:padding="8dp"
+            android:queryHint="Search here ..." />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_search"
