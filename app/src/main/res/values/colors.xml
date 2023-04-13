@@ -13,6 +13,7 @@
     <color name="deletecolor">#DD3124</color>
     <color name="archiveColor">#3AE015</color>
     <color name="lightyellow">#fee569</color>
+    <color name="backgroundYellow">#ffffcc</color>
     <color name="ripplecolor">#fcfa44</color>
     <color name="grey">#787878</color>
 

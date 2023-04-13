@@ -4,5 +4,9 @@
     <corners android:radius="8dp"/>
     <stroke android:color="@color/lightyellow"
         android:width="2dp"/>
+    <padding android:bottom="8dp"
+        android:top="8dp"
+        android:right="8dp"
+        android:left="8dp"/>
 
 </shape>
