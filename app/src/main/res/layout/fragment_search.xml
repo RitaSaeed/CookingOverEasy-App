@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:backgroundTint="@color/lightyellow">
+        android:background="@color/lightyellow">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/seachFragmentLinear"
@@ -23,15 +23,17 @@
                 android:id="@+id/textViewSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/searchTitle"
+                android:textSize="20dp"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/spinnerSearch"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/spinnerSearch"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
                 android:id="@+id/spinnerSearch"
-                android:layout_width="75dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:entries="@array/tags"
                 android:gravity="center"
@@ -49,7 +51,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/search_view_bg"
             android:iconifiedByDefault="false"
-            android:padding="8dp"
             android:queryHint="Search here ..." />
 
         <androidx.recyclerview.widget.RecyclerView
