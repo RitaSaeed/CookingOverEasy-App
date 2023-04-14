@@ -26,11 +26,15 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import com.opencsv.CSVReader;
 import java.io.IOException;
 import java.io.FileReader;
+import java.util.List;
 
 public class GroceryListFragment extends Fragment implements PopupMenu.OnMenuItemClickListener {
 
@@ -46,6 +50,7 @@ public class GroceryListFragment extends Fragment implements PopupMenu.OnMenuIte
 
     Activity context;
     IngredientAdapter adapter;
+    List<String> ingredientEntries;
 
 
     /**
@@ -111,7 +116,12 @@ public class GroceryListFragment extends Fragment implements PopupMenu.OnMenuIte
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 
-        //dataInitialize();
+        try {
+            prepArray();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        dataInitialize();
 
         remove = view.findViewById(R.id.imageViewRemove);
         remove.setOnClickListener(new View.OnClickListener() {
@@ -176,16 +186,19 @@ public class GroceryListFragment extends Fragment implements PopupMenu.OnMenuIte
     private void dataInitialize() {
 
         ingredientArrayList = new ArrayList<>();
-        ingredientName = new String[] {
-                "Eggs", "Milk", "Chicken", "Steak", "Carrots", "Apples", "Broccoli", "Mushrooms",
-                "Olive Oil", "Sugar", "Flour", "Paprika", "Italian Seasoning", "Bread Crumbs",
-                "Salt", "Pasta", "Alfredo Sauce", "Orange", "Mango", "Avocado", "Banana", "Asaparagus"
-        };
-
-
-        for (int i = 0; i < ingredientName.length; i++) {
-            Ingredient ingredient = new Ingredient(ingredientName[i]);
-            ingredientArrayList.add(ingredient);
+//        ingredientName = new String[] {
+//                "Eggs", "Milk", "Chicken", "Steak", "Carrots", "Apples", "Broccoli", "Mushrooms",
+//                "Olive Oil", "Sugar", "Flour", "Paprika", "Italian Seasoning", "Bread Crumbs",
+//                "Salt", "Pasta", "Alfredo Sauce", "Orange", "Mango", "Avocado", "Banana", "Asaparagus"
+//        };
+//
+//
+//        for (int i = 0; i < ingredientName.length; i++) {
+//            Ingredient ingredient = new Ingredient(ingredientName[i]);
+//            ingredientArrayList.add(ingredient);
+//        }
+        for (String s : ingredientEntries) {
+            ingredientArrayList.add(new Ingredient((s)));
         }
 
         adapter = new IngredientAdapter(ingredientArrayList);
@@ -194,5 +207,34 @@ public class GroceryListFragment extends Fragment implements PopupMenu.OnMenuIte
         touchHelper.attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    private void prepArray() throws IOException {
+//        try {
+//            String csvfileString = "app/src/main/assets/ingredients.csv";
+//            //String csvfileString = getActivity().getApplicationInfo().dataDir + File.separatorChar + "ingredients.csv";
+//            File csvfile = new File(csvfileString);
+//            CSVReader reader = new CSVReader(new FileReader(csvfile));
+//            List<String[]> myDatas = reader.readAll();
+//            for (String[] line : myDatas) {
+//                for (String value : line) {
+//                    ingredientEntries.add(value);
+//                }
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            //Toast.makeText(getActivity(), getActivity().getApplicationInfo().dataDir, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), "The specified file was not found", Toast.LENGTH_SHORT).show();
+//        }
+
+        InputStreamReader is = new InputStreamReader(getActivity().getAssets().open("ingredients.csv"));
+        BufferedReader reader = new BufferedReader(is);
+        reader.readLine();
+        String line;
+        ingredientEntries = new ArrayList<>();
+        while ((line = reader.readLine()) != null) {
+            ingredientEntries.add(line);
+        }
     }
 }
