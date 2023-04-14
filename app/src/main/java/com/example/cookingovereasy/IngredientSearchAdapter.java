@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -19,6 +20,7 @@ public class IngredientSearchAdapter extends RecyclerView.Adapter<IngredientSear
 
     Context context;
     List<Result> list;
+    String currentItem;
 
     public IngredientSearchAdapter(Context context, List<Result> list){
         this.context = context;
@@ -39,7 +41,8 @@ public class IngredientSearchAdapter extends RecyclerView.Adapter<IngredientSear
         holder.addToGroceryListIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                currentItem = list.get(holder.getAdapterPosition()).name;
+                //Toast.makeText(context, "Added " + currentItem, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -52,6 +55,10 @@ public class IngredientSearchAdapter extends RecyclerView.Adapter<IngredientSear
     public void setFilteredList(List<Result> filteredList){
         this.list = filteredList;
         notifyDataSetChanged();
+    }
+
+    public String getCurrentItem() {
+        return currentItem;
     }
 
 }

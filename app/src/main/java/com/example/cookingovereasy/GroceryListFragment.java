@@ -1,5 +1,7 @@
 package com.example.cookingovereasy;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.Activity;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -9,6 +11,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -29,19 +36,27 @@ import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+import com.opencsv.CSVReader;
+import java.io.IOException;
+import java.io.FileReader;
+import java.util.List;
 
 public class GroceryListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ArrayList<Ingredient> ingredientArrayList;
+    private ArrayList<String> ingredients;
     ImageView remove;
     private String[] ingredientName;
     private ImageView add;
-
-
     Activity context;
-
     IngredientAdapter adapter;
+    List<String> ingredientEntries;
 
 
     /**
@@ -60,7 +75,8 @@ public class GroceryListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        ingredientArrayList = new ArrayList<>();
+//        ingredientArrayList.add(new Ingredient(getArguments().getString("newIngredient")));
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_grocery_list, container, false);
     }
@@ -75,15 +91,27 @@ public class GroceryListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+//        ingredientArrayList.add(new Ingredient(getArguments().getString("newIngredient")));
         add = view.findViewById(R.id.addIcon);
 
+        ActivityResultLauncher<Intent> startForIngredient = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if (result != null && result.getResultCode() == -1) {
+                    if (result.getData() != null) {
+                        ingredientArrayList.add(new Ingredient(getArguments().getString("newIngredient")));
+                        Toast.makeText(context, "current ingredient: " + getArguments().getString("newIngredient"), Toast.LENGTH_SHORT).show();
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(getActivity(), AddToGroceryList.class);
+//                startForIngredient.launch(intent);
                 startActivity(intent);
 
             }
@@ -95,7 +123,12 @@ public class GroceryListFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 
-        //dataInitialize();
+        try {
+            prepArray();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        dataInitialize();
         loadData();
 
         remove = view.findViewById(R.id.imageViewRemove);
@@ -177,16 +210,19 @@ public class GroceryListFragment extends Fragment {
     private void dataInitialize() {
 
         ingredientArrayList = new ArrayList<>();
-        ingredientName = new String[] {
-                "Eggs", "Milk", "Chicken", "Steak", "Carrots", "Apples", "Broccoli", "Mushrooms",
-                "Olive Oil", "Sugar", "Flour", "Paprika", "Italian Seasoning", "Bread Crumbs",
-                "Salt", "Pasta", "Alfredo Sauce", "Orange", "Mango", "Avocado", "Banana", "Asaparagus"
-        };
-
-
-        for (int i = 0; i < ingredientName.length; i++) {
-            Ingredient ingredient = new Ingredient(ingredientName[i]);
-            ingredientArrayList.add(ingredient);
+//        ingredientName = new String[] {
+//                "Eggs", "Milk", "Chicken", "Steak", "Carrots", "Apples", "Broccoli", "Mushrooms",
+//                "Olive Oil", "Sugar", "Flour", "Paprika", "Italian Seasoning", "Bread Crumbs",
+//                "Salt", "Pasta", "Alfredo Sauce", "Orange", "Mango", "Avocado", "Banana", "Asaparagus"
+//        };
+//
+//
+//        for (int i = 0; i < ingredientName.length; i++) {
+//            Ingredient ingredient = new Ingredient(ingredientName[i]);
+//            ingredientArrayList.add(ingredient);
+//        }
+        for (String s : ingredientEntries) {
+            ingredientArrayList.add(new Ingredient((s)));
         }
 
         adapter = new IngredientAdapter(ingredientArrayList, getActivity());
@@ -196,5 +232,34 @@ public class GroceryListFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
+    }
+
+    private void prepArray() throws IOException {
+//        try {
+//            String csvfileString = "app/src/main/assets/ingredients.csv";
+//            //String csvfileString = getActivity().getApplicationInfo().dataDir + File.separatorChar + "ingredients.csv";
+//            File csvfile = new File(csvfileString);
+//            CSVReader reader = new CSVReader(new FileReader(csvfile));
+//            List<String[]> myDatas = reader.readAll();
+//            for (String[] line : myDatas) {
+//                for (String value : line) {
+//                    ingredientEntries.add(value);
+//                }
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            //Toast.makeText(getActivity(), getActivity().getApplicationInfo().dataDir, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), "The specified file was not found", Toast.LENGTH_SHORT).show();
+//        }
+
+        InputStreamReader is = new InputStreamReader(getActivity().getAssets().open("ingredients.csv"));
+        BufferedReader reader = new BufferedReader(is);
+        reader.readLine();
+        String line;
+        ingredientEntries = new ArrayList<>();
+        while ((line = reader.readLine()) != null) {
+            ingredientEntries.add(line);
+        }
     }
 }

@@ -24,6 +24,7 @@ import java.util.List;
 
 public class AddToGroceryList extends AppCompatActivity {
 
+    public static final String KEY_NAME = "test";
     private ImageView back;
     private ProgressDialog dialog;
     private RequestManager manager;
@@ -50,6 +51,14 @@ public class AddToGroceryList extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //finish();
+                Intent i = new Intent(AddToGroceryList.this, GroceryListFragment.class);
+                i.putExtra("NEW_INGREDIENT", ingredientSearchAdapter.getCurrentItem());
+                setResult(-1, i);
+                Bundle bundle = new Bundle();
+                bundle.putString("newIngredient", ingredientSearchAdapter.getCurrentItem());
+                GroceryListFragment fragobj = new GroceryListFragment();
+                fragobj.setArguments(bundle);
                 finish();
             }
         });
