@@ -128,7 +128,7 @@ public class GroceryListFragment extends Fragment {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        dataInitialize();
+        //dataInitialize();
         loadData();
 
         remove = view.findViewById(R.id.imageViewRemove);
@@ -200,7 +200,11 @@ public class GroceryListFragment extends Fragment {
         Type type = new TypeToken<ArrayList<Ingredient>>() {}.getType();
         adapter.ingredientArrayList = gson.fromJson(json, type);
 
-        if(adapter.ingredientArrayList == null) adapter.ingredientArrayList = new ArrayList<Ingredient>();
+        if(adapter.ingredientArrayList == null) {
+            adapter.ingredientArrayList = new ArrayList<Ingredient>();
+            dataInitialize();
+        }
+
     }
 
     /**
@@ -209,7 +213,7 @@ public class GroceryListFragment extends Fragment {
      */
     private void dataInitialize() {
 
-        ingredientArrayList = new ArrayList<>();
+        //ingredientArrayList = new ArrayList<>();
 //        ingredientName = new String[] {
 //                "Eggs", "Milk", "Chicken", "Steak", "Carrots", "Apples", "Broccoli", "Mushrooms",
 //                "Olive Oil", "Sugar", "Flour", "Paprika", "Italian Seasoning", "Bread Crumbs",
@@ -221,9 +225,11 @@ public class GroceryListFragment extends Fragment {
 //            Ingredient ingredient = new Ingredient(ingredientName[i]);
 //            ingredientArrayList.add(ingredient);
 //        }
-        for (String s : ingredientEntries) {
-            ingredientArrayList.add(new Ingredient((s)));
-        }
+
+        // code below is used to add all items from csv
+//        for (String s : ingredientEntries) {
+//            ingredientArrayList.add(new Ingredient((s)));
+//        }
 
         adapter = new IngredientAdapter(ingredientArrayList, getActivity());
         ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
@@ -231,6 +237,7 @@ public class GroceryListFragment extends Fragment {
         touchHelper.attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        saveData();
 
     }
 
