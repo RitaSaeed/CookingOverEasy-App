@@ -39,7 +39,7 @@ public class IngredientSearchAdapter extends RecyclerView.Adapter<IngredientSear
         holder.addToGroceryListIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                
             }
         });
     }
