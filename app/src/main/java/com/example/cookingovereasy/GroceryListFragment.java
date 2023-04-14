@@ -1,6 +1,9 @@
 package com.example.cookingovereasy;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,19 +21,19 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class GroceryListFragment extends Fragment implements PopupMenu.OnMenuItemClickListener {
+public class GroceryListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ArrayList<Ingredient> ingredientArrayList;
-
     ImageView remove;
     private String[] ingredientName;
-
-
     private ImageView add;
-
     IngredientAdapter adapter;
 
 
@@ -72,16 +75,18 @@ public class GroceryListFragment extends Fragment implements PopupMenu.OnMenuIte
             public void onClick(View v) {
                 Intent addIntent = new Intent(getActivity(), AddToGroceryList.class);
                 startActivity(addIntent);
+
             }
         });
 
         recyclerView = view.findViewById(R.id.recycler_grocery_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new IngredientAdapter(ingredientArrayList);
+        adapter = new IngredientAdapter(ingredientArrayList, getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 
-        dataInitialize();
+        //dataInitialize();
+        loadData();
 
         remove = view.findViewById(R.id.imageViewRemove);
         remove.setOnClickListener(new View.OnClickListener() {
@@ -106,12 +111,13 @@ public class GroceryListFragment extends Fragment implements PopupMenu.OnMenuIte
                                     adapter.notifyItemRemoved(index);
                                     index++;
                                 }
-                               adapter.notifyDataSetChanged();
-
+                                adapter.notifyDataSetChanged();
+                                saveData();
                                 return true;
                             case R.id.rmAll:
                                 adapter.ingredientArrayList.removeAll(adapter.ingredientArrayList);
                                 adapter.notifyDataSetChanged();
+                                saveData();
                                 return true;
                             case R.id.uncheckAll:
                                 for(int i = 0; i < adapter.ingredientArrayList.size(); i++){
@@ -120,6 +126,7 @@ public class GroceryListFragment extends Fragment implements PopupMenu.OnMenuIte
                                         adapter.notifyItemChanged(i);
                                     }
                                 }
+                                saveData();
                                 return true;
                             default:
                                 return false;
@@ -134,9 +141,23 @@ public class GroceryListFragment extends Fragment implements PopupMenu.OnMenuIte
         });
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem item){
-        return false;
+    private void saveData(){
+        SharedPreferences sp = getContext().getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor= sp.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(adapter.ingredientArrayList);
+        editor.putString("Ingredient list", json);
+        editor.apply();
+    }
+
+    private void loadData(){
+        SharedPreferences sp = getContext().getSharedPreferences("shared preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sp.getString("Ingredient list", null);
+        Type type = new TypeToken<ArrayList<Ingredient>>() {}.getType();
+        adapter.ingredientArrayList = gson.fromJson(json, type);
+
+        if(adapter.ingredientArrayList == null) adapter.ingredientArrayList = new ArrayList<Ingredient>();
     }
 
     /**
@@ -158,11 +179,12 @@ public class GroceryListFragment extends Fragment implements PopupMenu.OnMenuIte
             ingredientArrayList.add(ingredient);
         }
 
-        adapter = new IngredientAdapter(ingredientArrayList);
+        adapter = new IngredientAdapter(ingredientArrayList, getActivity());
         ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
     }
 }
