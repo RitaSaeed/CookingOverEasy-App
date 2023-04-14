@@ -27,6 +27,7 @@
                 android:text="@string/searchTitle"
                 android:textSize="20dp"
                 android:textColor="@color/black"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/spinnerSearch"
                 app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +54,7 @@
             android:background="@drawable/search_view_bg"
             android:iconifiedByDefault="false"
             android:queryHint="Search here ..."
-            android:backgroundTint="@color/lightyellow"/>
+            android:backgroundTint="@color/backgroundYellow" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_search"
