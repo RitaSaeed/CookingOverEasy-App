@@ -27,6 +27,17 @@
         app:layout_constraintTop_toTopOf="parent"
         android:onClick="onCreateCategoryButtonClicked" />
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="240dp"
+        android:scrollbars="none">
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

@@ -1,7 +1,11 @@
 package com.example.cookingovereasy;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +17,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -22,12 +29,15 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.My
     Context context;
     ArrayList<Ingredient> ingredientArrayList;
 
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+
     /**
      * Constructor for the ingredient adapter.
      * @param ingredientArrayList an Array List of ingredients that will be displayed.
      */
-    public IngredientAdapter(ArrayList<Ingredient> ingredientArrayList) {
-        //this.context = context;
+    public IngredientAdapter(ArrayList<Ingredient> ingredientArrayList, Context context) {
+        this.context = context;
         this.ingredientArrayList = ingredientArrayList;
     }
 
@@ -57,6 +67,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.My
      */
     @Override
     public void onBindViewHolder(@NonNull IngredientAdapter.MyViewHolder holder, int position) {
+        pref =  context.getSharedPreferences("shared preferences", MODE_PRIVATE);
         Ingredient ingredient = ingredientArrayList.get(position);
         //holder.checkBox.setText("Checkbox " + position);
         holder.checkBox.setChecked(ingredientArrayList.get(position).getSelected());
@@ -66,19 +77,25 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.My
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                editor = pref.edit();
                 Integer pos = (Integer) holder.checkBox.getTag();
                 //Toast.makeText(context, ingredientArrayList.get(pos).getName() + " clicked!",
                 //       Toast.LENGTH_SHORT).show();
 
                 if (ingredientArrayList.get(pos).getSelected()) {
                     ingredientArrayList.get(pos).setSelected(false);
+                    editor.putBoolean(String.valueOf(holder.checkBox.getId()),false);
                 } else {
                     ingredientArrayList.get(pos).setSelected(true);
+                    editor.putBoolean(String.valueOf(holder.checkBox.getId()), true);
                 }
+
+                editor.commit();
             }
         });
 
     }
+
 
     /**
      * Returns number of ingredients.
