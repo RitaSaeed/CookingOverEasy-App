@@ -1,13 +1,16 @@
 package com.example.cookingovereasy;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.cookingovereasy.Models.Recipe;
 import com.example.cookingovereasy.Models.RecipeDetailsResponse;
 import com.example.cookingovereasy.listeners.RecipeDetailsListener;
 import com.squareup.picasso.Picasso;
@@ -19,6 +22,7 @@ public class RecipeDetails extends AppCompatActivity {
     RecyclerView recycler_recipe_ingredients;
     RequestManager manager;
     ProgressDialog dialog;
+    RecipeIngredientsAdapter recipeIngredientsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +58,15 @@ public class RecipeDetails extends AppCompatActivity {
             textView_recipe_summary.setText(response.summary);
             Picasso.get().load(response.image).into(imageView_recipe_image);
 
+            recycler_recipe_ingredients.setHasFixedSize(true);
+            recycler_recipe_ingredients.setLayoutManager(new LinearLayoutManager(RecipeDetails.this, LinearLayoutManager.HORIZONTAL, false));
+            recipeIngredientsAdapter = new RecipeIngredientsAdapter(RecipeDetails.this, response.extendedIngredients);
+            recycler_recipe_ingredients.setAdapter(recipeIngredientsAdapter);
         }
 
         @Override
         public void didError(String message) {
-
+            Toast.makeText(RecipeDetails.this, message, Toast.LENGTH_SHORT).show();
         }
     };
 }
