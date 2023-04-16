@@ -15,8 +15,11 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".RecipeDetails"
+            android:exported="false" />
+        <activity
             android:name=".AddToGroceryList"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".CreateFolder"
             android:exported="false" />
