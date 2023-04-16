@@ -149,6 +149,7 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
             }
         });
 
+        // make variable global, initialize in dataInitialize();, add attach method here
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new IngredientAdapter(ingredientArrayList, getActivity());
         ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
