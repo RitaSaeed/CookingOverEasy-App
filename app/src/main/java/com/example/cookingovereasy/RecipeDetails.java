@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.cookingovereasy.Models.InstructionsResponse;
 import com.example.cookingovereasy.Models.Recipe;
@@ -24,6 +26,7 @@ public class RecipeDetails extends AppCompatActivity {
     TextView textView_recipe_name, textView_recipe_source, textView_recipe_summary;
     ImageView imageView_recipe_image;
     RecyclerView recycler_recipe_ingredients, recycler_recipe_instructions;
+    Toolbar toolbar_recipe;
     RequestManager manager;
     ProgressDialog dialog;
     RecipeIngredientsAdapter recipeIngredientsAdapter;
@@ -35,6 +38,15 @@ public class RecipeDetails extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_details);
 
         findViews();
+
+        ((AppCompatActivity)this).setSupportActionBar(toolbar_recipe);
+
+        toolbar_recipe.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // capture id from sent intent
         id = Integer.parseInt(getIntent().getStringExtra("id"));
@@ -54,6 +66,7 @@ public class RecipeDetails extends AppCompatActivity {
         imageView_recipe_image = findViewById(R.id.imageView_recipe_image);
         recycler_recipe_ingredients = findViewById(R.id.recycler_recipe_ingredients);
         recycler_recipe_instructions = findViewById(R.id.recycler_recipe_instructions);
+        toolbar_recipe = findViewById(R.id.toolbar_recipe);
     }
 
     private final RecipeDetailsListener listener = new RecipeDetailsListener() {
