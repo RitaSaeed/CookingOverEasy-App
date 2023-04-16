@@ -1,48 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GroceryListFragment">
 
-    <TextView
-        android:id="@+id/groceryText"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Grocery List"
-        android:textColor="@color/black"
-        android:layout_gravity="center_horizontal"
-        android:textSize="30dp"
-        android:gravity="center"
-        android:background="@color/lightyellow"/>
 
+    <LinearLayout
+        android:id="@+id/linearIngredient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lightyellow"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/recycler_grocery_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/groceryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/grocery_list_title"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+
+    </LinearLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_grocery_view"
-        android:layout_width="match_parent"
-        android:paddingTop="50dp"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearIngredient"
         tools:listitem="@layout/grocery_item" />
 
-    <ImageView
-        android:id="@+id/addIcon"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="end"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:src="@drawable/groceryadd"
-        />
-
-    <ImageView
-        android:id="@+id/imageViewRemove"
-        android:layout_width="46dp"
-        android:layout_height="42dp"
-        android:layout_gravity="start"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:src="@drawable/grocerymore" />
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

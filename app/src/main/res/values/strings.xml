@@ -48,6 +48,7 @@
     <string name="spoonKey">9e04972ece824835815ca07e5783211d</string>
     <string name="spoonBase">https://api.spoonacular.com/</string>
     <string name="searchTitle">Cooking Over Easy</string>
+    <string name="grocery_list_title">Grocery List</string>
 
     <!-- Recipe tags for search spinner -->
     <string-array name="tags">
