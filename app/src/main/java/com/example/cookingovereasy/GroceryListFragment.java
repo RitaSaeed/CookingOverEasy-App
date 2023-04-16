@@ -304,27 +304,8 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
         }
     }
 
-    private void setUpSearchRecycler() {
-        recyclerView.setVisibility(View.GONE);
-        searchIngredients.setVisibility(View.VISIBLE);
-        ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        ingredientRecyclerView.setHasFixedSize(true);
-        searchIngredientAdapter = new SearchIngredientAdapter(getContext(), searchIngredientList, this);
-        ingredientRecyclerView.setAdapter(adapter);
-        searchIngredientAdapter.notifyDataSetChanged();
-        ingredientRecyclerView.setVisibility(View.VISIBLE);
-    }
-
-    public void onMethodCallback(String newIngredient) {
-        ingredientArrayList.add(new Ingredient(newIngredient));
-        adapter.notifyDataSetChanged();
-        searchIngredients.setVisibility(View.GONE);
-        ingredientRecyclerView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-    }
-
     public void addIngredient(String newIngredient) {
-        //Toast.makeText(context, "Added " + newIngredient, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Added " + newIngredient, Toast.LENGTH_SHORT).show();
         adapter.ingredientArrayList.add(new Ingredient(newIngredient));
         adapter.notifyDataSetChanged();
         searchIngredients.setVisibility(View.GONE);
