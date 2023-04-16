@@ -10,10 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cookingovereasy.Models.InstructionsResponse;
 import com.example.cookingovereasy.Models.Recipe;
 import com.example.cookingovereasy.Models.RecipeDetailsResponse;
+import com.example.cookingovereasy.listeners.InstructionsListener;
 import com.example.cookingovereasy.listeners.RecipeDetailsListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class RecipeDetails extends AppCompatActivity {
     int id;
@@ -23,6 +27,7 @@ public class RecipeDetails extends AppCompatActivity {
     RequestManager manager;
     ProgressDialog dialog;
     RecipeIngredientsAdapter recipeIngredientsAdapter;
+    InstructionsAdapter instructionsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,7 @@ public class RecipeDetails extends AppCompatActivity {
         id = Integer.parseInt(getIntent().getStringExtra("id"));
         manager = new RequestManager(this);
         manager.getRecipeDetails(listener, id);
+        manager.getInstructions(instructionsListener, id);
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading Details...");
         dialog.show();
@@ -68,6 +74,21 @@ public class RecipeDetails extends AppCompatActivity {
         @Override
         public void didError(String message) {
             Toast.makeText(RecipeDetails.this, message, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private final InstructionsListener instructionsListener = new InstructionsListener() {
+        @Override
+        public void didFetch(List<InstructionsResponse> response, String message) {
+            recycler_recipe_instructions.setHasFixedSize(true);
+            recycler_recipe_instructions.setLayoutManager(new LinearLayoutManager(RecipeDetails.this, LinearLayoutManager.VERTICAL, false));
+            instructionsAdapter = new InstructionsAdapter(RecipeDetails.this, response);
+            recycler_recipe_instructions.setAdapter(instructionsAdapter);
+        }
+
+        @Override
+        public void didError(String message) {
+
         }
     };
 }
