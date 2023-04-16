@@ -227,9 +227,9 @@ public class GroceryListFragment extends Fragment {
 //        }
 
         // code below is used to add all items from csv
-//        for (String s : ingredientEntries) {
-//            ingredientArrayList.add(new Ingredient((s)));
-//        }
+        for (String s : ingredientEntries) {
+            ingredientArrayList.add(new Ingredient((s)));
+        }
 
         adapter = new IngredientAdapter(ingredientArrayList, getActivity());
         ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
