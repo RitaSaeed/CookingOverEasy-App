@@ -2,6 +2,7 @@ package com.example.cookingovereasy;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -201,7 +202,9 @@ public class SearchFragment extends Fragment {
     private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
         @Override
         public void onRecipeClicked(String id) {
-            Toast.makeText(getContext(), id, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), id, Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getContext(), RecipeDetails.class)
+                    .putExtra("id", id));
         }
     };
 
