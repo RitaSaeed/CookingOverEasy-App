@@ -283,9 +283,9 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
 //        }
 
         adapter = new IngredientAdapter(ingredientArrayList, getActivity());
-        ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(recyclerView);
+        //ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
+        //ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        //touchHelper.attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         saveData();
