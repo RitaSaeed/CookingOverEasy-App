@@ -3,9 +3,11 @@ package com.example.cookingovereasy;
 import android.content.Context;
 
 import com.example.cookingovereasy.Models.IngredientResponse;
+import com.example.cookingovereasy.Models.InstructionsResponse;
 import com.example.cookingovereasy.Models.RandomRecipeApiResponse;
 import com.example.cookingovereasy.Models.RecipeDetailsResponse;
 import com.example.cookingovereasy.listeners.IngredientResponseListener;
+import com.example.cookingovereasy.listeners.InstructionsListener;
 import com.example.cookingovereasy.listeners.RandomRecipeResponseListener;
 import com.example.cookingovereasy.listeners.RecipeDetailsListener;
 
@@ -96,6 +98,26 @@ public class RequestManager {
         });
     }
 
+    public void getInstructions(InstructionsListener listener, int id) {
+        CallInstructions callInstructions = retrofit.create(CallInstructions.class);
+        Call<List<InstructionsResponse>> call = callInstructions.callInstructions(id, context.getString(R.string.spoonKey));
+        call.enqueue(new Callback<List<InstructionsResponse>>() {
+            @Override
+            public void onResponse(Call<List<InstructionsResponse>> call, Response<List<InstructionsResponse>> response) {
+                if (!response.isSuccessful()) {
+                    listener.didError(response.message());
+                    return;
+                }
+                listener.didFetch(response.body(), response.message());
+            }
+
+            @Override
+            public void onFailure(Call<List<InstructionsResponse>> call, Throwable t) {
+                listener.didError(t.getMessage());
+            }
+        });
+    }
+
     /**
      * Interface that provides the call method for calling random recipes
      */
@@ -121,6 +143,14 @@ public class RequestManager {
     private interface CallRecipeDetails {
         @GET("recipes/{id}/information")
         Call<RecipeDetailsResponse> callRecipeDetails(
+                @Path("id") int id,
+                @Query("apiKey") String apiKey
+        );
+    }
+
+    private interface CallInstructions {
+        @GET("recipes/{id}/analyzedInstructions")
+        Call<List<InstructionsResponse>> callInstructions(
                 @Path("id") int id,
                 @Query("apiKey") String apiKey
         );

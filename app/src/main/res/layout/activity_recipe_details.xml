@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/backgroundYellow"
+    android:background="@color/lightyellow"
     tools:context=".RecipeDetails">
     
     <androidx.appcompat.widget.Toolbar
@@ -53,8 +53,14 @@
                 android:text="Summary"
                 android:textSize="14sp"
                 android:textColor="@color/black"
+                android:maxLines="5"
                 android:textStyle="normal"
                 android:padding="8dp"
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_recipe_instructions"
                 android:layout_margin="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

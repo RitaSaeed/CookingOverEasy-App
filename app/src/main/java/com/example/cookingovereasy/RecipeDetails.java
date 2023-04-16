@@ -19,7 +19,7 @@ public class RecipeDetails extends AppCompatActivity {
     int id;
     TextView textView_recipe_name, textView_recipe_source, textView_recipe_summary;
     ImageView imageView_recipe_image;
-    RecyclerView recycler_recipe_ingredients;
+    RecyclerView recycler_recipe_ingredients, recycler_recipe_instructions;
     RequestManager manager;
     ProgressDialog dialog;
     RecipeIngredientsAdapter recipeIngredientsAdapter;
@@ -47,6 +47,7 @@ public class RecipeDetails extends AppCompatActivity {
         textView_recipe_summary = findViewById(R.id.textView_recipe_summary);
         imageView_recipe_image = findViewById(R.id.imageView_recipe_image);
         recycler_recipe_ingredients = findViewById(R.id.recycler_recipe_ingredients);
+        recycler_recipe_instructions = findViewById(R.id.recycler_recipe_instructions);
     }
 
     private final RecipeDetailsListener listener = new RecipeDetailsListener() {
