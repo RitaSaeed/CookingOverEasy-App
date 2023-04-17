@@ -12,11 +12,8 @@
         android:orientation="vertical">
         <TextView
             android:id="@+id/textView_ingredients_quantity"
+            android:scrollHorizontally="false"
             android:text="1"
-            android:singleLine="true"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
             android:textColor="@color/black"
             android:textAlignment="center"
             android:textSize="16sp"
@@ -30,11 +27,8 @@
             android:layout_height="50dp"/>
         <TextView
             android:id="@+id/textView_ingredients_name"
+            android:scrollHorizontally="false"
             android:text="Chicken Breast"
-            android:singleLine="true"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
             android:textSize="16sp"
             android:textAlignment="center"
             android:textColor="@color/black"
