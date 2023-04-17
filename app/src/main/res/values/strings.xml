@@ -45,7 +45,7 @@
     <string name="updateUserHeader">Update Username:</string>
     <string name="usernameHint">Enter new username here</string>
 
-    <string name="spoonKey">9e04972ece824835815ca07e5783211d</string>
+    <string name="spoonKey">bacd18c90f9a4728a7a6ce5dfb67d765</string>
     <string name="spoonBase">https://api.spoonacular.com/</string>
     <string name="searchTitle">Cooking Over Easy</string>
     <string name="grocery_list_title">Grocery List</string>
