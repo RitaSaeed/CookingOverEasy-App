@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,7 +58,7 @@ public class CookBookFragment extends Fragment {
 
         //Build recycler view:
         recyclerView = view.findViewById(R.id.recycler_cookbook_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         adapter = new CategoryAdapter(createdCategories, getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
@@ -111,16 +112,16 @@ public class CookBookFragment extends Fragment {
         View view = getLayoutInflater().inflate(R.layout.cookbook_category, null);
 
         TextView name = view.findViewById(R.id.categoryName);
-        Button addRecipes = view.findViewById(R.id.addRecipes);
+        //Button addRecipes = view.findViewById(R.id.addRecipes);
 
         name.setText(categoryName);
 
-        addRecipes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity().getApplicationContext(), "Add Recipes!", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        addRecipes.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(view.getContext(), "Add Recipes!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         //layout.addView(view);
         adapter.createdCategories.add(new Category(name.getText().toString()));
