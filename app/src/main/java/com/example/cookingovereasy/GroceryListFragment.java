@@ -29,6 +29,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import android.widget.PopupMenu;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.common.reflect.TypeToken;
@@ -46,7 +47,7 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.util.List;
 
-public class GroceryListFragment extends Fragment {
+public class GroceryListFragment extends Fragment implements SearchIngredientAdapter.AddToGroceryList {
 
     private RecyclerView recyclerView;
     private ArrayList<Ingredient> ingredientArrayList;
@@ -56,7 +57,11 @@ public class GroceryListFragment extends Fragment {
     private ImageView add;
     Activity context;
     IngredientAdapter adapter;
+    SearchIngredientAdapter searchIngredientAdapter;
     List<String> ingredientEntries;
+    SearchView searchIngredients;
+    RecyclerView ingredientRecyclerView;
+    ArrayList<SearchIngredient> searchIngredientList;
 
 
     /**
@@ -93,34 +98,65 @@ public class GroceryListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 //        ingredientArrayList.add(new Ingredient(getArguments().getString("newIngredient")));
         add = view.findViewById(R.id.addIcon);
+        searchIngredients = view.findViewById(R.id.searchViewSearchIngredient);
+        ingredientRecyclerView = view.findViewById(R.id.recycler_view_searchIngredient);
+        recyclerView = view.findViewById(R.id.recycler_grocery_view);
 
-        ActivityResultLauncher<Intent> startForIngredient = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+//        ActivityResultLauncher<Intent> startForIngredient = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+//            @Override
+//            public void onActivityResult(ActivityResult result) {
+//                if (result != null && result.getResultCode() == -1) {
+//                    if (result.getData() != null) {
+//                        ingredientArrayList.add(new Ingredient(getArguments().getString("newIngredient")));
+//                        Toast.makeText(context, "current ingredient: " + getArguments().getString("newIngredient"), Toast.LENGTH_SHORT).show();
+//                        adapter.notifyDataSetChanged();
+//                    }
+//                }
+//            }
+//        });
+
+        searchIngredients.clearFocus();
+        searchIngredients.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onActivityResult(ActivityResult result) {
-                if (result != null && result.getResultCode() == -1) {
-                    if (result.getData() != null) {
-                        ingredientArrayList.add(new Ingredient(getArguments().getString("newIngredient")));
-                        Toast.makeText(context, "current ingredient: " + getArguments().getString("newIngredient"), Toast.LENGTH_SHORT).show();
-                        adapter.notifyDataSetChanged();
-                    }
-                }
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
             }
         });
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddToGroceryList.class);
-//                startForIngredient.launch(intent);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), AddToGroceryList.class);
+////                startForIngredient.launch(intent);
+//                startActivity(intent);
+                //recyclerView.setVisibility(View.GONE);
+            //setUpSearchRecycler();
+                recyclerView.setVisibility(View.GONE);
+                searchIngredients.setVisibility(View.VISIBLE);
+
+                //searchIngredientAdapter = new SearchIngredientAdapter(getContext(), searchIngredientList);
+                ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                ingredientRecyclerView.setAdapter(searchIngredientAdapter);
+                searchIngredientAdapter.notifyDataSetChanged();
+                ingredientRecyclerView.setVisibility(View.VISIBLE);
 
             }
         });
 
-        recyclerView = view.findViewById(R.id.recycler_grocery_view);
+        // make variable global, initialize in dataInitialize();, add attach method here
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new IngredientAdapter(ingredientArrayList, getActivity());
+        ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         recyclerView.setHasFixedSize(true);
 
         try {
@@ -130,6 +166,7 @@ public class GroceryListFragment extends Fragment {
         }
         //dataInitialize();
         loadData();
+        searchIngredientAdapter = new SearchIngredientAdapter(getContext(), searchIngredientList, this);
 
         remove = view.findViewById(R.id.imageViewRemove);
         remove.setOnClickListener(new View.OnClickListener() {
@@ -201,10 +238,25 @@ public class GroceryListFragment extends Fragment {
         adapter.ingredientArrayList = gson.fromJson(json, type);
 
         if(adapter.ingredientArrayList == null) {
-            adapter.ingredientArrayList = new ArrayList<Ingredient>();
+            adapter.ingredientArrayList = new ArrayList<>();
             dataInitialize();
         }
 
+    }
+
+    private void filterList(String text) {
+        List<SearchIngredient> filteredList = new ArrayList<SearchIngredient>();
+        for (SearchIngredient i : searchIngredientList) {
+            if (i.getIngredientName().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(i);
+            }
+        }
+
+        if (filteredList.isEmpty()) {
+            Toast.makeText(getContext(), "Ingredient not found", Toast.LENGTH_SHORT).show();
+        } else {
+            searchIngredientAdapter.setFilteredList(filteredList);
+        }
     }
 
     /**
@@ -213,7 +265,7 @@ public class GroceryListFragment extends Fragment {
      */
     private void dataInitialize() {
 
-        //ingredientArrayList = new ArrayList<>();
+//        ingredientArrayList = new ArrayList<>();
 //        ingredientName = new String[] {
 //                "Eggs", "Milk", "Chicken", "Steak", "Carrots", "Apples", "Broccoli", "Mushrooms",
 //                "Olive Oil", "Sugar", "Flour", "Paprika", "Italian Seasoning", "Bread Crumbs",
@@ -232,9 +284,9 @@ public class GroceryListFragment extends Fragment {
 //        }
 
         adapter = new IngredientAdapter(ingredientArrayList, getActivity());
-        ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(recyclerView);
+        //ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
+        //ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        //touchHelper.attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         saveData();
@@ -242,31 +294,30 @@ public class GroceryListFragment extends Fragment {
     }
 
     private void prepArray() throws IOException {
-//        try {
-//            String csvfileString = "app/src/main/assets/ingredients.csv";
-//            //String csvfileString = getActivity().getApplicationInfo().dataDir + File.separatorChar + "ingredients.csv";
-//            File csvfile = new File(csvfileString);
-//            CSVReader reader = new CSVReader(new FileReader(csvfile));
-//            List<String[]> myDatas = reader.readAll();
-//            for (String[] line : myDatas) {
-//                for (String value : line) {
-//                    ingredientEntries.add(value);
-//                }
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            //Toast.makeText(getActivity(), getActivity().getApplicationInfo().dataDir, Toast.LENGTH_SHORT).show();
-//            Toast.makeText(getActivity(), "The specified file was not found", Toast.LENGTH_SHORT).show();
-//        }
-
         InputStreamReader is = new InputStreamReader(getActivity().getAssets().open("ingredients.csv"));
         BufferedReader reader = new BufferedReader(is);
         reader.readLine();
         String line;
         ingredientEntries = new ArrayList<>();
+        searchIngredientList = new ArrayList<>();
         while ((line = reader.readLine()) != null) {
             ingredientEntries.add(line);
         }
+
+        for (String i : ingredientEntries) {
+            searchIngredientList.add(new SearchIngredient(i));
+        }
     }
+
+    public void addIngredient(String newIngredient) {
+        Toast.makeText(getActivity(), "Added " + newIngredient, Toast.LENGTH_SHORT).show();
+        adapter.ingredientArrayList.add(new Ingredient(newIngredient));
+        adapter.notifyDataSetChanged();
+        searchIngredients.setVisibility(View.GONE);
+        ingredientRecyclerView.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+        saveData();
+    }
+
+
 }

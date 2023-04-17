@@ -3,9 +3,13 @@ package com.example.cookingovereasy;
 import android.content.Context;
 
 import com.example.cookingovereasy.Models.IngredientResponse;
+import com.example.cookingovereasy.Models.InstructionsResponse;
 import com.example.cookingovereasy.Models.RandomRecipeApiResponse;
+import com.example.cookingovereasy.Models.RecipeDetailsResponse;
 import com.example.cookingovereasy.listeners.IngredientResponseListener;
+import com.example.cookingovereasy.listeners.InstructionsListener;
 import com.example.cookingovereasy.listeners.RandomRecipeResponseListener;
+import com.example.cookingovereasy.listeners.RecipeDetailsListener;
 
 import java.util.List;
 
@@ -15,6 +19,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public class RequestManager {
@@ -73,6 +78,46 @@ public class RequestManager {
         });
     }
 
+    public void getRecipeDetails(RecipeDetailsListener listener, int id) {
+        CallRecipeDetails callRecipeDetails = retrofit.create(CallRecipeDetails.class);
+        Call<RecipeDetailsResponse> call = callRecipeDetails.callRecipeDetails(id, context.getString(R.string.spoonKey));
+        call.enqueue(new Callback<RecipeDetailsResponse>() {
+            @Override
+            public void onResponse(Call<RecipeDetailsResponse> call, Response<RecipeDetailsResponse> response) {
+                if (!response.isSuccessful()) {
+                    listener.didError(response.message());
+                    return;
+                }
+                listener.didFetch(response.body(), response.message());
+            }
+
+            @Override
+            public void onFailure(Call<RecipeDetailsResponse> call, Throwable t) {
+                listener.didError(t.getMessage());
+            }
+        });
+    }
+
+    public void getInstructions(InstructionsListener listener, int id) {
+        CallInstructions callInstructions = retrofit.create(CallInstructions.class);
+        Call<List<InstructionsResponse>> call = callInstructions.callInstructions(id, context.getString(R.string.spoonKey));
+        call.enqueue(new Callback<List<InstructionsResponse>>() {
+            @Override
+            public void onResponse(Call<List<InstructionsResponse>> call, Response<List<InstructionsResponse>> response) {
+                if (!response.isSuccessful()) {
+                    listener.didError(response.message());
+                    return;
+                }
+                listener.didFetch(response.body(), response.message());
+            }
+
+            @Override
+            public void onFailure(Call<List<InstructionsResponse>> call, Throwable t) {
+                listener.didError(t.getMessage());
+            }
+        });
+    }
+
     /**
      * Interface that provides the call method for calling random recipes
      */
@@ -92,6 +137,22 @@ public class RequestManager {
                 @Query("number") String number,
                 @Query("query") String query,
                 @Query("addChildren") boolean includeChildren
+        );
+    }
+
+    private interface CallRecipeDetails {
+        @GET("recipes/{id}/information")
+        Call<RecipeDetailsResponse> callRecipeDetails(
+                @Path("id") int id,
+                @Query("apiKey") String apiKey
+        );
+    }
+
+    private interface CallInstructions {
+        @GET("recipes/{id}/analyzedInstructions")
+        Call<List<InstructionsResponse>> callInstructions(
+                @Path("id") int id,
+                @Query("apiKey") String apiKey
         );
     }
 }

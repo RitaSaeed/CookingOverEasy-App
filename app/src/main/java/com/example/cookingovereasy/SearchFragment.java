@@ -2,6 +2,7 @@ package com.example.cookingovereasy;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 import com.example.cookingovereasy.Models.RandomRecipeApiResponse;
 import com.example.cookingovereasy.Models.Recipe;
 import com.example.cookingovereasy.listeners.RandomRecipeResponseListener;
+import com.example.cookingovereasy.listeners.RecipeClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,10 +142,11 @@ public class SearchFragment extends Fragment {
             recyclerView = listenerView.findViewById(R.id.recycler_view_search);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-            randomRecipeAdapter = new RandomRecipeAdapter(getActivity(), response.recipes);
+            randomRecipeAdapter = new RandomRecipeAdapter(getActivity(), response.recipes, recipeClickListener);
             recipeList = response.recipes;
             recyclerView.setAdapter(randomRecipeAdapter);
             randomRecipeAdapter.notifyDataSetChanged();
+
             // following 2 lines just close the keyboard after hitting search
             InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             mgr.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
@@ -193,6 +196,15 @@ public class SearchFragment extends Fragment {
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
 
+        }
+    };
+
+    private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
+        @Override
+        public void onRecipeClicked(String id) {
+            //Toast.makeText(getContext(), id, Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getContext(), RecipeDetails.class)
+                    .putExtra("id", id));
         }
     };
 
