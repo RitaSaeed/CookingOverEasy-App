@@ -140,7 +140,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.My
      */
     @Override
     public void onRowClear(MyViewHolder myViewHolder) {
-        myViewHolder.rowView.setBackgroundColor(Color.WHITE);
+        myViewHolder.rowView.setBackgroundColor(Color.parseColor("#ffffcc"));
     }
 
     /**

@@ -18,9 +18,6 @@
             android:name=".RecipeDetails"
             android:exported="false" />
         <activity
-            android:name=".AddToGroceryList"
-            android:exported="false" />
-        <activity
             android:name=".CreateFolder"
             android:exported="false" />
         <activity

@@ -24,7 +24,7 @@
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:text="Ingredient Name"
-            android:textColor="@color/logoYellow"
+            android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold" />
 

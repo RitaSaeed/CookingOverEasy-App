@@ -5,6 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundYellow"
     tools:context=".GroceryListFragment">
 
 
@@ -54,7 +55,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
             android:background="@color/backgroundYellow"
-            tools:listitem="@layout/grocery_item" />
+            tools:listitem="@layout/grocery_item"
+            />
 
         <SearchView
             android:id="@+id/searchViewSearchIngredient"
@@ -64,7 +66,8 @@
             android:background="@drawable/search_view_bg"
             android:iconifiedByDefault="false"
             android:queryHint="Search here ..."
-            android:visibility="gone"/>
+            android:visibility="gone"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_searchIngredient"
@@ -72,7 +75,8 @@
             android:layout_height="match_parent"
             android:paddingTop="10dp"
             tools:listitem="@layout/list_ingredient_search"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            />
 
     </LinearLayout>
 
