@@ -27,17 +27,24 @@
         app:layout_constraintTop_toTopOf="parent"
         android:onClick="onCreateCategoryButtonClicked" />
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_cookbook_view"
         android:layout_width="match_parent"
+        android:paddingTop="240dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="240dp"
-        android:scrollbars="none">
-        <LinearLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-        </LinearLayout>
-    </ScrollView>
+        tools:listitem="@layout/cookbook_category" />
+
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginTop="240dp"-->
+<!--        android:scrollbars="none">-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/container"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
+<!--        </LinearLayout>-->
+<!--    </ScrollView>-->
 
 </FrameLayout>
