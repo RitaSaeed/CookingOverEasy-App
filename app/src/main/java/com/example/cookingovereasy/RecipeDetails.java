@@ -22,6 +22,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+/**
+ * Page that shows an individual recipe's title, picture, ingredients, and steps.
+ */
 public class RecipeDetails extends AppCompatActivity {
     int id;
     TextView textView_recipe_name, textView_recipe_source, textView_recipe_summary;
@@ -33,6 +36,13 @@ public class RecipeDetails extends AppCompatActivity {
     RecipeIngredientsAdapter recipeIngredientsAdapter;
     InstructionsAdapter instructionsAdapter;
 
+    /**
+     * Code that is done on creation of the activity.
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +50,7 @@ public class RecipeDetails extends AppCompatActivity {
 
         findViews();
 
+        // on click listener for the back button, goes back to search fragment
         recipe_details_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +58,7 @@ public class RecipeDetails extends AppCompatActivity {
             }
         });
 
+        // on click listener for the favorite button, to be implemented
         recipe_details_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,8 +66,6 @@ public class RecipeDetails extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
         // capture id from sent intent
         id = Integer.parseInt(getIntent().getStringExtra("id"));
@@ -68,6 +78,9 @@ public class RecipeDetails extends AppCompatActivity {
 
     }
 
+    /**
+     * Establishes the views from the corresponding xml file.
+     */
     private void findViews() {
         textView_recipe_name = findViewById(R.id.textView_recipe_name);
         //textView_recipe_source = findViewById(R.id.textView_recipe_source);
@@ -79,6 +92,9 @@ public class RecipeDetails extends AppCompatActivity {
         recipe_details_favorite = findViewById(R.id.recipe_details_favorite);
     }
 
+    /**
+     * Listener for the recipe title, image, and ingredients.
+     */
     private final RecipeDetailsListener listener = new RecipeDetailsListener() {
         @Override
         public void didFetch(RecipeDetailsResponse response, String message) {
@@ -89,8 +105,11 @@ public class RecipeDetails extends AppCompatActivity {
             Picasso.get().load(response.image).into(imageView_recipe_image);
 
             recycler_recipe_ingredients.setHasFixedSize(true);
-            recycler_recipe_ingredients.setLayoutManager(new LinearLayoutManager(RecipeDetails.this, LinearLayoutManager.VERTICAL, false));
-            recipeIngredientsAdapter = new RecipeIngredientsAdapter(RecipeDetails.this, response.extendedIngredients);
+            recycler_recipe_ingredients.setLayoutManager(new
+                    LinearLayoutManager(RecipeDetails.this,
+                    LinearLayoutManager.VERTICAL, false));
+            recipeIngredientsAdapter = new RecipeIngredientsAdapter(RecipeDetails.this,
+                    response.extendedIngredients);
             recycler_recipe_ingredients.setAdapter(recipeIngredientsAdapter);
         }
 
@@ -100,18 +119,23 @@ public class RecipeDetails extends AppCompatActivity {
         }
     };
 
+    /**
+     * Listener for the analyzed instructions of the recipe.
+     */
     private final InstructionsListener instructionsListener = new InstructionsListener() {
         @Override
         public void didFetch(List<InstructionsResponse> response, String message) {
             recycler_recipe_instructions.setHasFixedSize(true);
-            recycler_recipe_instructions.setLayoutManager(new LinearLayoutManager(RecipeDetails.this, LinearLayoutManager.VERTICAL, false));
+            recycler_recipe_instructions.setLayoutManager(new
+                    LinearLayoutManager(RecipeDetails.this,
+                    LinearLayoutManager.VERTICAL, false));
             instructionsAdapter = new InstructionsAdapter(RecipeDetails.this, response);
             recycler_recipe_instructions.setAdapter(instructionsAdapter);
         }
 
         @Override
         public void didError(String message) {
-
+            Toast.makeText(RecipeDetails.this, message, Toast.LENGTH_SHORT).show();
         }
     };
 }
