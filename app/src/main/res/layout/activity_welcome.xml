@@ -21,7 +21,21 @@
         android:scaleY="1.4"
         app:srcCompat="@drawable/welcomebackgroundnoodles" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/blurredCard"
+        android:text="WELCOME"
+        android:textColor="@color/lightyellow"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:fontFamily=""/>
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/blurredCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="15dp"
@@ -81,10 +95,9 @@
             <Button
                 android:id="@+id/getStartedButton"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="10dp"
-                android:elevation="0dp"
                 android:background="@drawable/roundcorner"
                 android:backgroundTint="@color/lightyellow"
                 android:onClick="openLogin"
