@@ -15,6 +15,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+/**
+ * Adapter for the recycler view in the recipe details that holds the ingredients.
+ */
 public class RecipeIngredientsAdapter extends RecyclerView.Adapter<RecipeIngredientsViewHolder>{
 
     Context context;
@@ -28,7 +31,8 @@ public class RecipeIngredientsAdapter extends RecyclerView.Adapter<RecipeIngredi
     @NonNull
     @Override
     public RecipeIngredientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new RecipeIngredientsViewHolder(LayoutInflater.from(context).inflate(R.layout.list_recipe_ingredients, parent, false));
+        return new RecipeIngredientsViewHolder(LayoutInflater.from(context)
+                .inflate(R.layout.list_recipe_ingredients, parent, false));
     }
 
     @Override
