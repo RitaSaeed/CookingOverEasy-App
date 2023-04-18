@@ -26,6 +26,7 @@
         android:background="@drawable/gradient_background"/>
 
     <TextView
+        android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/playfair"
@@ -33,22 +34,38 @@
         android:textColor="@color/lightyellow"
         android:textSize="60sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/blurredCard"
+        app:layout_constraintBottom_toTopOf="@id/title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.75" />
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/playfair"
+        android:text="COOKING OVER EASY"
+        android:textColor="@color/lightyellow"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/blurredCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="welcome"
+        app:layout_constraintVertical_bias="0.01999998" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/blurredCard"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:cardCornerRadius="100dp"
         app:cardBackgroundColor="#95ffffff"
+        app:cardCornerRadius="100dp"
         app:layout_constraintBottom_toBottomOf="@+id/welcomebackground"
         app:layout_constraintEnd_toEndOf="@+id/welcomebackground"
         app:layout_constraintStart_toStartOf="@+id/welcomebackground"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.89">
 
         <com.example.cookingovereasy.BlurLayout
             android:id="@+id/blurLayoutWelcome"
@@ -65,12 +82,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/playfair"
+                android:padding="5dp"
                 android:text="Cooking Over Easy"
                 android:textColor="@color/lightyellow"
-                android:textStyle="bold"
-                android:padding="5dp"
-                android:fontFamily="@font/playfair"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/getStartedButton"
@@ -80,13 +97,12 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/roundcorner"
                 android:backgroundTint="@color/lightyellow"
+                android:fontFamily="@font/playfair"
                 android:onClick="openLogin"
                 android:text="Get started"
                 android:textColor="@color/black"
-                android:textStyle="bold"
                 android:textSize="20sp"
-                android:fontFamily="@font/playfair" />
-
+                android:textStyle="bold" />
 
 
         </LinearLayout>
