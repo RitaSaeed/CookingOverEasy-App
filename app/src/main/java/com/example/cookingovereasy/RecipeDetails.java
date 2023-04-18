@@ -83,8 +83,6 @@ public class RecipeDetails extends AppCompatActivity {
      */
     private void findViews() {
         textView_recipe_name = findViewById(R.id.textView_recipe_name);
-        //textView_recipe_source = findViewById(R.id.textView_recipe_source);
-        //textView_recipe_summary = findViewById(R.id.textView_recipe_summary);
         imageView_recipe_image = findViewById(R.id.imageView_recipe_image);
         recycler_recipe_ingredients = findViewById(R.id.recycler_recipe_ingredients);
         recycler_recipe_instructions = findViewById(R.id.recycler_recipe_instructions);
@@ -100,8 +98,6 @@ public class RecipeDetails extends AppCompatActivity {
         public void didFetch(RecipeDetailsResponse response, String message) {
             dialog.dismiss();
             textView_recipe_name.setText(response.title);
-            //textView_recipe_source.setText(response.sourceName);
-            //textView_recipe_summary.setText(response.summary);
             Picasso.get().load(response.image).into(imageView_recipe_image);
 
             recycler_recipe_ingredients.setHasFixedSize(true);

@@ -18,24 +18,47 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+/**
+ * Adapter for the recycler view in the search fragment.
+ */
 public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHolder> {
 
     Context context;
     List<Recipe> list;
     RecipeClickListener listener;
 
+    /**
+     * Creates an instance of the Random Recipe Adapter.
+     * @param context current context
+     * @param list list of random recipes (length of 10 currently)
+     * @param listener listener used for the on click attribute of each recipe
+     */
     public RandomRecipeAdapter(Context context, List<Recipe> list, RecipeClickListener listener) {
         this.context = context;
         this.list = list;
         this.listener = listener;
     }
 
+    /**
+     * Creates the view holder for the objects in recycler view.
+     * @param parent The ViewGroup into which the new View will be added after it is bound to
+     *               an adapter position.
+     * @param viewType The view type of the new View.
+     *
+     * @return RandomRecipeViewHolder
+     */
     @NonNull
     @Override
     public RandomRecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new RandomRecipeViewHolder(LayoutInflater.from(context).inflate(R.layout.list_random_recipe, parent, false));
     }
 
+    /**
+     * Gives functionality to view holder once it is bound.
+     * @param holder The ViewHolder which should be updated to represent the contents of the
+     *        item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
     @Override
     public void onBindViewHolder(@NonNull RandomRecipeViewHolder holder, int position) {
         holder.textView_title.setText(list.get(position).title);
@@ -50,6 +73,10 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
         });
     }
 
+    /**
+     * Returns the number of random recipes that are in the recycler view. (currently always 10)
+     * @return
+     */
     @Override
     public int getItemCount() {
         return list.size();
@@ -65,6 +92,9 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
     }
 }
 
+/**
+ * Creates a way to access the attributes of an object in the recycler view.
+ */
 class RandomRecipeViewHolder extends RecyclerView.ViewHolder {
 
     CardView search_list_container;
