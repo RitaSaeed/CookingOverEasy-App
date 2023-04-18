@@ -42,33 +42,57 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/welcomeMessage"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:background="@color/lightyellow"/>
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/lightyellow"
+                app:cardCornerRadius="15dp">
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="Welcome!"
+                    android:fontFamily="sans-serif-black"
+                    android:textFontWeight="450"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:background="@color/lightyellow"/>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="200dp"
+                android:layout_height="225dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All of your cooking tools in one place"
+                    android:textColor="@color/black"
+                    android:padding="5dp"/>
+            </androidx.cardview.widget.CardView>
 
             <Button
                 android:id="@+id/getStartedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_margin="10dp"
+                android:elevation="0dp"
+                android:background="@drawable/roundcorner"
                 android:backgroundTint="@color/lightyellow"
                 android:onClick="openLogin"
                 android:text="@string/get_started"
                 android:textColor="@color/black" />
+
+
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
