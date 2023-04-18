@@ -37,8 +37,7 @@
         app:layout_constraintBottom_toTopOf="@id/title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/title"
@@ -52,8 +51,7 @@
         app:layout_constraintBottom_toTopOf="@id/blurredCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="welcome"
-        app:layout_constraintVertical_bias="0.01999998" />
+        app:layout_constraintTop_toBottomOf="@id/welcome" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/blurredCard"
@@ -61,11 +59,10 @@
         android:layout_height="200dp"
         app:cardBackgroundColor="#95ffffff"
         app:cardCornerRadius="100dp"
-        app:layout_constraintBottom_toBottomOf="@+id/welcomebackground"
-        app:layout_constraintEnd_toEndOf="@+id/welcomebackground"
-        app:layout_constraintStart_toStartOf="@+id/welcomebackground"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title">
 
         <com.example.cookingovereasy.BlurLayout
             android:id="@+id/blurLayoutWelcome"
