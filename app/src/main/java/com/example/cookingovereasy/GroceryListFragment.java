@@ -51,11 +51,8 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
 
     private RecyclerView recyclerView;
     private ArrayList<Ingredient> ingredientArrayList;
-    private ArrayList<String> ingredients;
     ImageView remove;
-    private String[] ingredientName;
     private ImageView add;
-    Activity context;
     IngredientAdapter adapter;
     SearchIngredientAdapter searchIngredientAdapter;
     List<String> ingredientEntries;
@@ -81,8 +78,6 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ingredientArrayList = new ArrayList<>();
-//        ingredientArrayList.add(new Ingredient(getArguments().getString("newIngredient")));
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_grocery_list, container, false);
     }
 
@@ -96,30 +91,18 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        ingredientArrayList.add(new Ingredient(getArguments().getString("newIngredient")));
+
         add = view.findViewById(R.id.addIcon);
         searchIngredients = view.findViewById(R.id.searchViewSearchIngredient);
         ingredientRecyclerView = view.findViewById(R.id.recycler_view_searchIngredient);
         recyclerView = view.findViewById(R.id.recycler_grocery_view);
 
-//        ActivityResultLauncher<Intent> startForIngredient = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-//            @Override
-//            public void onActivityResult(ActivityResult result) {
-//                if (result != null && result.getResultCode() == -1) {
-//                    if (result.getData() != null) {
-//                        ingredientArrayList.add(new Ingredient(getArguments().getString("newIngredient")));
-//                        Toast.makeText(context, "current ingredient: " + getArguments().getString("newIngredient"), Toast.LENGTH_SHORT).show();
-//                        adapter.notifyDataSetChanged();
-//                    }
-//                }
-//            }
-//        });
-
         searchIngredients.clearFocus();
         searchIngredients.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                addIngredient(query);
+                return true;
             }
 
             @Override
@@ -132,15 +115,8 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), AddToGroceryList.class);
-////                startForIngredient.launch(intent);
-//                startActivity(intent);
-                //recyclerView.setVisibility(View.GONE);
-            //setUpSearchRecycler();
                 recyclerView.setVisibility(View.GONE);
                 searchIngredients.setVisibility(View.VISIBLE);
-
-                //searchIngredientAdapter = new SearchIngredientAdapter(getContext(), searchIngredientList);
                 ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 ingredientRecyclerView.setAdapter(searchIngredientAdapter);
                 searchIngredientAdapter.notifyDataSetChanged();
@@ -253,7 +229,7 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
         }
 
         if (filteredList.isEmpty()) {
-            Toast.makeText(getContext(), "Ingredient not found", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "Ingredient not found", Toast.LENGTH_SHORT).show();
         } else {
             searchIngredientAdapter.setFilteredList(filteredList);
         }
