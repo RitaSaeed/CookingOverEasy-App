@@ -7,15 +7,39 @@
     android:orientation="vertical"
     android:background="@color/backgroundYellow"
     tools:context=".RecipeDetails">
-    
-    <androidx.appcompat.widget.Toolbar
+
+    <LinearLayout
         android:id="@+id/toolbar_recipe"
-        app:title="Recipe Information"
-        app:titleTextColor="@color/black"
-        android:background="@color/lightyellow"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:navigationIcon="@drawable/baseline_arrow_back_24"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/lightyellow">
+        <ImageButton
+            android:id="@+id/recipe_details_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/recipeDetailsBack"
+            android:src="@drawable/baseline_arrow_back_24"
+            android:background="@color/lightyellow"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Recipe Information"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:layout_weight="1"
+            android:gravity="center"/>
+        <ImageButton
+            android:id="@+id/recipe_details_favorite"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/favoriteRecipe"
+            android:src="@android:drawable/btn_star"
+            android:background="@color/lightyellow"/>
+
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"

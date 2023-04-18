@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,8 +26,8 @@ public class RecipeDetails extends AppCompatActivity {
     int id;
     TextView textView_recipe_name, textView_recipe_source, textView_recipe_summary;
     ImageView imageView_recipe_image;
+    ImageButton recipe_details_back, recipe_details_favorite;
     RecyclerView recycler_recipe_ingredients, recycler_recipe_instructions;
-    Toolbar toolbar_recipe;
     RequestManager manager;
     ProgressDialog dialog;
     RecipeIngredientsAdapter recipeIngredientsAdapter;
@@ -39,14 +40,22 @@ public class RecipeDetails extends AppCompatActivity {
 
         findViews();
 
-        ((AppCompatActivity)this).setSupportActionBar(toolbar_recipe);
-
-        toolbar_recipe.setNavigationOnClickListener(new View.OnClickListener() {
+        recipe_details_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
+        recipe_details_favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(RecipeDetails.this, "Added to favorites",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         // capture id from sent intent
         id = Integer.parseInt(getIntent().getStringExtra("id"));
@@ -66,7 +75,8 @@ public class RecipeDetails extends AppCompatActivity {
         imageView_recipe_image = findViewById(R.id.imageView_recipe_image);
         recycler_recipe_ingredients = findViewById(R.id.recycler_recipe_ingredients);
         recycler_recipe_instructions = findViewById(R.id.recycler_recipe_instructions);
-        toolbar_recipe = findViewById(R.id.toolbar_recipe);
+        recipe_details_back = findViewById(R.id.recipe_details_back);
+        recipe_details_favorite = findViewById(R.id.recipe_details_favorite);
     }
 
     private final RecipeDetailsListener listener = new RecipeDetailsListener() {
