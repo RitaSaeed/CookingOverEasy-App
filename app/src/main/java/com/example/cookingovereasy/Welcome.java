@@ -51,12 +51,18 @@ public class Welcome extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_right, R.anim.slide_out_left);
     }
 
+    /**
+     * Overridden start method to add blur functionality.
+     */
     @Override
     protected void onStart() {
         super.onStart();
         blurLayout.startBlur();
     }
 
+    /**
+     * Overridden stop method to stop blur on activity close.
+     */
     @Override
     protected void onStop() {
         blurLayout.pauseBlur();
