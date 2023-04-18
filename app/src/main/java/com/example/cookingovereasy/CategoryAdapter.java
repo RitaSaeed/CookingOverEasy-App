@@ -1,25 +1,19 @@
 package com.example.cookingovereasy;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Collections;
 
+/**
+ * Adapter for the recycler view in the category activity.
+ */
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
 
     Context context;
@@ -28,21 +22,39 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
+    /**
+     * Constructor for the category adapter.
+     * @param createdCategories arraylist of categories
+     * @param context current context
+     */
     public CategoryAdapter(ArrayList<Category> createdCategories, Context context) {
         this.context = context;
         this.createdCategories = createdCategories;
     }
 
+    /**
+     * Sets up view holder.
+     * @param parent The ViewGroup into which the new View will be added after it is bound to
+     *               an adapter position.
+     * @param viewType The view type of the new View.
+     *
+     * @return
+     */
     @NonNull
     @Override
     public CategoryAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        //View v = LayoutInflater.from(context).inflate(R.layout.grocery_item, parent, false);
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.cookbook_category, parent, false);
+        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.cookbook_category,
+                parent, false);
 
         return new CategoryAdapter.MyViewHolder(v);
     }
 
+    /**
+     * On bind adds functionality of items.
+     * @param holder The ViewHolder which should be updated to represent the contents of the
+     *        item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.MyViewHolder holder, int position) {
         Category currentItem = createdCategories.get(position);
@@ -50,17 +62,24 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         holder.rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, currentItem.getName() + " clicked.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, currentItem.getName() + " clicked.",
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-
+    /**
+     * Returns number of items in this recyclerview.
+     * @return
+     */
     @Override
     public int getItemCount() {
         return createdCategories.size();
     }
 
+    /**
+     * Creates the view holder of the components of item in recycler view.
+     */
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView categoryName;

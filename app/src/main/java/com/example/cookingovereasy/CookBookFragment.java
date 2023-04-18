@@ -30,7 +30,9 @@ import com.google.gson.Gson;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-
+/**
+ * Holds the views/functionality for the cookbook fragment.
+ */
 public class CookBookFragment extends Fragment {
 
     ImageButton myCookBook; //declaring buttons
@@ -43,20 +45,36 @@ public class CookBookFragment extends Fragment {
     private RecyclerView recyclerView;
     private CategoryAdapter adapter;
 
+    /**
+     * Creates the view object to be referenced.
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_cook_book, container, false);  // Inflate the layout for this fragment
-
-
         return view;
     }
 
+    /**
+     * Functionality for when the view is created.
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //Build recycler view:
+        // builds the recycler view
         recyclerView = view.findViewById(R.id.recycler_cookbook_view);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         adapter = new CategoryAdapter(createdCategories, getActivity());
@@ -71,10 +89,10 @@ public class CookBookFragment extends Fragment {
         myCookBook.setOnClickListener(new View.OnClickListener() {  //adding a response when cookbook button is clicked
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity().getApplicationContext(), "Welcome to your CookBook!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(),
+                        "Welcome to your CookBook!", Toast.LENGTH_SHORT).show();
             }
         });
-
 
         createDialog();
         myCategories.setOnClickListener(new View.OnClickListener() {  //adding a response when the new category button is clicked
@@ -108,28 +126,23 @@ public class CookBookFragment extends Fragment {
         dialog = builder.create();
     }
 
+    /**
+     * Adds a new category to the recycler view.
+     * @param categoryName new name of the category to be added
+     */
     private void addCategory(String categoryName) {
         View view = getLayoutInflater().inflate(R.layout.cookbook_category, null);
-
         TextView name = view.findViewById(R.id.categoryName);
-        //Button addRecipes = view.findViewById(R.id.addRecipes);
-
         name.setText(categoryName);
-
-//        addRecipes.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(view.getContext(), "Add Recipes!", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-        //layout.addView(view);
         adapter.createdCategories.add(new Category(name.getText().toString()));
         adapter.notifyItemInserted(adapter.createdCategories.size());
         adapter.notifyDataSetChanged();
         saveData();
     }
 
+    /**
+     * Saves the categories to a share preference.
+     */
     private void saveData(){
         SharedPreferences sp = getContext().getSharedPreferences("preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor= sp.edit();
@@ -139,6 +152,9 @@ public class CookBookFragment extends Fragment {
         editor.apply();
     }
 
+    /**
+     * Loads the user-created categories from a shared preference.
+     */
     private void loadData(){
         SharedPreferences sp = getContext().getSharedPreferences("preferences", MODE_PRIVATE);
         Gson gson = new Gson();
@@ -149,10 +165,7 @@ public class CookBookFragment extends Fragment {
         if(adapter.createdCategories == null) {
             adapter.createdCategories = new ArrayList<>();
         }
-
     }
-
-
 }
 
 
