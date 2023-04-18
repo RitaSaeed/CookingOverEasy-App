@@ -41,9 +41,9 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/blurredCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="15dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:cardCornerRadius="100dp"
         app:cardBackgroundColor="#95ffffff"
         app:layout_constraintBottom_toBottomOf="@+id/welcomebackground"
         app:layout_constraintEnd_toEndOf="@+id/welcomebackground"
@@ -65,10 +65,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="All of your cooking tools in one place"
+                android:text="Cooking Over Easy"
                 android:textColor="@color/lightyellow"
                 android:textStyle="bold"
-                android:padding="5dp"/>
+                android:padding="5dp"
+                android:fontFamily="@font/playfair"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/getStartedButton"
@@ -79,7 +81,7 @@
                 android:background="@drawable/roundcorner"
                 android:backgroundTint="@color/lightyellow"
                 android:onClick="openLogin"
-                android:text="@string/get_started"
+                android:text="Get started"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="20sp"
