@@ -126,6 +126,7 @@ public class CookBookFragment extends Fragment {
         //layout.addView(view);
         adapter.createdCategories.add(new Category(name.getText().toString()));
         adapter.notifyItemInserted(adapter.createdCategories.size());
+        adapter.notifyDataSetChanged();
         saveData();
     }
 
