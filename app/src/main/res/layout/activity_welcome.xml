@@ -43,6 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.32999998"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
@@ -65,8 +66,8 @@
         android:layout_height="200dp"
         android:layout_marginTop="200dp"
         app:cardBackgroundColor="#95ffffff"
-        app:cardCornerRadius="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardCornerRadius="30dp"
+        app:layout_constraintBottom_toTopOf="@id/getStartedButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title">
@@ -77,40 +78,32 @@
             android:layout_height="match_parent"
             app:blk_blurRadius="4"
             app:blk_fps="0" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/playfair"
-                android:padding="5dp"
-                android:text="Cooking Over Easy"
-                android:textColor="@color/lightyellow"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/getStartedButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="10dp"
-                android:background="@drawable/roundcorner"
-                android:backgroundTint="@color/lightyellow"
-                android:fontFamily="@font/playfair"
-                android:onClick="openLogin"
-                android:text="Get started"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/getStartedButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/roundcorner"
+        android:backgroundTint="@color/lightyellow"
+        android:fontFamily="@font/playfair"
+        android:onClick="openLogin"
+        android:text="Get started"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:translationY="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/blurredCard"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
