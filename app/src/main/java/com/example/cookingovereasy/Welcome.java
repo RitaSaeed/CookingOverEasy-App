@@ -9,7 +9,7 @@ import android.view.View;
 
 public class Welcome extends AppCompatActivity {
 
-    BlurLayout blurLayout;
+    //BlurLayout blurLayout;
 
     /**
      * On create gets the preferences as well as determines whether this is the first time the user
@@ -24,7 +24,7 @@ public class Welcome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        blurLayout = findViewById(R.id.blurLayoutWelcome);
+        //blurLayout = findViewById(R.id.blurLayoutWelcome);
 
         SharedPreferences preferences = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
         String firstTime = preferences.getString("FirstTimeInstall", "");
@@ -57,7 +57,7 @@ public class Welcome extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        blurLayout.startBlur();
+        //blurLayout.startBlur();
     }
 
     /**
@@ -65,7 +65,7 @@ public class Welcome extends AppCompatActivity {
      */
     @Override
     protected void onStop() {
-        blurLayout.pauseBlur();
+        //blurLayout.pauseBlur();
         super.onStop();
     }
 }
