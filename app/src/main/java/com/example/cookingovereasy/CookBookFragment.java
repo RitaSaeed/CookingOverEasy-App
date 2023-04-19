@@ -74,15 +74,15 @@ public class CookBookFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        myCookBook = view.findViewById(R.id.imageButton);  //referencing cookbook icon button
+        myCategories = view.findViewById(R.id.addCategory); //referencing 'new categories' button
+
         // builds the recycler view
         recyclerView = view.findViewById(R.id.recycler_cookbook_view);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         adapter = new CategoryAdapter(createdCategories, getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
-
-        myCookBook = view.findViewById(R.id.imageButton);  //referencing cookbook icon button
-        myCategories = view.findViewById(R.id.addCategory); //referencing 'new categories' button
 
         loadData();
 

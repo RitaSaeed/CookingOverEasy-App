@@ -104,15 +104,13 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new IngredientAdapter(ingredientArrayList, getActivity());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
 
         // used in process that allows user to drag and drop the grocery list items
         ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
-
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-        recyclerView.setHasFixedSize(true);
 
         try {
             prepArray();
