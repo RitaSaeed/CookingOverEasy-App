@@ -292,7 +292,8 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
     public void addIngredient(String newIngredient) {
         Toast.makeText(getActivity(), "Added " + newIngredient, Toast.LENGTH_SHORT).show();
         adapter.ingredientArrayList.add(new Ingredient(newIngredient));
-        adapter.notifyDataSetChanged();
+        adapter.notifyItemInserted(adapter.getItemCount());
+        //adapter.notifyDataSetChanged();
         searchIngredients.setVisibility(View.GONE);
         ingredientRecyclerView.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);

@@ -119,7 +119,8 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.My
             }
         } else {
             for (int i = fromPosition; i > toPosition; i--) {
-                Collections.swap(ingredientArrayList, i, i - 1);
+                Collections.swap(ingredientArrayList, i, i - 1); // causing error
+                // index out of bounds index 3 size 0 when dragging third added item on new list
             }
         }
         notifyItemMoved(fromPosition, toPosition);
@@ -150,14 +151,14 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.My
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView ingredientName;
-        protected CheckBox checkBox;
+        CheckBox checkBox;
         View rowView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             rowView = itemView;
-            checkBox = (CheckBox) itemView.findViewById(R.id.checkBoxIngredient);
+            checkBox = itemView.findViewById(R.id.checkBoxIngredient);
             ingredientName = itemView.findViewById(R.id.ingredientName);
 
         }
