@@ -16,6 +16,11 @@ import com.example.cookingovereasy.Models.Result;
 
 import java.util.List;
 
+/**
+ * Currently deprecated, kept for potential functionality. **
+ *
+ * Used to search through an arraylist of result objects.
+ */
 public class IngredientSearchAdapter extends RecyclerView.Adapter<IngredientSearchViewHolder> {
 
     Context context;

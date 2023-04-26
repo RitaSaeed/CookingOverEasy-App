@@ -38,7 +38,9 @@
                 android:paddingBottom="5dp"
                 android:text="@string/grocery_list_title"
                 android:textColor="@color/black"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:fontFamily="@font/montserrat_normal"
+                android:textFontWeight="1000" />
 
             <ImageView
                 android:id="@+id/addIcon"

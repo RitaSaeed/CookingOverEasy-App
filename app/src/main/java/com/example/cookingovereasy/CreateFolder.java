@@ -6,6 +6,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+/**
+ * Creates a folder in the cook book fragment.
+ */
 public class CreateFolder extends AppCompatActivity {
 
     @Override
