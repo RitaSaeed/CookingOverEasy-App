@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +21,17 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.MyViewHolder> implements ItemMoveCallback.ItemTouchHelperContract{
+public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveCallback.ItemTouchHelperContract{
 
     Context context;
     ArrayList<Ingredient> ingredientArrayList;
+
+
 
     SharedPreferences pref;
     SharedPreferences.Editor editor;
@@ -39,6 +43,20 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.My
     public IngredientAdapter(ArrayList<Ingredient> ingredientArrayList, Context context) {
         this.context = context;
         this.ingredientArrayList = ingredientArrayList;
+
+    }
+
+    public int getItemViewType(int position){
+        if(ingredientArrayList.get(position).name.toLowerCase().contains("protein") ||
+                ingredientArrayList.get(position).name.toLowerCase().contains("bread and grains") ||
+                ingredientArrayList.get(position).name.toLowerCase().contains("dairy") ||
+                ingredientArrayList.get(position).name.toLowerCase().contains("vegetables") ||
+                ingredientArrayList.get(position).name.toLowerCase().contains("fruit") ||
+                ingredientArrayList.get(position).name.toLowerCase().contains("misc")){
+            return 2;
+        }else{
+            return 1;
+        }
     }
 
     /**
@@ -51,13 +69,27 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.My
      */
     @NonNull
     @Override
-    public IngredientAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        View v;
+
+        if(viewType == 2){
+            v = layoutInflater.inflate(R.layout.grocery_categories, parent, false);
+            return new MyViewHolder2(v);
+        }else{
+            v = layoutInflater.inflate(R.layout.grocery_item, parent, false);
+            return new ViewHolderOne(v);
+        }
 
         //View v = LayoutInflater.from(context).inflate(R.layout.grocery_item, parent, false);
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.grocery_item, parent, false);
+       // View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.grocery_item, parent, false); //IMPORTANT
+       // View v2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.grocery_categories, parent, false);
 
-        return new IngredientAdapter.MyViewHolder(v);
+
+       // return new IngredientAdapter.MyViewHolder(v);// IMPORTANT
     }
+
+
 
     /**
      * Manages the checkboxes so they can be references as checked or unchecked.
@@ -66,33 +98,46 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.My
      * @param position The position of the item within the adapter's data set.
      */
     @Override
-    public void onBindViewHolder(@NonNull IngredientAdapter.MyViewHolder holder, int position) {
-        pref =  context.getSharedPreferences("shared preferences", MODE_PRIVATE);
-        Ingredient ingredient = ingredientArrayList.get(position);
-        //holder.checkBox.setText("Checkbox " + position);
-        holder.checkBox.setChecked(ingredientArrayList.get(position).getSelected());
-        holder.ingredientName.setText(ingredient.name);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if(ingredientArrayList.get(position).name.toLowerCase().contains("protein")  ||
+                ingredientArrayList.get(position).name.toLowerCase().contains("bread and grains") ||
+                ingredientArrayList.get(position).name.toLowerCase().contains("dairy") ||
+                ingredientArrayList.get(position).name.toLowerCase().contains("vegetables") ||
+                ingredientArrayList.get(position).name.toLowerCase().contains("fruit") ||
+                ingredientArrayList.get(position).name.toLowerCase().contains("misc")){
+            MyViewHolder2 holder2 = (MyViewHolder2) holder;
+            holder2.categoryName.setText(ingredientArrayList.get(position).name);
+        }else {
+            ViewHolderOne holder1 = (ViewHolderOne) holder;
 
-        holder.checkBox.setTag(position);
-        holder.checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editor = pref.edit();
-                Integer pos = (Integer) holder.checkBox.getTag();
-                //Toast.makeText(context, ingredientArrayList.get(pos).getName() + " clicked!",
-                //       Toast.LENGTH_SHORT).show();
 
-                if (ingredientArrayList.get(pos).getSelected()) {
-                    ingredientArrayList.get(pos).setSelected(false);
-                    editor.putBoolean(String.valueOf(holder.checkBox.getId()),false);
-                } else {
-                    ingredientArrayList.get(pos).setSelected(true);
-                    editor.putBoolean(String.valueOf(holder.checkBox.getId()), true);
+            pref =  context.getSharedPreferences("shared preferences", MODE_PRIVATE);
+            Ingredient ingredient = ingredientArrayList.get(position);
+            //holder.checkBox.setText("Checkbox " + position);
+            holder1.checkBox.setChecked(ingredientArrayList.get(position).getSelected());
+            holder1.ingredientName.setText(ingredient.name);
+
+            holder1.checkBox.setTag(position);
+            holder1.checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    editor = pref.edit();
+                    Integer pos = (Integer) holder1.checkBox.getTag();
+                    //Toast.makeText(context, ingredientArrayList.get(pos).getName() + " clicked!",
+                    //       Toast.LENGTH_SHORT).show();
+
+                    if (ingredientArrayList.get(pos).getSelected()) {
+                        ingredientArrayList.get(pos).setSelected(false);
+                        editor.putBoolean(String.valueOf(holder1.checkBox.getId()),false);
+                    } else {
+                        ingredientArrayList.get(pos).setSelected(true);
+                        editor.putBoolean(String.valueOf(holder1.checkBox.getId()), true);
+                    }
+
+                    editor.commit();
                 }
-
-                editor.commit();
-            }
-        });
+            });
+        }
 
     }
 
@@ -127,39 +172,68 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.My
 
     /**
      * Will change the color of a checkbox once selected.
-     * @param myViewHolder the checkbox.
+     * @param viewHolder the checkbox.
      */
     @Override
-    public void onRowSelected(MyViewHolder myViewHolder) {
-        myViewHolder.rowView.setBackgroundColor(Color.GRAY);
+    public void onRowSelected(RecyclerView.ViewHolder viewHolder) {
+        viewHolder.itemView.setBackgroundColor(Color.GRAY);
+
+      //  viewHolder.rowView.setBackgroundColor(Color.GRAY);
     }
 
     /**
      * Allows the checkbox to remain white until selected.
-     * @param myViewHolder the checkbox.
+     * @param viewHolder the checkbox.
      */
     @Override
-    public void onRowClear(MyViewHolder myViewHolder) {
-        myViewHolder.rowView.setBackgroundColor(Color.parseColor("#ffffcc"));
+    public void onRowClear(RecyclerView.ViewHolder viewHolder) {
+
+        if (viewHolder instanceof IngredientAdapter.ViewHolderOne) {
+            viewHolder.itemView.setBackgroundColor(Color.parseColor("#ffffcc"));
+        }
+        else {
+            viewHolder.itemView.setBackgroundColor(Color.parseColor("#fee569"));
+        }
+
     }
 
     /**
      * Creates a card that will contain ingredient names and the checkboxes to
      * be added to a recycler view that will appear as a list.
      */
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolderOne extends RecyclerView.ViewHolder {
 
         TextView ingredientName;
         protected CheckBox checkBox;
         View rowView;
 
-        public MyViewHolder(@NonNull View itemView) {
+        //TextView groceryCategoryName;
+
+        public ViewHolderOne(@NonNull View itemView) {
             super(itemView);
 
             rowView = itemView;
             checkBox = (CheckBox) itemView.findViewById(R.id.checkBoxIngredient);
             ingredientName = itemView.findViewById(R.id.ingredientName);
+          //  groceryCategoryName = itemView.findViewById(R.id.groceryCategoryName);
 
         }
+
     }
+
+    public static class MyViewHolder2 extends RecyclerView.ViewHolder {
+
+        TextView categoryName;
+        View rowView;
+
+
+        public MyViewHolder2(@NonNull View itemView) {
+            super(itemView);
+            rowView = itemView;
+            categoryName = itemView.findViewById(R.id.groceryCategoryName);
+
+        }
+
+    }
+
 }

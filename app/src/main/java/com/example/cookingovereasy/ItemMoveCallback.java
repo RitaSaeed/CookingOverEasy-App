@@ -92,9 +92,9 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-            if (viewHolder instanceof IngredientAdapter.MyViewHolder) {
-                IngredientAdapter.MyViewHolder myViewHolder =
-                        (IngredientAdapter.MyViewHolder) viewHolder;
+            if (viewHolder instanceof IngredientAdapter.ViewHolderOne) {
+                RecyclerView.ViewHolder myViewHolder =
+                        (RecyclerView.ViewHolder) viewHolder;
                 myAdapter.onRowSelected(myViewHolder);
             }
         }
@@ -112,9 +112,9 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
                           RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
 
-        if (viewHolder instanceof IngredientAdapter.MyViewHolder) {
-            IngredientAdapter.MyViewHolder myViewHolder =
-                    (IngredientAdapter.MyViewHolder) viewHolder;
+        if (viewHolder instanceof RecyclerView.ViewHolder) {
+            RecyclerView.ViewHolder myViewHolder =
+                    (RecyclerView.ViewHolder) viewHolder;
             myAdapter.onRowClear(myViewHolder);
         }
     }
@@ -124,7 +124,7 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
      */
     public interface ItemTouchHelperContract {
         void onRowMoved(int fromPosition, int toPosition);
-        void onRowSelected(IngredientAdapter.MyViewHolder myViewHolder);
-        void onRowClear(IngredientAdapter.MyViewHolder myViewHolder);
+        void onRowSelected(RecyclerView.ViewHolder myViewHolder);
+        void onRowClear(RecyclerView.ViewHolder myViewHolder);
     }
 }

@@ -9,6 +9,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResult;
@@ -52,6 +53,7 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
     private RecyclerView recyclerView;
     private ArrayList<Ingredient> ingredientArrayList;
     private ArrayList<String> ingredients;
+    String[] categoryNames;
     ImageView remove;
     private String[] ingredientName;
     private ImageView add;
@@ -152,9 +154,9 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
         // make variable global, initialize in dataInitialize();, add attach method here
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new IngredientAdapter(ingredientArrayList, getActivity());
-        ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(recyclerView);
+//        ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
+//        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+//        touchHelper.attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         recyclerView.setHasFixedSize(true);
@@ -195,7 +197,20 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
                                 saveData();
                                 return true;
                             case R.id.rmAll:
-                                adapter.ingredientArrayList.removeAll(adapter.ingredientArrayList);
+                                ArrayList<Ingredient> removeThese = new ArrayList<>();
+                                for (int i = 0; i < adapter.ingredientArrayList.size(); i++) {
+                                    if (recyclerView.findViewHolderForAdapterPosition(i) instanceof IngredientAdapter.ViewHolderOne) {
+                                        removeThese.add(adapter.ingredientArrayList.get(i));
+                                    }
+                                }
+
+                                int indexTwo = 0;
+                                for (Ingredient i : removeThese) {
+                                    adapter.ingredientArrayList.remove(i);
+                                    adapter.notifyItemRemoved(indexTwo);
+                                    indexTwo++;
+                                }
+//                                adapter.ingredientArrayList.removeAll(adapter.ingredientArrayList);
                                 adapter.notifyDataSetChanged();
                                 saveData();
                                 return true;
@@ -269,11 +284,9 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
 //        ingredientName = new String[] {
 //                "Eggs", "Milk", "Chicken", "Steak", "Carrots", "Apples", "Broccoli", "Mushrooms",
 //                "Olive Oil", "Sugar", "Flour", "Paprika", "Italian Seasoning", "Bread Crumbs",
-//                "Salt", "Pasta", "Alfredo Sauce", "Orange", "Mango", "Avocado", "Banana", "Asaparagus"
-//        };
-//
-//
-//        for (int i = 0; i < ingredientName.length; i++) {
+//                "Salt", "PasV}
+
+        //    for (int i = 0; i < ingredientName.length; i++) {
 //            Ingredient ingredient = new Ingredient(ingredientName[i]);
 //            ingredientArrayList.add(ingredient);
 //        }
@@ -282,13 +295,20 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
 //        for (String s : ingredientEntries) {
 //            ingredientArrayList.add(new Ingredient((s)));
 //        }
+        categoryNames = new String[]{"Protein", "Bread and Grains", "Dairy", "Vegetables", "Fruit", "Misc"};
+        for(String s : categoryNames){
+            Ingredient ingredient = new Ingredient(s);
+            ingredientArrayList.add(ingredient);
+        }
 
         adapter = new IngredientAdapter(ingredientArrayList, getActivity());
-        //ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
-        //ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        //touchHelper.attachToRecyclerView(recyclerView);
+
+        ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        recyclerView.setVisibility(View.VISIBLE);
         saveData();
 
     }
