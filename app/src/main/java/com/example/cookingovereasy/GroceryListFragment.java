@@ -30,16 +30,12 @@ import java.util.List;
 /**
  * Provides functionality for the grocery list fragment.
  */
-public class GroceryListFragment extends Fragment implements IngredientAdapter.EventListener {
+public class GroceryListFragment extends Fragment implements IngredientAdapter.EventListener, SearchIngredientAdapter.AddToGroceryList {
 
     private RecyclerView recyclerView;
     private ArrayList<Ingredient> ingredientArrayList;
-
-
     String[] categoryNames;
-
-    ImageView remove;
-    private ImageView add;
+    ImageView remove, add, back;
     IngredientAdapter adapter;
     SearchIngredientAdapter searchIngredientAdapter;
     List<String> ingredientEntries;
@@ -98,6 +94,8 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
 
         // on click listener for the "+" button on the grocery list fragment
         add.setOnClickListener(v -> {
+            add.setVisibility(View.GONE);
+            back.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
             searchIngredients.setVisibility(View.VISIBLE);
             ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -106,6 +104,16 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
             ingredientRecyclerView.setVisibility(View.VISIBLE);
 
         });
+
+        back.setOnClickListener(v -> {
+            searchIngredients.setVisibility(View.GONE);
+            ingredientRecyclerView.setVisibility(View.GONE);
+            back.setVisibility(View.GONE);
+            add.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+        });
+
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new IngredientAdapter(ingredientArrayList, getActivity(), this);
@@ -124,8 +132,8 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
         }
         loadData();
 
-//        searchIngredientAdapter = new SearchIngredientAdapter(getContext(),
-//                searchIngredientList, this);
+        searchIngredientAdapter = new SearchIngredientAdapter(getContext(),
+                searchIngredientList, this);
 
         // on click listener for the popup menu that contains the remove/uncheck functions
         remove.setOnClickListener(new View.OnClickListener() {
@@ -198,6 +206,7 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
      */
     private void getViews(View view) {
         add = view.findViewById(R.id.addIcon);
+        back = view.findViewById(R.id.backIcon);
         searchIngredients = view.findViewById(R.id.searchViewSearchIngredient);
         ingredientRecyclerView = view.findViewById(R.id.recycler_view_searchIngredient);
         recyclerView = view.findViewById(R.id.recycler_grocery_view);
@@ -329,6 +338,8 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
         searchIngredients.setVisibility(View.GONE);
         ingredientRecyclerView.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
+        back.setVisibility(View.GONE);
+        add.setVisibility(View.VISIBLE);
         saveData();
     }
 
