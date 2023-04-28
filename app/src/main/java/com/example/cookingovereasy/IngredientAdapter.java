@@ -5,6 +5,7 @@ import static android.content.Context.MODE_PRIVATE;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.metrics.Event;
 import android.preference.PreferenceManager;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -30,9 +31,7 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
 
     Context context;
     ArrayList<Ingredient> ingredientArrayList;
-
-
-
+    EventListener listener;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
@@ -40,10 +39,10 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
      * Constructor for the ingredient adapter.
      * @param ingredientArrayList an Array List of ingredients that will be displayed.
      */
-    public IngredientAdapter(ArrayList<Ingredient> ingredientArrayList, Context context) {
+    public IngredientAdapter(ArrayList<Ingredient> ingredientArrayList, Context context, EventListener listener) {
         this.context = context;
         this.ingredientArrayList = ingredientArrayList;
-
+        this.listener = listener;
     }
 
     public int getItemViewType(int position){
@@ -169,6 +168,7 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
             }
         }
         notifyItemMoved(fromPosition, toPosition);
+        listener.onEvent();
     }
 
     /**
@@ -242,6 +242,10 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
 
         }
 
+    }
+
+    public interface EventListener {
+        void onEvent();
     }
 
 }

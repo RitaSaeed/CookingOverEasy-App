@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Provides functionality for the grocery list fragment.
  */
-public class GroceryListFragment extends Fragment implements SearchIngredientAdapter.AddToGroceryList {
+public class GroceryListFragment extends Fragment implements IngredientAdapter.EventListener {
 
     private RecyclerView recyclerView;
     private ArrayList<Ingredient> ingredientArrayList;
@@ -108,17 +108,14 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new IngredientAdapter(ingredientArrayList, getActivity());
+        adapter = new IngredientAdapter(ingredientArrayList, getActivity(), this);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 
-//        ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
-//        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-//        touchHelper.attachToRecyclerView(recyclerView);
 
 
-        // used in process that allows user to drag and drop the grocery list items
 
+        // used in process that allows user to drag and drop the grocery list item
 
         try {
             prepArray();
@@ -127,8 +124,8 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
         }
         loadData();
 
-        searchIngredientAdapter = new SearchIngredientAdapter(getContext(),
-                searchIngredientList, this);
+//        searchIngredientAdapter = new SearchIngredientAdapter(getContext(),
+//                searchIngredientList, this);
 
         // on click listener for the popup menu that contains the remove/uncheck functions
         remove.setOnClickListener(new View.OnClickListener() {
@@ -234,6 +231,10 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
             dataInitialize();
         }
 
+        ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
+
     }
 
     /**
@@ -283,12 +284,12 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
             ingredientArrayList.add(ingredient);
         }
 
-        adapter = new IngredientAdapter(ingredientArrayList, getActivity());
+        adapter = new IngredientAdapter(ingredientArrayList, getActivity(), this);
 
 
-        ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(recyclerView);
+        //ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
+        //ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        //touchHelper.attachToRecyclerView(recyclerView);
 
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -328,6 +329,11 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
         searchIngredients.setVisibility(View.GONE);
         ingredientRecyclerView.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
+        saveData();
+    }
+
+    @Override
+    public void onEvent() {
         saveData();
     }
 }
