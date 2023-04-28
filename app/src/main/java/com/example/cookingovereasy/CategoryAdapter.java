@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     Context context;
     ArrayList<Category> createdCategories;
 
+    EventListener listener;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
@@ -27,9 +29,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
      * @param createdCategories arraylist of categories
      * @param context current context
      */
-    public CategoryAdapter(ArrayList<Category> createdCategories, Context context) {
+    public CategoryAdapter(ArrayList<Category> createdCategories, Context context, EventListener listener) {
         this.context = context;
         this.createdCategories = createdCategories;
+        this.listener = listener;
     }
 
     /**
@@ -66,6 +69,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
                         Toast.LENGTH_SHORT).show();
             }
         });
+
+        holder.remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onRemove(currentItem);
+            }
+        });
     }
 
     /**
@@ -85,12 +95,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         TextView categoryName;
         View rowView;
 
+        ImageView remove;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             rowView = itemView;
             categoryName = itemView.findViewById(R.id.categoryName);
+            remove = itemView.findViewById(R.id.removecategory);
 
         }
+    }
+
+    public interface EventListener {
+        void onRemove(Category item);
     }
 }

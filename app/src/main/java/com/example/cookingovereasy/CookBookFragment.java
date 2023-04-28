@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,12 +34,13 @@ import java.util.ArrayList;
 /**
  * Holds the views/functionality for the cookbook fragment.
  */
-public class CookBookFragment extends Fragment {
+public class CookBookFragment extends Fragment implements CategoryAdapter.EventListener{
 
-    ImageButton myCookBook; //declaring buttons
+    ImageView myCookBook; //declaring buttons
     Button myCategories;
 
     AlertDialog dialog;
+
 
 
 
@@ -81,7 +83,7 @@ public class CookBookFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_cookbook_view);
         glm = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(glm);
-        adapter = new CategoryAdapter(createdCategories, getActivity());
+        adapter = new CategoryAdapter(createdCategories, getActivity(), this);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 
@@ -141,11 +143,15 @@ public class CookBookFragment extends Fragment {
 
 
 
+
+
         adapter.createdCategories.add(new Category(name.getText().toString()));
         adapter.notifyItemInserted(adapter.createdCategories.size());
         adapter.notifyDataSetChanged();
         saveData();
     }
+
+
 
     /**
      * Saves the categories to a share preference.
@@ -172,6 +178,13 @@ public class CookBookFragment extends Fragment {
         if(adapter.createdCategories == null) {
             adapter.createdCategories = new ArrayList<>();
         }
+    }
+
+    @Override
+    public void onRemove(Category item) {
+        adapter.createdCategories.remove(item);
+        adapter.notifyDataSetChanged();
+        saveData();
     }
 }
 
