@@ -40,10 +40,13 @@ public class CookBookFragment extends Fragment {
 
     AlertDialog dialog;
 
+
+
     ArrayList<Category> createdCategories;
     EditText nameCategory;
     private RecyclerView recyclerView;
     private CategoryAdapter adapter;
+    private GridLayoutManager glm;
 
     /**
      * Creates the view object to be referenced.
@@ -79,7 +82,8 @@ public class CookBookFragment extends Fragment {
 
         // builds the recycler view
         recyclerView = view.findViewById(R.id.recycler_cookbook_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        glm = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(glm);
         adapter = new CategoryAdapter(createdCategories, getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
@@ -134,6 +138,9 @@ public class CookBookFragment extends Fragment {
         View view = getLayoutInflater().inflate(R.layout.cookbook_category, null);
         TextView name = view.findViewById(R.id.categoryName);
         name.setText(categoryName);
+
+
+
         adapter.createdCategories.add(new Category(name.getText().toString()));
         adapter.notifyItemInserted(adapter.createdCategories.size());
         adapter.notifyDataSetChanged();
