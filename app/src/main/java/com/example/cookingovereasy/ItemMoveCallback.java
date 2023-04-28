@@ -60,7 +60,8 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
     public boolean onMove(@NonNull RecyclerView recyclerView,
                           @NonNull RecyclerView.ViewHolder viewHolder,
                           @NonNull RecyclerView.ViewHolder target) {
-        myAdapter.onRowMoved(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+        myAdapter.onRowMoved(viewHolder.getAdapterPosition(), target.getAdapterPosition()); // causing error
+        // index out of bounds index 3 size 0 when dragging third added item on new list
         return true;
     }
 
@@ -92,7 +93,7 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-            if (viewHolder instanceof IngredientAdapter.ViewHolderOne) {
+            if (viewHolder instanceof RecyclerView.ViewHolder) {
                 RecyclerView.ViewHolder myViewHolder =
                         (RecyclerView.ViewHolder) viewHolder;
                 myAdapter.onRowSelected(myViewHolder);

@@ -30,16 +30,12 @@ import java.util.List;
 /**
  * Provides functionality for the grocery list fragment.
  */
-public class GroceryListFragment extends Fragment implements SearchIngredientAdapter.AddToGroceryList {
+public class GroceryListFragment extends Fragment implements IngredientAdapter.EventListener, SearchIngredientAdapter.AddToGroceryList {
 
     private RecyclerView recyclerView;
     private ArrayList<Ingredient> ingredientArrayList;
-
-
     String[] categoryNames;
-
-    ImageView remove;
-    private ImageView add;
+    ImageView remove, add, back;
     IngredientAdapter adapter;
     SearchIngredientAdapter searchIngredientAdapter;
     List<String> ingredientEntries;
@@ -98,6 +94,8 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
 
         // on click listener for the "+" button on the grocery list fragment
         add.setOnClickListener(v -> {
+            add.setVisibility(View.GONE);
+            back.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
             searchIngredients.setVisibility(View.VISIBLE);
             ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -107,20 +105,25 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
 
         });
 
+        back.setOnClickListener(v -> {
+            searchIngredients.setVisibility(View.GONE);
+            ingredientRecyclerView.setVisibility(View.GONE);
+            back.setVisibility(View.GONE);
+            add.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+        });
+
+
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new IngredientAdapter(ingredientArrayList, getActivity());
-
-//        ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
-//        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-//        touchHelper.attachToRecyclerView(recyclerView);
-
-
-        // used in process that allows user to drag and drop the grocery list items
-
-
+        adapter = new IngredientAdapter(ingredientArrayList, getActivity(), this);
         recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
         recyclerView.setHasFixedSize(true);
+
+
+
+
+        // used in process that allows user to drag and drop the grocery list item
 
         try {
             prepArray();
@@ -203,6 +206,7 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
      */
     private void getViews(View view) {
         add = view.findViewById(R.id.addIcon);
+        back = view.findViewById(R.id.backIcon);
         searchIngredients = view.findViewById(R.id.searchViewSearchIngredient);
         ingredientRecyclerView = view.findViewById(R.id.recycler_view_searchIngredient);
         recyclerView = view.findViewById(R.id.recycler_grocery_view);
@@ -235,6 +239,10 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
             adapter.ingredientArrayList = new ArrayList<>();
             dataInitialize();
         }
+
+        ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
 
     }
 
@@ -285,12 +293,12 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
             ingredientArrayList.add(ingredient);
         }
 
-        adapter = new IngredientAdapter(ingredientArrayList, getActivity());
+        adapter = new IngredientAdapter(ingredientArrayList, getActivity(), this);
 
 
-        ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(recyclerView);
+        //ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
+        //ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        //touchHelper.attachToRecyclerView(recyclerView);
 
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -325,10 +333,18 @@ public class GroceryListFragment extends Fragment implements SearchIngredientAda
     public void addIngredient(String newIngredient) {
         Toast.makeText(getActivity(), "Added " + newIngredient, Toast.LENGTH_SHORT).show();
         adapter.ingredientArrayList.add(new Ingredient(newIngredient));
-        adapter.notifyDataSetChanged();
+        adapter.notifyItemInserted(adapter.getItemCount());
+        //adapter.notifyDataSetChanged();
         searchIngredients.setVisibility(View.GONE);
         ingredientRecyclerView.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
+        back.setVisibility(View.GONE);
+        add.setVisibility(View.VISIBLE);
+        saveData();
+    }
+
+    @Override
+    public void onEvent() {
         saveData();
     }
 }

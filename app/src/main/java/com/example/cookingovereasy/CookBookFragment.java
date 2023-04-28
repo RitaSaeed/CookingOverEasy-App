@@ -79,6 +79,9 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        myCookBook = view.findViewById(R.id.imageButton);  //referencing cookbook icon button
+        myCategories = view.findViewById(R.id.addCategory); //referencing 'new categories' button
+
         // builds the recycler view
         recyclerView = view.findViewById(R.id.recycler_cookbook_view);
         glm = new GridLayoutManager(getContext(), 2);
@@ -86,9 +89,6 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
         adapter = new CategoryAdapter(createdCategories, getActivity(), this);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
-
-        myCookBook = view.findViewById(R.id.imageButton);  //referencing cookbook icon button
-        myCategories = view.findViewById(R.id.addCategory); //referencing 'new categories' button
 
         loadData();
 

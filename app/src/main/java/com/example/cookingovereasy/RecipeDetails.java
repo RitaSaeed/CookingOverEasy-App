@@ -100,13 +100,13 @@ public class RecipeDetails extends AppCompatActivity {
             textView_recipe_name.setText(response.title);
             Picasso.get().load(response.image).into(imageView_recipe_image);
 
-            recycler_recipe_ingredients.setHasFixedSize(true);
             recycler_recipe_ingredients.setLayoutManager(new
                     LinearLayoutManager(RecipeDetails.this,
                     LinearLayoutManager.VERTICAL, false));
             recipeIngredientsAdapter = new RecipeIngredientsAdapter(RecipeDetails.this,
                     response.extendedIngredients);
             recycler_recipe_ingredients.setAdapter(recipeIngredientsAdapter);
+            recycler_recipe_ingredients.setHasFixedSize(true);
         }
 
         @Override

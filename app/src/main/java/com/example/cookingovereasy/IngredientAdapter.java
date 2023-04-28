@@ -5,6 +5,7 @@ import static android.content.Context.MODE_PRIVATE;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.metrics.Event;
 import android.preference.PreferenceManager;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -30,9 +31,7 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
 
     Context context;
     ArrayList<Ingredient> ingredientArrayList;
-
-
-
+    EventListener listener;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
@@ -40,10 +39,10 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
      * Constructor for the ingredient adapter.
      * @param ingredientArrayList an Array List of ingredients that will be displayed.
      */
-    public IngredientAdapter(ArrayList<Ingredient> ingredientArrayList, Context context) {
+    public IngredientAdapter(ArrayList<Ingredient> ingredientArrayList, Context context, EventListener listener) {
         this.context = context;
         this.ingredientArrayList = ingredientArrayList;
-
+        this.listener = listener;
     }
 
     public int getItemViewType(int position){
@@ -164,10 +163,12 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
             }
         } else {
             for (int i = fromPosition; i > toPosition; i--) {
-                Collections.swap(ingredientArrayList, i, i - 1);
+                Collections.swap(ingredientArrayList, i, i - 1); // causing error
+                // index out of bounds index 3 size 0 when dragging third added item on new list
             }
         }
         notifyItemMoved(fromPosition, toPosition);
+        listener.onEvent();
     }
 
     /**
@@ -176,7 +177,14 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
      */
     @Override
     public void onRowSelected(RecyclerView.ViewHolder viewHolder) {
-        viewHolder.itemView.setBackgroundColor(Color.GRAY);
+        viewHolder.itemView.setBackgroundColor(Color.parseColor("#d9dedb"));
+
+//        if (viewHolder instanceof IngredientAdapter.ViewHolderOne) {
+//            viewHolder.itemView.setBackgroundColor(Color.parseColor("#d9dedb"));
+//        }
+//        else {
+//            viewHolder.itemView.setBackgroundColor(Color.parseColor("#ffc20e"));
+//        }
 
       //  viewHolder.rowView.setBackgroundColor(Color.GRAY);
     }
@@ -204,7 +212,7 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
     public static class ViewHolderOne extends RecyclerView.ViewHolder {
 
         TextView ingredientName;
-        protected CheckBox checkBox;
+        CheckBox checkBox;
         View rowView;
 
         //TextView groceryCategoryName;
@@ -213,7 +221,7 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
             super(itemView);
 
             rowView = itemView;
-            checkBox = (CheckBox) itemView.findViewById(R.id.checkBoxIngredient);
+            checkBox = itemView.findViewById(R.id.checkBoxIngredient);
             ingredientName = itemView.findViewById(R.id.ingredientName);
           //  groceryCategoryName = itemView.findViewById(R.id.groceryCategoryName);
 
@@ -234,6 +242,10 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
 
         }
 
+    }
+
+    public interface EventListener {
+        void onEvent();
     }
 
 }
