@@ -3,25 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="8dp"
+    android:layout_margin="8dp"
     android:background="@color/lightyellow"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:paddingTop="8dp">
+    android:foreground="?android:attr/selectableItemBackground">
 
     <TextView
         android:id="@+id/groceryCategoryName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="13dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:text="Protein"
         android:textColor="@color/black"
         android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.405" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

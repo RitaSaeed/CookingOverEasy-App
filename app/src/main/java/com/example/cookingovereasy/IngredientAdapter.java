@@ -177,7 +177,14 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
      */
     @Override
     public void onRowSelected(RecyclerView.ViewHolder viewHolder) {
-        viewHolder.itemView.setBackgroundColor(Color.GRAY);
+        viewHolder.itemView.setBackgroundColor(Color.parseColor("#d9dedb"));
+
+//        if (viewHolder instanceof IngredientAdapter.ViewHolderOne) {
+//            viewHolder.itemView.setBackgroundColor(Color.parseColor("#d9dedb"));
+//        }
+//        else {
+//            viewHolder.itemView.setBackgroundColor(Color.parseColor("#ffc20e"));
+//        }
 
       //  viewHolder.rowView.setBackgroundColor(Color.GRAY);
     }

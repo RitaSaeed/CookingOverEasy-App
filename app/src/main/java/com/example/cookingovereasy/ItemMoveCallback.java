@@ -93,7 +93,7 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-            if (viewHolder instanceof IngredientAdapter.ViewHolderOne) {
+            if (viewHolder instanceof RecyclerView.ViewHolder) {
                 RecyclerView.ViewHolder myViewHolder =
                         (RecyclerView.ViewHolder) viewHolder;
                 myAdapter.onRowSelected(myViewHolder);
