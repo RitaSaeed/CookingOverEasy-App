@@ -244,6 +244,15 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
 
+//        // code for getting the categories created in the CookBook
+//        String jsonCategory = sp.getString("Created Categories", null);
+//        Type typeCategory = new TypeToken<ArrayList<Category>>() {}.getType();
+//        cookbookCategories = gson.fromJson(jsonCategory, typeCategory);
+//
+//        if(cookbookCategories == null) {
+//            cookbookCategories = new ArrayList<>();
+//        }
+
     }
 
     /**

@@ -2,11 +2,15 @@ package com.example.cookingovereasy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.cookingovereasy.Models.SavedRecipe;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import java.util.ArrayList;
 
 /**
  * The main page of the app, holds the fragments and the navigation bar at the bottom.
@@ -19,6 +23,8 @@ public class HomePage extends AppCompatActivity {
     GroceryListFragment groceryListFragment = new GroceryListFragment();
     SearchFragment searchFragment = new SearchFragment();
     SettingsFragment settingsFragment = new SettingsFragment();
+    ArrayList<Category> categories;
+    SavedRecipe currentRecipe;
 
     /**
      * Does the bulk of the work for this page, initializes the xml page objects and sets
@@ -32,6 +38,8 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
+        categories = new ArrayList<>();
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         getSupportFragmentManager().beginTransaction()
@@ -82,6 +90,24 @@ public class HomePage extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    public void setCategories(ArrayList<Category> newCategories) {
+        categories = newCategories;
+    }
+
+    public ArrayList<Category> retrieveCategories() {
+        return this.categories;
+    }
+
+    public void addSavedRecipe(SavedRecipe recipe) {
+        currentRecipe = recipe;
+        cookBookFragment.addRecipeToCategory(currentRecipe);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 

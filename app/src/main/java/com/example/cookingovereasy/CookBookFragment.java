@@ -25,11 +25,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cookingovereasy.Models.SavedRecipe;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Holds the views/functionality for the cookbook fragment.
@@ -38,14 +42,10 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
 
     ImageView myCookBook; //declaring buttons
     Button myCategories;
-
     AlertDialog dialog;
-
-
-
-
     ArrayList<Category> createdCategories;
     EditText nameCategory;
+    Map<String, ArrayList<SavedRecipe>> categoryMap;
     private RecyclerView recyclerView;
     private CategoryAdapter adapter;
     private GridLayoutManager glm;
@@ -78,6 +78,8 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
      */
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        categoryMap = new HashMap<>();
 
         myCookBook = view.findViewById(R.id.imageButton);  //referencing cookbook icon button
         myCategories = view.findViewById(R.id.addCategory); //referencing 'new categories' button
@@ -141,13 +143,12 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
         TextView name = view.findViewById(R.id.categoryName);
         name.setText(categoryName);
 
-
-
-
-
         adapter.createdCategories.add(new Category(name.getText().toString()));
         adapter.notifyItemInserted(adapter.createdCategories.size());
         adapter.notifyDataSetChanged();
+
+        categoryMap.put(categoryName, new ArrayList<>());
+
         saveData();
     }
 
@@ -163,6 +164,9 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
         String json = gson.toJson(adapter.createdCategories);
         editor.putString("Created Categories", json);
         editor.apply();
+
+//        String categories = new Gson().toJson(adapter.createdCategories);
+        ((HomePage)getActivity()).setCategories(adapter.createdCategories);
     }
 
     /**
@@ -185,6 +189,10 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
         adapter.createdCategories.remove(item);
         adapter.notifyDataSetChanged();
         saveData();
+    }
+
+    public void addRecipeToCategory(SavedRecipe newRecipe) {
+        categoryMap.get(newRecipe.getCategory()).add(newRecipe);
     }
 }
 

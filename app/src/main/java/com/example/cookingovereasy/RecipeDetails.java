@@ -5,10 +5,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
@@ -18,8 +24,12 @@ import com.example.cookingovereasy.Models.Recipe;
 import com.example.cookingovereasy.Models.RecipeDetailsResponse;
 import com.example.cookingovereasy.listeners.InstructionsListener;
 import com.example.cookingovereasy.listeners.RecipeDetailsListener;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +45,7 @@ public class RecipeDetails extends AppCompatActivity {
     ProgressDialog dialog;
     RecipeIngredientsAdapter recipeIngredientsAdapter;
     InstructionsAdapter instructionsAdapter;
+    ArrayList<Category> categories;
 
     /**
      * Code that is done on creation of the activity.
@@ -58,12 +69,42 @@ public class RecipeDetails extends AppCompatActivity {
             }
         });
 
-        // on click listener for the favorite button, to be implemented
+        // capture category arraylist from sent intent
+        //categories = new ArrayList<>();
+        categories = (ArrayList<Category>) getIntent().getSerializableExtra("categories");
+        //categories = (ArrayList<Category>) getAr
+
+        // on click listener for the favorite button
         recipe_details_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(RecipeDetails.this, "Added to favorites",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(RecipeDetails.this, "Added to favorites",
+//                        Toast.LENGTH_SHORT).show();
+                //View view = findViewById(R.id.favorite_popup_menu);
+                PopupMenu p = new PopupMenu(RecipeDetails.this, v);
+                for (Category c : categories) {
+                    //p.getMenu().add(Menu.NONE, 1, Menu.NONE, c.getName());
+                    //Toast.makeText(RecipeDetails.this, "added " + c.getName(), Toast.LENGTH_SHORT).show();
+                    p.getMenu().add(c.getName());
+                }
+                p.show();
+                //p.getMenuInflater().inflate(R.menu.favorite_popup_menu, p.getMenu());
+                p.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(RecipeDetails.this,
+                                textView_recipe_name.getText() + " added to " + item.toString(),
+                                Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent();
+                        intent.putExtra("category", item.toString());
+                        intent.putExtra("id", id);
+                        intent.putExtra("name", textView_recipe_name.getText());
+                        setResult(RESULT_OK, intent);
+                        finish();
+                        return true;
+                    }
+                });
+                //p.inflate(R.menu.favorite_popup_menu);
             }
         });
 
