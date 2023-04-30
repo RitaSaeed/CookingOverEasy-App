@@ -18,8 +18,7 @@
             android:layout_margin="20dp"
             android:background="@drawable/roundcorner"
             android:scaleType="fitCenter"
-            android:src="@drawable/cookbookicon" 
-            android:visibility="gone"/>
+            android:src="@drawable/cookbookicon" />
 
         <Button
             android:id="@+id/addCategory"
@@ -29,8 +28,7 @@
             android:background="@color/lightyellow"
             android:onClick="onCreateCategoryButtonClicked"
             android:text="Create a Category"
-            android:textColor="@color/black" 
-            android:visibility="gone"/>
+            android:textColor="@color/black" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_cookbook_view"
@@ -39,20 +37,7 @@
             android:layout_gravity="center_horizontal"
             android:paddingTop="20dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2" 
-            android:visibility="gone"/>
-        <TextView
-            android:id="@+id/categoryNameHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Category Name"
-            android:textSize="27sp"
-            android:padding="8dp" />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/categoryItems"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/cookbook_recipe_item"/>
+            app:spanCount="2" />
     </LinearLayout>
 
 </FrameLayout>
