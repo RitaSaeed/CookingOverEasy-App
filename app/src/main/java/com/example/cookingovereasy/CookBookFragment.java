@@ -4,6 +4,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -189,6 +190,13 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
         adapter.createdCategories.remove(item);
         adapter.notifyDataSetChanged();
         saveData();
+    }
+
+    @Override
+    public void onCategoryClicked(String categoryName) {
+        startActivity(new Intent(getContext(), Subcategory.class)
+                    .putExtra("category", categoryName).putExtra("categoryItems",
+                        categoryMap.get(categoryName)));
     }
 
     public void addRecipeToCategory(SavedRecipe newRecipe) {

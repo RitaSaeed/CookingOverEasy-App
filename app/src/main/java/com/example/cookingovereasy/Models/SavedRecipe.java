@@ -1,6 +1,8 @@
 package com.example.cookingovereasy.Models;
 
-public class SavedRecipe {
+import java.io.Serializable;
+
+public class SavedRecipe implements Serializable {
     private String category;
     private String name;
     private int id;

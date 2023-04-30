@@ -1,6 +1,7 @@
 package com.example.cookingovereasy;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.cookingovereasy.Models.SavedRecipe;
+
 import java.util.ArrayList;
 
 /**
@@ -67,6 +71,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
             public void onClick(View view) {
                 Toast.makeText(context, currentItem.getName() + " clicked.",
                         Toast.LENGTH_SHORT).show();
+                listener.onCategoryClicked(currentItem.getName());
             }
         });
 
@@ -109,5 +114,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
     public interface EventListener {
         void onRemove(Category item);
+        void onCategoryClicked(String categoryName);
     }
 }

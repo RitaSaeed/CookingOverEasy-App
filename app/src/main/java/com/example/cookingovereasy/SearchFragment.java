@@ -214,8 +214,8 @@ public class SearchFragment extends Fragment {
             intent.putExtra("id", id);
             intent.putExtra("categories", cookbookCategories);
             startActivityForResult(intent, 1);
-            startActivity(new Intent(getContext(), RecipeDetails.class)
-                    .putExtra("id", id).putExtra("categories", cookbookCategories));
+//            startActivity(new Intent(getContext(), RecipeDetails.class)
+//                    .putExtra("id", id).putExtra("categories", cookbookCategories));
         }
     };
 
