@@ -9,12 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/backgroundYellow">
+        android:background="@color/white">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/lightyellow">
+            <ImageView
+                android:id="@+id/backToCategories"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:src="@drawable/baseline_arrow_back_24" />
             <TextView
                 android:id="@+id/categoryNameHeader"
                 android:layout_width="wrap_content"
@@ -24,12 +30,6 @@
                 android:textSize="27sp"
                 android:textColor="@color/black"
                 android:padding="8dp" />
-            <ImageView
-                android:id="@+id/backToCategories"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:padding="5dp"
-                android:src="@drawable/baseline_arrow_back_24" />
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categoryItems"

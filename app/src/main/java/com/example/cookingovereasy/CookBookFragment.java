@@ -194,9 +194,12 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
 
     @Override
     public void onCategoryClicked(String categoryName) {
+        System.out.println(categoryName + "IM HEREEEEEEEEEEEEEEEEEEEEEEEEE");
+        ArrayList<SavedRecipe> categoryItems = categoryMap.get(categoryName); // categoryItems is null rn
+        System.out.println("FIRST ITEM IN BREAKFAST" + categoryItems.get(1).getName());
         startActivity(new Intent(getContext(), Subcategory.class)
-                    .putExtra("category", categoryName).putExtra("categoryItems",
-                        categoryMap.get(categoryName)));
+                    .putExtra("category", categoryName)
+                    .putExtra("categoryItems", categoryItems));
     }
 
     public void addRecipeToCategory(SavedRecipe newRecipe) {

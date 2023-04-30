@@ -70,25 +70,17 @@ public class RecipeDetails extends AppCompatActivity {
         });
 
         // capture category arraylist from sent intent
-        //categories = new ArrayList<>();
         categories = (ArrayList<Category>) getIntent().getSerializableExtra("categories");
-        //categories = (ArrayList<Category>) getAr
 
         // on click listener for the favorite button
         recipe_details_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(RecipeDetails.this, "Added to favorites",
-//                        Toast.LENGTH_SHORT).show();
-                //View view = findViewById(R.id.favorite_popup_menu);
                 PopupMenu p = new PopupMenu(RecipeDetails.this, v);
                 for (Category c : categories) {
-                    //p.getMenu().add(Menu.NONE, 1, Menu.NONE, c.getName());
-                    //Toast.makeText(RecipeDetails.this, "added " + c.getName(), Toast.LENGTH_SHORT).show();
                     p.getMenu().add(c.getName());
                 }
                 p.show();
-                //p.getMenuInflater().inflate(R.menu.favorite_popup_menu, p.getMenu());
                 p.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -104,7 +96,6 @@ public class RecipeDetails extends AppCompatActivity {
                         return true;
                     }
                 });
-                //p.inflate(R.menu.favorite_popup_menu);
             }
         });
 

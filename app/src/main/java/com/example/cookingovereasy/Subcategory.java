@@ -1,6 +1,7 @@
 package com.example.cookingovereasy;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Build;
@@ -19,6 +20,7 @@ public class Subcategory extends AppCompatActivity {
     ImageView backToCategories;
     RecyclerView categoryItems;
     ArrayList<SavedRecipe> recipes;
+    SavedRecipesAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,13 @@ public class Subcategory extends AppCompatActivity {
                 finish();
             }
         });
+
+        categoryItems.setLayoutManager(new LinearLayoutManager(Subcategory.this,
+                LinearLayoutManager.VERTICAL, false));
+        adapter = new SavedRecipesAdapter(Subcategory.this, recipes);
+        categoryItems.setAdapter(adapter);
+        categoryItems.setHasFixedSize(true);
+
     }
 
     private void getViews() {
