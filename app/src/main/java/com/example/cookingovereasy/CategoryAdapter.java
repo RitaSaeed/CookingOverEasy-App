@@ -1,14 +1,19 @@
 package com.example.cookingovereasy;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.cookingovereasy.Models.SavedRecipe;
+
 import java.util.ArrayList;
 
 /**
@@ -19,6 +24,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     Context context;
     ArrayList<Category> createdCategories;
 
+    EventListener listener;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
@@ -27,9 +33,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
      * @param createdCategories arraylist of categories
      * @param context current context
      */
-    public CategoryAdapter(ArrayList<Category> createdCategories, Context context) {
+    public CategoryAdapter(ArrayList<Category> createdCategories, Context context, EventListener listener) {
         this.context = context;
         this.createdCategories = createdCategories;
+        this.listener = listener;
     }
 
     /**
@@ -62,8 +69,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         holder.rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, currentItem.getName() + " clicked.",
-                        Toast.LENGTH_SHORT).show();
+                listener.onCategoryClicked(currentItem.getName());
+            }
+        });
+
+        holder.remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onRemove(currentItem);
             }
         });
     }
@@ -85,12 +98,20 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         TextView categoryName;
         View rowView;
 
+        ImageView remove;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             rowView = itemView;
             categoryName = itemView.findViewById(R.id.categoryName);
+            remove = itemView.findViewById(R.id.removecategory);
 
         }
+    }
+
+    public interface EventListener {
+        void onRemove(Category item);
+        void onCategoryClicked(String categoryName);
     }
 }

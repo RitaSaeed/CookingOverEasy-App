@@ -1,9 +1,11 @@
 package com.example.cookingovereasy;
 
+import java.io.Serializable;
+
 /**
  * Represents a category in the grocery list.
  */
-public class Category {
+public class Category implements Serializable {
     String name;
 
     /**

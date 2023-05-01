@@ -1,14 +1,19 @@
 package com.example.cookingovereasy;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,9 +30,13 @@ import android.widget.Toast;
 
 import com.example.cookingovereasy.Models.RandomRecipeApiResponse;
 import com.example.cookingovereasy.Models.Recipe;
+import com.example.cookingovereasy.Models.SavedRecipe;
 import com.example.cookingovereasy.listeners.RandomRecipeResponseListener;
 import com.example.cookingovereasy.listeners.RecipeClickListener;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,12 +46,9 @@ import java.util.List;
 public class SearchFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ArrayList<Food> foodArrayList;
+    private ArrayList<Category> cookbookCategories;
     private List<Recipe> recipeList;
-    private String[] foodHeading;
-    private int[] imageResourceID;
     private SearchView searchView;
-    private SearchAdapter adapter;
     RequestManager manager;
     RandomRecipeAdapter randomRecipeAdapter;
     ProgressDialog dialog;
@@ -84,6 +90,8 @@ public class SearchFragment extends Fragment {
         // new stuff
         dialog = new ProgressDialog(getActivity()); // might need to be getActivity
         dialog.setTitle("Loading...");
+
+        loadData();
 
         manager = new RequestManager(getActivity()); // might need to be getActivity
         listenerView = view;
@@ -203,53 +211,40 @@ public class SearchFragment extends Fragment {
         @Override
         public void onRecipeClicked(String id) {
             //Toast.makeText(getContext(), id, Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getContext(), RecipeDetails.class)
-                    .putExtra("id", id));
+            Intent intent = new Intent(getContext(), RecipeDetails.class);
+            intent.putExtra("id", id);
+            intent.putExtra("categories", cookbookCategories);
+            startActivityForResult(intent, 1);
+//            startActivity(new Intent(getContext(), RecipeDetails.class)
+//                    .putExtra("id", id).putExtra("categories", cookbookCategories));
         }
     };
 
-    /**
-     * Adds initial test data to the recipe search recyclerview. This will eventually be
-     * completely refactored to host the contents of the data returned from the API query.
-     */
-    private void dataInitialize() {
-
-        foodArrayList = new ArrayList<>();
-        foodHeading = new String[] {
-                getString(R.string.head_1),
-                getString(R.string.head_2),
-                getString(R.string.head_3),
-                getString(R.string.head_4),
-                getString(R.string.head_5),
-                getString(R.string.head_6),
-                getString(R.string.head_7),
-                getString(R.string.head_8),
-                getString(R.string.head_9),
-                getString(R.string.head_10),
-                getString(R.string.head_11),
-                getString(R.string.head_12)
-
-        };
-
-        imageResourceID = new int[]{
-                R.drawable.a,
-                R.drawable.b,
-                R.drawable.c,
-                R.drawable.d,
-                R.drawable.e,
-                R.drawable.f,
-                R.drawable.g,
-                R.drawable.h,
-                R.drawable.i,
-                R.drawable.j,
-                R.drawable.k,
-                R.drawable.l
-
-        };
-
-        for (int i = 0; i < foodHeading.length; i++) {
-            Food food = new Food(foodHeading[i], imageResourceID[i]);
-            foodArrayList.add(food);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == 1) {
+            String category = data.getStringExtra("category");
+            String name = data.getStringExtra("name");
+            int id = data.getIntExtra("id", 0);
+            ((HomePage)getActivity()).addSavedRecipe(new SavedRecipe(category, name, id));
         }
+    }
+
+    private void loadData(){
+//        SharedPreferences sp = getContext().getSharedPreferences("shared preferences", MODE_PRIVATE);
+//        Gson gson = new Gson();
+//
+//        // code for getting the categories created in the CookBook
+//        String jsonCategory = sp.getString("Created Categories", null);
+//        Type typeCategory = new TypeToken<ArrayList<Category>>() {}.getType();
+//        cookbookCategories = gson.fromJson(jsonCategory, typeCategory);
+        cookbookCategories = ((HomePage)getActivity()).retrieveCategories();
+//        cookbookCategories = (ArrayList<Category>) getArguments().getSerializable("key");
+
+    }
+
+    public void passFavorite(String recipeID, String recipeName, String category) {
+
     }
 }
