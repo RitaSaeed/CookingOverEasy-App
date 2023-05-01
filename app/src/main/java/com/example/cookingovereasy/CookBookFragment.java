@@ -101,8 +101,8 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
                                                                     // cookbook button is clicked
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity().getApplicationContext(),
-                        "Welcome to your CookBook!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), CookbookSubcategoryActivity.class)
+                        .putExtra("myRecipes", ((HomePage)getActivity()).getCustomRecipes()));
             }
         });
 

@@ -1,16 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateRecipeFragment">
+    android:padding="10dp"
+    android:layout_gravity="center_horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Coming Soon!"
-        android:textSize="25dp"
-        android:layout_gravity="center"
-        android:layout_centerInParent="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/recipeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Recipe Tilte: "
+            android:textSize="25dp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="4dp" />
 
-</FrameLayout>
+        <EditText
+            android:id="@+id/editRecipeTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Recipe Title"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="13dp"
+            tools:layout_editor_absoluteY="44dp" />
+
+        <TextView
+            android:id="@+id/ingredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingredients: "
+            android:textSize="25dp"
+            tools:layout_editor_absoluteX="9dp"
+            tools:layout_editor_absoluteY="107dp"
+            tools:ignore="MissingConstraints" />
+
+
+        <Button
+            android:id="@+id/addIngredient"
+            android:layout_width="165dp"
+            android:layout_height="50dp"
+            android:text="Add ingredient"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="212dp"
+            tools:layout_editor_absoluteY="101dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ingredient_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="151dp"
+            android:padding="10dp"
+            tools:listitem="@layout/my_recipe_user_input_item"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:background="@color/white"
+            tools:layout_editor_absoluteX="3dp"
+            tools:layout_editor_absoluteY="355dp"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/instructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Instructions: "
+            android:textSize="25dp"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_editor_absoluteY="365dp"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/addInstruction"
+            android:layout_width="165dp"
+            android:layout_height="50dp"
+            android:text="Add step"
+            tools:layout_editor_absoluteX="202dp"
+            tools:layout_editor_absoluteY="355dp"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/instruction_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="-16dp"
+            tools:layout_editor_absoluteY="409dp"
+            android:padding="10dp"
+
+            tools:listitem="@layout/my_recipe_user_input_item"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/saveRecipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Recipe"
+            tools:layout_editor_absoluteX="151dp"
+            tools:layout_editor_absoluteY="637dp"
+            tools:ignore="MissingConstraints"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

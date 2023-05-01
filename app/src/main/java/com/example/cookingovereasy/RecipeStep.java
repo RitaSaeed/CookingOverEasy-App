@@ -2,18 +2,14 @@ package com.example.cookingovereasy;
 
 import java.io.Serializable;
 
-/**
- * Represents an ingredient in the grocery list.
- */
-public class Ingredient implements Serializable {
+public class RecipeStep implements Serializable {
     String name;
-    boolean isSelected;
 
     /**
      * Creates an instance of the ingredient with a name.
      * @param name
      */
-    public Ingredient(String name) {
+    public RecipeStep(String name) {
         this.name = name;
     }
 
@@ -31,21 +27,5 @@ public class Ingredient implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Checks whether an ingredient is selected or not.
-     * @return true if selected, false otherwise
-     */
-    public boolean getSelected() {
-        return isSelected;
-    }
-
-    /**
-     * Changes the state of the ingredient to the input state.
-     * @param selected new state of ingredient
-     */
-    public void setSelected(boolean selected) {
-        isSelected = selected;
     }
 }
