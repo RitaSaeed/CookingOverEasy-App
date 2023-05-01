@@ -110,7 +110,6 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
             @Override
             public void onClick(View view) {
                 dialog.show();
-                //Toast.makeText(getActivity().getApplicationContext(), "Create a Category!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -150,7 +149,6 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
         adapter.notifyItemInserted(adapter.createdCategories.size());
         adapter.notifyDataSetChanged();
 
-        //categoryMap.put(categoryName, new ArrayList<>());
         ((HomePage)getActivity()).addMapCategory(categoryName);
         saveData();
     }
@@ -170,7 +168,6 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
         editor.putString("ListCategories", json);
         editor.apply();
 
-//        String categories = new Gson().toJson(adapter.createdCategories);
         ((HomePage)getActivity()).setCategories(adapter.createdCategories);
         ((HomePage)getActivity()).saveData();
     }
@@ -201,10 +198,8 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
 
     @Override
     public void onCategoryClicked(String categoryName) {
-        System.out.println(categoryName + "IM HEREEEEEEEEEEEEEEEEEEEEEEEEE");
         ArrayList<SavedRecipe> categoryItems =
-                ((HomePage)getActivity()).retrieveCategoryItems(categoryName); // categoryItems is null rn
-        //System.out.println("FIRST ITEM IN BREAKFAST" + categoryItems.get(1).getName());
+                ((HomePage)getActivity()).retrieveCategoryItems(categoryName);
         startActivity(new Intent(getContext(), Subcategory.class)
                     .putExtra("category", categoryName)
                     .putExtra("categoryItems", categoryItems));

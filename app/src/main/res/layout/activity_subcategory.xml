@@ -29,7 +29,9 @@
                 android:text="Category Name"
                 android:textSize="27sp"
                 android:textColor="@color/black"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:fontFamily="@font/playfair"
+                android:textStyle="bold"/>
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categoryItems"

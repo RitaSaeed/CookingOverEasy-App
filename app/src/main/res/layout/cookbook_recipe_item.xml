@@ -15,6 +15,7 @@
         android:text="@string/head_1"
         android:textSize="16dp"
         android:textStyle="bold"
+        android:fontFamily="@font/playfair"
         android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

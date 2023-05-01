@@ -109,10 +109,8 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void addSavedRecipe(SavedRecipe recipe) {
-        //currentRecipe = recipe;
         categoryMap.get(recipe.getCategory()).add(recipe);
         saveData();
-        //cookBookFragment.addRecipeToCategory(currentRecipe);
     }
 
     @Override
