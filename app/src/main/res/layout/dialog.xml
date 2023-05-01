@@ -14,7 +14,7 @@
             android:id="@+id/editName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Category Name"
+            android:hint="Enter Text Here"
             android:textSize="20dp"/>
 
 

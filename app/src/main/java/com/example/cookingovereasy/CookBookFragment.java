@@ -79,7 +79,7 @@ public class CookBookFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         adapter = new CategoryAdapter(createdCategories, getActivity());
         recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
 
         myCookBook = view.findViewById(R.id.imageButton);  //referencing cookbook icon button
         myCategories = view.findViewById(R.id.addCategory); //referencing 'new categories' button
