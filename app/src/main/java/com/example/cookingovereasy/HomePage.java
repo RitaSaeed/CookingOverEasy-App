@@ -32,6 +32,7 @@ public class HomePage extends AppCompatActivity {
     ArrayList<Category> categories;
     SavedRecipe currentRecipe;
     Map<String, ArrayList<SavedRecipe>> categoryMap;
+    ArrayList<MyRecipe> myCreatedRecipes;
 
     /**
      * Does the bulk of the work for this page, initializes the xml page objects and sets
@@ -47,6 +48,7 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
 
         categories = new ArrayList<>();
+        myCreatedRecipes = new ArrayList<>();
         loadData();
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -126,12 +128,24 @@ public class HomePage extends AppCompatActivity {
         return categoryMap.get(categoryName);
     }
 
+    public void addCustomRecipe(MyRecipe recipe) {
+        myCreatedRecipes.add(recipe);
+        saveData();
+    }
+
+    public ArrayList<MyRecipe> getCustomRecipes() {
+        return myCreatedRecipes;
+    }
+
+
     public void saveData(){
         SharedPreferences sp = getSharedPreferences("preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor= sp.edit();
         Gson gson = new Gson();
         String json = gson.toJson(categoryMap);
         editor.putString("ListCategories", json);
+        json = gson.toJson(myCreatedRecipes);
+        editor.putString("CreatedRecipes", json);
         editor.apply();
     }
 
@@ -144,6 +158,14 @@ public class HomePage extends AppCompatActivity {
 
         if (categoryMap == null) {
             categoryMap = new HashMap<>();
+        }
+
+        String jsonCustom = sp.getString("CreatedRecipes", null);
+        Type customType = new TypeToken<ArrayList<MyRecipe>>() {}.getType();
+        myCreatedRecipes = gson.fromJson(jsonCustom, customType);
+
+        if (myCreatedRecipes == null) {
+            myCreatedRecipes = new ArrayList<>();
         }
     }
 

@@ -124,16 +124,28 @@ public class CreateRecipeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String recipeTitle = titleText.getText().toString();
-                myRecipes.add(new MyRecipe(recipeTitle,
-                        myIngredientAdapter.ingredientArrayList, recipeStepAdapter.stepArrayList));
+                ArrayList<Ingredient> tempIngredients = myIngredientAdapter.ingredientArrayList;
+                ArrayList<RecipeStep> tempRecipeSteps = recipeStepAdapter.stepArrayList;
+                MyRecipe recipe = new MyRecipe(recipeTitle,
+                        tempIngredients, tempRecipeSteps);
+                myRecipes.add(recipe);
+
                 Toast.makeText(getActivity().getApplicationContext(),
                         "Recipe Saved!", Toast.LENGTH_SHORT).show();
+                ((HomePage)getActivity()).addCustomRecipe(recipe);
+                clearFields();
 
             }
         });
 
+    }
 
-
+    private void clearFields() {
+        titleText.setText("");
+//        myIngredients.removeAll(myIngredients);
+//        myIngredientAdapter.notifyDataSetChanged();
+//        mySteps.removeAll(recipeStepAdapter.stepArrayList);
+//        recipeStepAdapter.notifyDataSetChanged();
     }
 
     private void createIngredientDialog() {
@@ -160,7 +172,7 @@ public class CreateRecipeFragment extends Fragment {
 
     private void addIngredient(String dialogEditText) {
         View view = getLayoutInflater().inflate(R.layout.my_recipe_user_input_item, null);
-        TextView name = view.findViewById(R.id.stepText);
+        TextView name = view.findViewById(R.id.myRecipeName);
         name.setText(dialogEditText);
         myIngredients.add(new Ingredient(name.getText().toString()));
         myIngredientAdapter.notifyItemInserted(myIngredients.size());
@@ -192,7 +204,7 @@ public class CreateRecipeFragment extends Fragment {
 
     private void addInstruction(String dialogEditText) {
         View view = getLayoutInflater().inflate(R.layout.my_recipe_user_input_item, null);
-        TextView name = view.findViewById(R.id.stepText);
+        TextView name = view.findViewById(R.id.myRecipeName);
         name.setText(dialogEditText);
         recipeStepAdapter.stepArrayList.add(new RecipeStep(name.getText().toString()));
         recipeStepAdapter.notifyItemInserted(recipeStepAdapter.stepArrayList.size());

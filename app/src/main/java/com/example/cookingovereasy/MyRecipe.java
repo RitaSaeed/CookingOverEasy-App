@@ -1,8 +1,9 @@
 package com.example.cookingovereasy;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MyRecipe {
+public class MyRecipe implements Serializable {
 
     String title;
     ArrayList<Ingredient> myIngredients;

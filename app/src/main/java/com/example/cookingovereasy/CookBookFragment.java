@@ -81,7 +81,7 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
      */
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        
+
         categoryMap = new HashMap<>();
 
         myCookBook = view.findViewById(R.id.imageButton);  //referencing cookbook icon button
@@ -100,8 +100,8 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
         myCookBook.setOnClickListener(new View.OnClickListener() {  //adding a response when cookbook button is clicked
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity().getApplicationContext(),
-                        "Welcome to your CookBook!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), CookbookSubcategoryActivity.class)
+                        .putExtra("myRecipes", ((HomePage)getActivity()).getCustomRecipes()));
             }
         });
 

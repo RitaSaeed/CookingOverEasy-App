@@ -1,6 +1,8 @@
 package com.example.cookingovereasy;
 
-public class RecipeStep {
+import java.io.Serializable;
+
+public class RecipeStep implements Serializable {
     String name;
 
     /**

@@ -60,7 +60,7 @@ public class RecipeStepAdapter extends RecyclerView.Adapter<RecipeStepAdapter.My
             super(itemView);
 
             rowView = itemView;
-            stepText = itemView.findViewById(R.id.stepText);
+            stepText = itemView.findViewById(R.id.myRecipeName);
 
         }
     }

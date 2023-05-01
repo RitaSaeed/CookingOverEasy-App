@@ -65,7 +65,7 @@ public class MyIngredientAdapter extends RecyclerView.Adapter<MyIngredientAdapte
             super(itemView);
 
             rowView = itemView;
-            ingredientName = itemView.findViewById(R.id.stepText); // might have to rename stepText
+            ingredientName = itemView.findViewById(R.id.myRecipeName); // might have to rename stepText
 
         }
     }
