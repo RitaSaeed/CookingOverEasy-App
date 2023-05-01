@@ -113,17 +113,10 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
             recyclerView.setVisibility(View.VISIBLE);
         });
 
-
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new IngredientAdapter(ingredientArrayList, getActivity(), this);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
-
-
-
-
-        // used in process that allows user to drag and drop the grocery list item
 
         try {
             prepArray();
@@ -162,21 +155,14 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
                                 saveData();
                                 return true;
                             case R.id.rmAll:
-                                ArrayList<Ingredient> removeThese = new ArrayList<>();
                                 for (int i = 0; i < adapter.ingredientArrayList.size(); i++) {
-                                    if (recyclerView.findViewHolderForAdapterPosition(i) instanceof IngredientAdapter.ViewHolderOne) {
-                                        removeThese.add(adapter.ingredientArrayList.get(i));
+                                    if (recyclerView.findViewHolderForAdapterPosition(i)
+                                        instanceof IngredientAdapter.ViewHolderOne) {
+                                        adapter.ingredientArrayList.remove(i);
+                                        adapter.notifyItemRemoved(i);
+                                        i--;
                                     }
                                 }
-
-                                int indexTwo = 0;
-                                for (Ingredient i : removeThese) {
-                                    adapter.ingredientArrayList.remove(i);
-                                    adapter.notifyItemRemoved(indexTwo);
-                                    indexTwo++;
-                                }
-//                                adapter.ingredientArrayList.removeAll(adapter.ingredientArrayList);
-                                adapter.notifyDataSetChanged();
                                 saveData();
                                 return true;
                             case R.id.uncheckAll:
@@ -244,15 +230,6 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
 
-//        // code for getting the categories created in the CookBook
-//        String jsonCategory = sp.getString("Created Categories", null);
-//        Type typeCategory = new TypeToken<ArrayList<Category>>() {}.getType();
-//        cookbookCategories = gson.fromJson(jsonCategory, typeCategory);
-//
-//        if(cookbookCategories == null) {
-//            cookbookCategories = new ArrayList<>();
-//        }
-
     }
 
     /**
@@ -268,7 +245,7 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
         }
 
         if (filteredList.isEmpty()) {
-//            Toast.makeText(getContext(), "Ingredient not found", Toast.LENGTH_SHORT).show();
+            // removed toast message as it was flashing
         } else {
             searchIngredientAdapter.setFilteredList(filteredList);
         }
@@ -280,35 +257,14 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
      */
     private void dataInitialize() {
 
-        // code below is to initialize grocery list with following string array values
-//        ingredientArrayList = new ArrayList<>();
-//        ingredientName = new String[] {
-//                "Eggs", "Milk", "Chicken", "Steak", "Carrots", "Apples", "Broccoli", "Mushrooms",
-//                "Olive Oil", "Sugar", "Flour", "Paprika", "Italian Seasoning", "Bread Crumbs",
-//                "Salt", "PasV}
-
-        //    for (int i = 0; i < ingredientName.length; i++) {
-//            Ingredient ingredient = new Ingredient(ingredientName[i]);
-//            ingredientArrayList.add(ingredient);
-//        }
-
-        // code below is used to add all items from csv
-//        for (String s : ingredientEntries) {
-//            ingredientArrayList.add(new Ingredient((s)));
-//        }
-        categoryNames = new String[]{"Protein", "Bread and Grains", "Dairy", "Vegetables", "Fruit", "Misc"};
+        categoryNames = new String[]{"Protein", "Bread and Grains",
+                "Dairy", "Vegetables", "Fruit", "Misc"};
         for(String s : categoryNames){
             Ingredient ingredient = new Ingredient(s);
             ingredientArrayList.add(ingredient);
         }
 
         adapter = new IngredientAdapter(ingredientArrayList, getActivity(), this);
-
-
-        //ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
-        //ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        //touchHelper.attachToRecyclerView(recyclerView);
-
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         recyclerView.setVisibility(View.VISIBLE);
@@ -343,7 +299,6 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
         Toast.makeText(getActivity(), "Added " + newIngredient, Toast.LENGTH_SHORT).show();
         adapter.ingredientArrayList.add(new Ingredient(newIngredient));
         adapter.notifyItemInserted(adapter.getItemCount());
-        //adapter.notifyDataSetChanged();
         searchIngredients.setVisibility(View.GONE);
         ingredientRecyclerView.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);

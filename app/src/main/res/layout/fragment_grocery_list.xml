@@ -79,7 +79,6 @@
             android:id="@+id/recycler_view_searchIngredient"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="10dp"
             tools:listitem="@layout/list_ingredient_search"
             android:visibility="gone"
             />
