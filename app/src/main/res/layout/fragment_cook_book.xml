@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundYellow"
+    android:background="#d9dedb"
     tools:context=".CookBookFragment">
 
     <LinearLayout
@@ -28,9 +28,9 @@
                     android:layout_height="150dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:background="@drawable/roundcorner"
+                    android:background="@drawable/roundcorneryellow"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/cookbookicon"
+                    android:src="@drawable/cookbookiconblue"
                     android:contentDescription="Red cookbook with yellow chef hat."/>
                 <TextView
                     android:layout_width="wrap_content"
