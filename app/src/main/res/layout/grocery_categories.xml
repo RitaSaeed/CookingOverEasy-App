@@ -17,7 +17,7 @@
         android:text="Protein"
         android:textColor="@color/black"
         android:textSize="25dp"
-        android:fontFamily="@font/montserrat"
+        android:fontFamily="@font/playfair"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

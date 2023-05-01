@@ -26,8 +26,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/searchTitle"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/playfair"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/spinnerSearch"
                 app:layout_constraintStart_toStartOf="parent"
@@ -51,10 +52,10 @@
             android:id="@+id/searchViewSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:background="@drawable/search_view_bg"
             android:iconifiedByDefault="false"
             android:queryHint="Search here ..."
-            android:backgroundTint="@color/backgroundYellow"
             android:layout_gravity="center_horizontal" />
 
         <androidx.recyclerview.widget.RecyclerView
