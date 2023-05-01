@@ -39,7 +39,7 @@ public class RequestManager {
      */
     public void getRandomRecipes(RandomRecipeResponseListener listener, List<String> tags) {
         CallRandomRecipes callRandomRecipes = retrofit.create(CallRandomRecipes.class);
-        Call<RandomRecipeApiResponse> call = callRandomRecipes.callRandomRecipe(context.getString(R.string.spoonKey), "10", tags);
+        Call<RandomRecipeApiResponse> call = callRandomRecipes.callRandomRecipe(context.getString(R.string.spoonKey), "20", tags);
         call.enqueue(new Callback<RandomRecipeApiResponse>() {
             @Override
             public void onResponse(Call<RandomRecipeApiResponse> call, Response<RandomRecipeApiResponse> response) {
@@ -60,7 +60,7 @@ public class RequestManager {
     public void getIngredients(IngredientResponseListener listener, boolean includeChildren, String query) {
         //CallRandomRecipes callRandomRecipes = retrofit.create(CallRandomRecipes.class);
         CallIngredients callIngredients = retrofit.create(CallIngredients.class);
-        Call<IngredientResponse> call = callIngredients.callIngredient(context.getString(R.string.spoonKey), "10", query, includeChildren);
+        Call<IngredientResponse> call = callIngredients.callIngredient(context.getString(R.string.spoonKey), "20", query, includeChildren);
         call.enqueue(new Callback<IngredientResponse>() {
             @Override
             public void onResponse(Call<IngredientResponse> call, Response<IngredientResponse> response) {
