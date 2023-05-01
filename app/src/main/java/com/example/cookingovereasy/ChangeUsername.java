@@ -19,6 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Class that will allow the user to change their username.
+ */
 public class ChangeUsername extends AppCompatActivity {
 
     EditText editUsername;
@@ -30,11 +33,20 @@ public class ChangeUsername extends AppCompatActivity {
     /* onCreate: sets up change username activity and creates on click listeners for the update
     and back button */
 
+    /**
+     * OnCreate for the view to change username.
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.
+     *                           </i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_username);
 
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_change_username);
         editUsername = findViewById(R.id.newUsername);
         update = findViewById(R.id.updateBtn);
         back = findViewById(R.id.backBtn);

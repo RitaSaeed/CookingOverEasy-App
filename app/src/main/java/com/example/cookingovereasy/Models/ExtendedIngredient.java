@@ -2,6 +2,9 @@ package com.example.cookingovereasy.Models;
 
 import java.util.ArrayList;
 
+/**
+ * Extended information regarding ingredients in a recipe on the API.
+ */
 public class ExtendedIngredient {
     public int id;
     public String aisle;

@@ -30,6 +30,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
      * @param foodArrayList
      */
     public SearchAdapter(Context context, ArrayList<Food> foodArrayList) {
+
         this.context = context;
         this.foodArrayList = foodArrayList;
     }
@@ -39,6 +40,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
      * @param filteredList
      */
     public void setFilteredList(List<Food> filteredList) {
+
         this.foodArrayList = filteredList;
         notifyDataSetChanged();
     }
@@ -55,7 +57,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
     @Override
     public SearchAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(context).inflate(R.layout.search_item, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.search_item, parent,
+                false);
 
         return new MyViewHolder(v);
     }
@@ -94,6 +97,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
         CardView cardView;
 
         public MyViewHolder(@NonNull View itemView) {
+
             super(itemView);
 
             cardView = itemView.findViewById(R.id.recycler_view_search);

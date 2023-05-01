@@ -36,6 +36,7 @@ import java.util.List;
  * Page that shows an individual recipe's title, picture, ingredients, and steps.
  */
 public class RecipeDetails extends AppCompatActivity {
+
     int id;
     TextView textView_recipe_name, textView_recipe_source, textView_recipe_summary;
     ImageView imageView_recipe_image;
@@ -51,16 +52,17 @@ public class RecipeDetails extends AppCompatActivity {
      * Code that is done on creation of the activity.
      * @param savedInstanceState If the activity is being re-initialized after
      *     previously being shut down then this Bundle contains the data it most
-     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.
+     *                           </i></b>
      *
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_recipe_details);
-
         findViews();
-
         // on click listener for the back button, goes back to search fragment
         recipe_details_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,10 +70,8 @@ public class RecipeDetails extends AppCompatActivity {
                 finish();
             }
         });
-
         // capture category arraylist from sent intent
         categories = (ArrayList<Category>) getIntent().getSerializableExtra("categories");
-
         // on click listener for the favorite button
         recipe_details_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +114,7 @@ public class RecipeDetails extends AppCompatActivity {
      * Establishes the views from the corresponding xml file.
      */
     private void findViews() {
+
         textView_recipe_name = findViewById(R.id.textView_recipe_name);
         imageView_recipe_image = findViewById(R.id.imageView_recipe_image);
         recycler_recipe_ingredients = findViewById(R.id.recycler_recipe_ingredients);
@@ -126,6 +127,7 @@ public class RecipeDetails extends AppCompatActivity {
      * Listener for the recipe title, image, and ingredients.
      */
     private final RecipeDetailsListener listener = new RecipeDetailsListener() {
+
         @Override
         public void didFetch(RecipeDetailsResponse response, String message) {
             dialog.dismiss();
@@ -151,6 +153,7 @@ public class RecipeDetails extends AppCompatActivity {
      * Listener for the analyzed instructions of the recipe.
      */
     private final InstructionsListener instructionsListener = new InstructionsListener() {
+
         @Override
         public void didFetch(List<InstructionsResponse> response, String message) {
             recycler_recipe_instructions.setHasFixedSize(true);

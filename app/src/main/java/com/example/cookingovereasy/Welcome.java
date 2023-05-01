@@ -9,23 +9,22 @@ import android.view.View;
 
 public class Welcome extends AppCompatActivity {
 
-    //BlurLayout blurLayout;
-
     /**
      * On create gets the preferences as well as determines whether this is the first time the user
      * has installed the application.
      *
      * @param savedInstanceState If the activity is being re-initialized after
      *     previously being shut down then this Bundle contains the data it most
-     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.
+     *                           </i></b>
      *
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
-        //blurLayout = findViewById(R.id.blurLayoutWelcome);
 
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_welcome);
         SharedPreferences preferences = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
         String firstTime = preferences.getString("FirstTimeInstall", "");
 
@@ -46,6 +45,7 @@ public class Welcome extends AppCompatActivity {
      * @param v the view object to be referenced
      */
     public void openLogin(View v){
+
         Intent i = new Intent(this, Login.class);
         startActivity(i);
         overridePendingTransition(R.anim.slide_right, R.anim.slide_out_left);
@@ -57,7 +57,6 @@ public class Welcome extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //blurLayout.startBlur();
     }
 
     /**
@@ -65,7 +64,6 @@ public class Welcome extends AppCompatActivity {
      */
     @Override
     protected void onStop() {
-        //blurLayout.pauseBlur();
         super.onStop();
     }
 }

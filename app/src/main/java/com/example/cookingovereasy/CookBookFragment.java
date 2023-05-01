@@ -69,7 +69,8 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_cook_book, container, false);  // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_cook_book, container, false);
+        // Inflate the layout for this fragment
         return view;
     }
 
@@ -80,13 +81,12 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
      * from a previous saved state as given here.
      */
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
 
         categoryMap = new HashMap<>();
-
         myCookBook = view.findViewById(R.id.imageButton);  //referencing cookbook icon button
         myCategories = view.findViewById(R.id.addCategory); //referencing 'new categories' button
-
         // builds the recycler view
         recyclerView = view.findViewById(R.id.recycler_cookbook_view);
         glm = new GridLayoutManager(getContext(), 2);
@@ -97,7 +97,8 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
 
         loadData();
 
-        myCookBook.setOnClickListener(new View.OnClickListener() {  //adding a response when cookbook button is clicked
+        myCookBook.setOnClickListener(new View.OnClickListener() {  //adding a response when
+                                                                    // cookbook button is clicked
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity().getApplicationContext(),
@@ -106,7 +107,8 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
         });
 
         createDialog();
-        myCategories.setOnClickListener(new View.OnClickListener() {  //adding a response when the new category button is clicked
+        myCategories.setOnClickListener(new View.OnClickListener() {  //adding a response when
+                                                            // the new category button is clicked
             @Override
             public void onClick(View view) {
                 dialog.show();
@@ -114,12 +116,17 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
         });
     }
 
+    /**
+     * When you selected to create a new category, this method will bring up the popup to name
+     * the category.
+     */
     private void createDialog() {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
         View view = getLayoutInflater().inflate(R.layout.dialog, null);
-
         nameCategory = view.findViewById(R.id.editName);
         builder.setView(view);
+
         builder.setTitle("Create New Category")
                 .setPositiveButton("Create Category", new DialogInterface.OnClickListener() {
                     @Override
@@ -141,14 +148,13 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
      * @param categoryName new name of the category to be added
      */
     private void addCategory(String categoryName) {
+
         View view = getLayoutInflater().inflate(R.layout.cookbook_category, null);
         TextView name = view.findViewById(R.id.categoryName);
         name.setText(categoryName);
-
         adapter.createdCategories.add(new Category(name.getText().toString()));
         adapter.notifyItemInserted(adapter.createdCategories.size());
         adapter.notifyDataSetChanged();
-
         ((HomePage)getActivity()).addMapCategory(categoryName);
         saveData();
     }
@@ -159,6 +165,7 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
      * Saves the categories to a share preference.
      */
     private void saveData(){
+
         SharedPreferences sp = getContext().getSharedPreferences("preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor= sp.edit();
         Gson gson = new Gson();
@@ -167,7 +174,6 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
         json = gson.toJson(categoryMap);
         editor.putString("ListCategories", json);
         editor.apply();
-
         ((HomePage)getActivity()).setCategories(adapter.createdCategories);
         ((HomePage)getActivity()).saveData();
     }
@@ -176,6 +182,7 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
      * Loads the user-created categories from a shared preference.
      */
     public void loadData(){
+
         SharedPreferences sp = getContext().getSharedPreferences("preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sp.getString("Created Categories", null);
@@ -189,15 +196,26 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
         ((HomePage)getActivity()).setCategories(adapter.createdCategories);
     }
 
+    /**
+     * Method to remove a category and its data from the cookbook.
+     * @param item
+     */
     @Override
     public void onRemove(Category item) {
+
         adapter.createdCategories.remove(item);
         adapter.notifyDataSetChanged();
         saveData();
     }
 
+    /**
+     * When a category is clicked, this method will start the next activity that holds the
+     * information of saved recipes in the category.
+     * @param categoryName the name of the category clicked.
+     */
     @Override
     public void onCategoryClicked(String categoryName) {
+
         ArrayList<SavedRecipe> categoryItems =
                 ((HomePage)getActivity()).retrieveCategoryItems(categoryName);
         startActivity(new Intent(getContext(), Subcategory.class)

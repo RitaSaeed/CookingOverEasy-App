@@ -1,5 +1,8 @@
 package com.example.cookingovereasy;
 
+/**
+ * Class containing user information.
+ */
 public class Users {
 
     private String username;

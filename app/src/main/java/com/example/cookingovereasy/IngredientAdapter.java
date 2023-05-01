@@ -27,7 +27,11 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveCallback.ItemTouchHelperContract{
+/**
+ * Manages the ingredients and categories in the grocery list.
+ */
+public class IngredientAdapter extends RecyclerView.Adapter implements
+        ItemMoveCallback.ItemTouchHelperContract{
 
     Context context;
     ArrayList<Ingredient> ingredientArrayList;
@@ -39,13 +43,21 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
      * Constructor for the ingredient adapter.
      * @param ingredientArrayList an Array List of ingredients that will be displayed.
      */
-    public IngredientAdapter(ArrayList<Ingredient> ingredientArrayList, Context context, EventListener listener) {
+    public IngredientAdapter(ArrayList<Ingredient> ingredientArrayList, Context context,
+                             EventListener listener) {
+
         this.context = context;
         this.ingredientArrayList = ingredientArrayList;
         this.listener = listener;
     }
 
+    /**
+     * Returns if the item in the grocery list is a category or a grocery item.
+     * @param position position to query
+     * @return
+     */
     public int getItemViewType(int position){
+
         if(ingredientArrayList.get(position).name.toLowerCase().contains("protein") ||
                 ingredientArrayList.get(position).name.toLowerCase().contains("bread and grains") ||
                 ingredientArrayList.get(position).name.toLowerCase().contains("dairy") ||
@@ -69,6 +81,7 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View v;
 
@@ -79,13 +92,6 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
             v = layoutInflater.inflate(R.layout.grocery_item, parent, false);
             return new ViewHolderOne(v);
         }
-
-        //View v = LayoutInflater.from(context).inflate(R.layout.grocery_item, parent, false);
-       // View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.grocery_item, parent, false); //IMPORTANT
-       // View v2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.grocery_categories, parent, false);
-
-
-       // return new IngredientAdapter.MyViewHolder(v);// IMPORTANT
     }
 
 
@@ -98,6 +104,7 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
      */
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
         if(ingredientArrayList.get(position).name.toLowerCase().contains("protein")  ||
                 ingredientArrayList.get(position).name.toLowerCase().contains("bread and grains") ||
                 ingredientArrayList.get(position).name.toLowerCase().contains("dairy") ||
@@ -108,11 +115,8 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
             holder2.categoryName.setText(ingredientArrayList.get(position).name);
         }else {
             ViewHolderOne holder1 = (ViewHolderOne) holder;
-
-
             pref =  context.getSharedPreferences("shared preferences", MODE_PRIVATE);
             Ingredient ingredient = ingredientArrayList.get(position);
-            //holder.checkBox.setText("Checkbox " + position);
             holder1.checkBox.setChecked(ingredientArrayList.get(position).getSelected());
             holder1.ingredientName.setText(ingredient.name);
 
@@ -122,8 +126,6 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
                 public void onClick(View v) {
                     editor = pref.edit();
                     Integer pos = (Integer) holder1.checkBox.getTag();
-                    //Toast.makeText(context, ingredientArrayList.get(pos).getName() + " clicked!",
-                    //       Toast.LENGTH_SHORT).show();
 
                     if (ingredientArrayList.get(pos).getSelected()) {
                         ingredientArrayList.get(pos).setSelected(false);
@@ -132,14 +134,11 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
                         ingredientArrayList.get(pos).setSelected(true);
                         editor.putBoolean(String.valueOf(holder1.checkBox.getId()), true);
                     }
-
                     editor.commit();
                 }
             });
         }
-
     }
-
 
     /**
      * Returns number of ingredients.
@@ -157,6 +156,7 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
      */
     @Override
     public void onRowMoved(int fromPosition, int toPosition) {
+
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
                 Collections.swap(ingredientArrayList, i, i + 1);
@@ -167,6 +167,7 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
                 // index out of bounds index 3 size 0 when dragging third added item on new list
             }
         }
+
         notifyItemMoved(fromPosition, toPosition);
         listener.onEvent();
     }
@@ -177,16 +178,8 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
      */
     @Override
     public void onRowSelected(RecyclerView.ViewHolder viewHolder) {
+
         viewHolder.itemView.setBackgroundColor(Color.parseColor("#d9dedb"));
-
-//        if (viewHolder instanceof IngredientAdapter.ViewHolderOne) {
-//            viewHolder.itemView.setBackgroundColor(Color.parseColor("#d9dedb"));
-//        }
-//        else {
-//            viewHolder.itemView.setBackgroundColor(Color.parseColor("#ffc20e"));
-//        }
-
-      //  viewHolder.rowView.setBackgroundColor(Color.GRAY);
     }
 
     /**
@@ -215,35 +208,32 @@ public class IngredientAdapter extends RecyclerView.Adapter implements ItemMoveC
         CheckBox checkBox;
         View rowView;
 
-        //TextView groceryCategoryName;
-
         public ViewHolderOne(@NonNull View itemView) {
             super(itemView);
-
             rowView = itemView;
             checkBox = itemView.findViewById(R.id.checkBoxIngredient);
             ingredientName = itemView.findViewById(R.id.ingredientName);
-          //  groceryCategoryName = itemView.findViewById(R.id.groceryCategoryName);
-
         }
-
     }
 
+    /**
+     * Creates a card that will contain the category name for a category view in the groceyr list.
+     */
     public static class MyViewHolder2 extends RecyclerView.ViewHolder {
 
         TextView categoryName;
         View rowView;
 
-
         public MyViewHolder2(@NonNull View itemView) {
             super(itemView);
             rowView = itemView;
             categoryName = itemView.findViewById(R.id.groceryCategoryName);
-
         }
-
     }
 
+    /**
+     *EventListener for grocery list.
+     */
     public interface EventListener {
         void onEvent();
     }

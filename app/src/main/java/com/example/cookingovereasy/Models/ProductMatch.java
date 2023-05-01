@@ -1,5 +1,8 @@
 package com.example.cookingovereasy.Models;
 
+/**
+ *  Information pertaining to a recipe found from the API.
+ */
 public class ProductMatch {
     public int id;
     public String title;

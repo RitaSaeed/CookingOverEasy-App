@@ -38,17 +38,18 @@ public class HomePage extends AppCompatActivity {
      * their action listeners.
      * @param savedInstanceState If the activity is being re-initialized after
      *     previously being shut down then this Bundle contains the data it most
-     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.
+     *                           </i></b>
      *
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_homepage);
 
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_homepage);
         categories = new ArrayList<>();
         loadData();
-
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.navbarcontainer,cookBookFragment).commit();
@@ -58,9 +59,11 @@ public class HomePage extends AppCompatActivity {
          * Switch statement that determines which fragment to load onto the page by which button
          * in the navigation bar is selected by the user.
          */
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+        bottomNavigationView.setOnItemSelectedListener
+                (new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
+
                 switch(item.getItemId()){
                     case R.id.cookbook:
                         getFragmentManager().beginTransaction().remove(settingsFragment).commit();
@@ -93,40 +96,80 @@ public class HomePage extends AppCompatActivity {
                         getFragmentManager().beginTransaction().remove(settingsFragment).commit();
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.navbarcontainer,searchFragment).commit();
+
                         return true;
                 }
+
                 return false;
             }
         });
     }
 
+    /**
+     * Sets the categories in the cookbook.
+     * @param newCategories ArrayList of updated categories.
+     */
     public void setCategories(ArrayList<Category> newCategories) {
         categories = newCategories;
     }
 
+    /**
+     * Retrives the current categories in the cookbook.
+     * @return an arraylist of cookbook categories.
+     */
     public ArrayList<Category> retrieveCategories() {
         return this.categories;
     }
 
+    /**
+     * Adds a saved recipe to a hashmap of saved recipes.
+     * @param recipe the recipe that will be saved to the map.
+     */
     public void addSavedRecipe(SavedRecipe recipe) {
         categoryMap.get(recipe.getCategory()).add(recipe);
         saveData();
     }
 
+    /**
+     *
+     * @param requestCode The integer request code originally supplied to
+     *                    startActivityForResult(), allowing you to identify who this
+     *                    result came from.
+     * @param resultCode The integer result code returned by the child activity
+     *                   through its setResult().
+     * @param data An Intent, which can return result data to the caller
+     *               (various data can be attached to Intent "extras").
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * Add a cookbook category to a hashmap of recipes.
+     * @param categoryName
+     */
     public void addMapCategory(String categoryName) {
+
         categoryMap.put(categoryName, new ArrayList<>());
     }
 
+    /**
+     * Gets all the recipes saved to a category from the hashmap.
+     * @param categoryName the name of the category that is being retreived.
+     * @return An Arraylist of recipes saved to the category in the hashmap.
+     */
     public ArrayList<SavedRecipe> retrieveCategoryItems(String categoryName) {
+
         return categoryMap.get(categoryName);
     }
 
+    /**
+     * Saves data pertaining to the category hashmap.
+     */
     public void saveData(){
+
         SharedPreferences sp = getSharedPreferences("preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor= sp.edit();
         Gson gson = new Gson();
@@ -135,7 +178,11 @@ public class HomePage extends AppCompatActivity {
         editor.apply();
     }
 
+    /**
+     * Loads data pertaining to the category hashmap.
+     */
     public void loadData(){
+
         SharedPreferences sp = getSharedPreferences("preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sp.getString("ListCategories", null);

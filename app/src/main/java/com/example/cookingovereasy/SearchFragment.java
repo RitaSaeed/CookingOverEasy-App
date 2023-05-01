@@ -71,6 +71,7 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
          return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
@@ -82,35 +83,25 @@ public class SearchFragment extends Fragment {
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
 
-        // og sprint one stuff
-//        dataInitialize(); // adds test data to the recycler view
-
-        // new stuff
-        dialog = new ProgressDialog(getActivity()); // might need to be getActivity
+        dialog = new ProgressDialog(getActivity());
         dialog.setTitle("Loading...");
-
         loadData();
-
-        manager = new RequestManager(getActivity()); // might need to be getActivity
+        manager = new RequestManager(getActivity());
         listenerView = view;
-//        manager.getRandomRecipes(randomRecipeResponseListener);
-//        dialog.show();
-
-        // end new stuff
-
         spinner = view.findViewById(R.id.spinnerSearch);
+
         ArrayAdapter arrayAdapter = ArrayAdapter.createFromResource(
                 getActivity(),
                 R.array.tags,
                 R.layout.search_spinner_text
         );
+
         arrayAdapter.setDropDownViewResource(R.layout.search_spinner_inner_text);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(spinnerSelectedListener);
-
-        // og sprint one stuff
         searchView = view.findViewById(R.id.searchViewSearch);
         searchView.clearFocus();
 
@@ -129,39 +120,42 @@ public class SearchFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-//                filterList(newText);
-                return false; // change to true when text is filtered and submit is disabled
+                return false;
             }
         });
-
-            // og sprint one stuff
-//        recyclerView = view.findViewById(R.id.recycler_view_search);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        recyclerView.setHasFixedSize(true);
-//        adapter = new SearchAdapter(getContext(), foodArrayList);
-//        recyclerView.setAdapter(adapter);
-//        adapter.notifyDataSetChanged();
     }
 
-    private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
+    /**
+     * Response lister for the random recipes that will populate the recipe search recycler view
+     * before an item is searched for.
+     */
+    private final RandomRecipeResponseListener randomRecipeResponseListener =
+            new RandomRecipeResponseListener() {
         @Override
         public void didFetch(RandomRecipeApiResponse response, String message) {
+
             dialog.dismiss();
             recyclerView = listenerView.findViewById(R.id.recycler_view_search);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-            randomRecipeAdapter = new RandomRecipeAdapter(getActivity(), response.recipes, recipeClickListener);
+            randomRecipeAdapter = new RandomRecipeAdapter(getActivity(), response.recipes,
+                    recipeClickListener);
             recipeList = response.recipes;
             recyclerView.setAdapter(randomRecipeAdapter);
             randomRecipeAdapter.notifyDataSetChanged();
-
             // following 2 lines just close the keyboard after hitting search
-            InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService
+                    (Context.INPUT_METHOD_SERVICE);
             mgr.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
         }
 
+        /**
+         * Message displayed upon an error.
+         * @param message string that is displayed when there is an error.
+         */
         @Override
         public void didError(String message) {
+
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
         }
     };
@@ -171,12 +165,6 @@ public class SearchFragment extends Fragment {
      * @param text
      */
     private void filterList(String text) {
-//        List<Food> filteredList = new ArrayList<>();
-//        for (Food food : foodArrayList) {
-//            if (food.getHeading().toLowerCase().contains(text.toLowerCase())) {
-//                filteredList.add(food);
-//            }
-//        }
 
         List<Recipe> filteredList = new ArrayList<>();
         for (Recipe recipe : recipeList) {
@@ -192,9 +180,14 @@ public class SearchFragment extends Fragment {
         }
     }
 
-    private final AdapterView.OnItemSelectedListener spinnerSelectedListener = new AdapterView.OnItemSelectedListener() {
+    /**
+     *
+     */
+    private final AdapterView.OnItemSelectedListener spinnerSelectedListener = new
+            AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
             tags.clear();
             tags.add(parent.getSelectedItem().toString());
             manager.getRandomRecipes(randomRecipeResponseListener, tags);
@@ -208,21 +201,22 @@ public class SearchFragment extends Fragment {
     };
 
     private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
+
         @Override
         public void onRecipeClicked(String id) {
-            //Toast.makeText(getContext(), id, Toast.LENGTH_SHORT).show();
+
             Intent intent = new Intent(getContext(), RecipeDetails.class);
             intent.putExtra("id", id);
             intent.putExtra("categories", cookbookCategories);
             startActivityForResult(intent, 1);
-//            startActivity(new Intent(getContext(), RecipeDetails.class)
-//                    .putExtra("id", id).putExtra("categories", cookbookCategories));
         }
     };
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == Activity.RESULT_OK && requestCode == 1) {
             String category = data.getStringExtra("category");
             String name = data.getStringExtra("name");
@@ -232,19 +226,8 @@ public class SearchFragment extends Fragment {
     }
 
     private void loadData(){
-//        SharedPreferences sp = getContext().getSharedPreferences("shared preferences", MODE_PRIVATE);
-//        Gson gson = new Gson();
-//
-//        // code for getting the categories created in the CookBook
-//        String jsonCategory = sp.getString("Created Categories", null);
-//        Type typeCategory = new TypeToken<ArrayList<Category>>() {}.getType();
-//        cookbookCategories = gson.fromJson(jsonCategory, typeCategory);
         cookbookCategories = ((HomePage)getActivity()).retrieveCategories();
-//        cookbookCategories = (ArrayList<Category>) getArguments().getSerializable("key");
-
     }
 
-    public void passFavorite(String recipeID, String recipeName, String category) {
-
-    }
+    public void passFavorite(String recipeID, String recipeName, String category) {}
 }

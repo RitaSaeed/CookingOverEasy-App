@@ -30,7 +30,8 @@ import java.util.List;
 /**
  * Provides functionality for the grocery list fragment.
  */
-public class GroceryListFragment extends Fragment implements IngredientAdapter.EventListener, SearchIngredientAdapter.AddToGroceryList {
+public class GroceryListFragment extends Fragment implements IngredientAdapter.EventListener,
+        SearchIngredientAdapter.AddToGroceryList {
 
     private RecyclerView recyclerView;
     private ArrayList<Ingredient> ingredientArrayList;
@@ -42,7 +43,6 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
     SearchView searchIngredients;
     RecyclerView ingredientRecyclerView;
     ArrayList<SearchIngredient> searchIngredientList;
-
 
     /**
      * Creates the fragment that can be interacted with. Views created from onCreateView
@@ -60,7 +60,9 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         ingredientArrayList = new ArrayList<>();
+
         return inflater.inflate(R.layout.fragment_grocery_list, container, false);
     }
 
@@ -73,9 +75,10 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        getViews(view);
 
+        super.onViewCreated(view, savedInstanceState);
+
+        getViews(view);
         searchIngredients.clearFocus();
         // query listener for the search view
         searchIngredients.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -91,7 +94,6 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
                 return true;
             }
         });
-
         // on click listener for the "+" button on the grocery list fragment
         add.setOnClickListener(v -> {
             add.setVisibility(View.GONE);
@@ -123,8 +125,8 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        loadData();
 
+        loadData();
         searchIngredientAdapter = new SearchIngredientAdapter(getContext(),
                 searchIngredientList, this);
 
@@ -179,7 +181,6 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
                         }
                     }
                 });
-
                 p.inflate(R.menu.rm_popup_menu);
                 p.show();
             }
@@ -191,6 +192,7 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
      * @param view the view to pull from
      */
     private void getViews(View view) {
+
         add = view.findViewById(R.id.addIcon);
         back = view.findViewById(R.id.backIcon);
         searchIngredients = view.findViewById(R.id.searchViewSearchIngredient);
@@ -203,7 +205,9 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
      * Saves data from ingredient array list to json file to be loaded later
      */
     private void saveData(){
-        SharedPreferences sp = getContext().getSharedPreferences("shared preferences", MODE_PRIVATE);
+
+        SharedPreferences sp = getContext().getSharedPreferences("shared preferences",
+                MODE_PRIVATE);
         SharedPreferences.Editor editor= sp.edit();
         Gson gson = new Gson();
         String json = gson.toJson(adapter.ingredientArrayList);
@@ -215,7 +219,9 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
      * Loads data from json file to ingredient array list
      */
     private void loadData(){
-        SharedPreferences sp = getContext().getSharedPreferences("shared preferences", MODE_PRIVATE);
+
+        SharedPreferences sp = getContext().getSharedPreferences("shared preferences",
+                MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sp.getString("Ingredient list", null);
         Type type = new TypeToken<ArrayList<Ingredient>>() {}.getType();
@@ -237,6 +243,7 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
      * @param text input text to use as filter
      */
     private void filterList(String text) {
+
         List<SearchIngredient> filteredList = new ArrayList<SearchIngredient>();
         for (SearchIngredient i : searchIngredientList) {
             if (i.getIngredientName().toLowerCase().contains(text.toLowerCase())) {
@@ -276,7 +283,9 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
      * @throws IOException
      */
     private void prepArray() throws IOException {
-        InputStreamReader is = new InputStreamReader(getActivity().getAssets().open("ingredients.csv"));
+
+        InputStreamReader is = new
+                InputStreamReader(getActivity().getAssets().open("ingredients.csv"));
         BufferedReader reader = new BufferedReader(is);
         reader.readLine();
         String line;
@@ -296,6 +305,7 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
      * @param newIngredient the name of the new ingredient
      */
     public void addIngredient(String newIngredient) {
+
         Toast.makeText(getActivity(), "Added " + newIngredient, Toast.LENGTH_SHORT).show();
         adapter.ingredientArrayList.add(new Ingredient(newIngredient));
         adapter.notifyItemInserted(adapter.getItemCount());
@@ -307,6 +317,9 @@ public class GroceryListFragment extends Fragment implements IngredientAdapter.E
         saveData();
     }
 
+    /**
+     * Saves data.
+     */
     @Override
     public void onEvent() {
         saveData();

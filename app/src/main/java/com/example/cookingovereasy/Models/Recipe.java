@@ -2,6 +2,9 @@ package com.example.cookingovereasy.Models;
 
 import java.util.ArrayList;
 
+/**
+ * The object that will contain recipe information for any recipe to be searched on the API.
+ */
 public class Recipe {
     public boolean vegetarian;
     public boolean vegan;

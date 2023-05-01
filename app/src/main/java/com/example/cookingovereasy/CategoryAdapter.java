@@ -20,10 +20,8 @@ import java.util.ArrayList;
  * Adapter for the recycler view in the category activity.
  */
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
-
     Context context;
     ArrayList<Category> createdCategories;
-
     EventListener listener;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
@@ -33,7 +31,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
      * @param createdCategories arraylist of categories
      * @param context current context
      */
-    public CategoryAdapter(ArrayList<Category> createdCategories, Context context, EventListener listener) {
+    public CategoryAdapter(ArrayList<Category> createdCategories, Context context, EventListener
+            listener) {
+
         this.context = context;
         this.createdCategories = createdCategories;
         this.listener = listener;
@@ -49,7 +49,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
      */
     @NonNull
     @Override
-    public CategoryAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CategoryAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.cookbook_category,
                 parent, false);
 
@@ -64,8 +65,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
      */
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.MyViewHolder holder, int position) {
+
         Category currentItem = createdCategories.get(position);
         holder.categoryName.setText(currentItem.getName());
+
         holder.rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,10 +100,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
         TextView categoryName;
         View rowView;
-
         ImageView remove;
 
+        /**
+         * ViewHolder for the category view.
+         * @param itemView
+         */
         public MyViewHolder(@NonNull View itemView) {
+
             super(itemView);
 
             rowView = itemView;
@@ -110,7 +117,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         }
     }
 
+    /**
+     * Interface to interact with the category class.
+     */
     public interface EventListener {
+
         void onRemove(Category item);
         void onCategoryClicked(String categoryName);
     }

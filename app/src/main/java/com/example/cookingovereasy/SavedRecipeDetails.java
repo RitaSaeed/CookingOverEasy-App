@@ -20,6 +20,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+/**
+ * Class that will save and allow access to the data required for a saved recipe.
+ */
 public class SavedRecipeDetails extends AppCompatActivity {
 
     int id;
@@ -32,9 +35,19 @@ public class SavedRecipeDetails extends AppCompatActivity {
     RecipeIngredientsAdapter recipeIngredientsAdapter;
     InstructionsAdapter instructionsAdapter;
 
+    /**
+     * Creates the activity where a saved recipe will be displayed.
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.
+     *                           </i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_saved_recipe_details);
         findViews();
         recipe_details_back.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +67,11 @@ public class SavedRecipeDetails extends AppCompatActivity {
 
     }
 
+    /**
+     * Finds and displays the information that will populate the recycler views for a saves recipe.
+     */
     private void findViews() {
+
         textView_recipe_name = findViewById(R.id.textView_recipe_name);
         imageView_recipe_image = findViewById(R.id.imageView_recipe_image);
         recycler_recipe_ingredients = findViewById(R.id.recycler_recipe_ingredients);
@@ -66,12 +83,12 @@ public class SavedRecipeDetails extends AppCompatActivity {
      * Listener for the recipe title, image, and ingredients.
      */
     private final RecipeDetailsListener listener = new RecipeDetailsListener() {
+
         @Override
         public void didFetch(RecipeDetailsResponse response, String message) {
             dialog.dismiss();
             textView_recipe_name.setText(response.title);
             Picasso.get().load(response.image).into(imageView_recipe_image);
-
             recycler_recipe_ingredients.setLayoutManager(new
                     LinearLayoutManager(SavedRecipeDetails.this,
                     LinearLayoutManager.VERTICAL, false));
@@ -81,8 +98,13 @@ public class SavedRecipeDetails extends AppCompatActivity {
             recycler_recipe_ingredients.setHasFixedSize(true);
         }
 
+        /**
+         * Toast message if there is an error.
+         * @param message message that will be displayed.
+         */
         @Override
         public void didError(String message) {
+
             Toast.makeText(SavedRecipeDetails.this, message, Toast.LENGTH_SHORT).show();
         }
     };
@@ -91,8 +113,10 @@ public class SavedRecipeDetails extends AppCompatActivity {
      * Listener for the analyzed instructions of the recipe.
      */
     private final InstructionsListener instructionsListener = new InstructionsListener() {
+
         @Override
         public void didFetch(List<InstructionsResponse> response, String message) {
+
             recycler_recipe_instructions.setHasFixedSize(true);
             recycler_recipe_instructions.setLayoutManager(new
                     LinearLayoutManager(SavedRecipeDetails.this,
@@ -101,8 +125,13 @@ public class SavedRecipeDetails extends AppCompatActivity {
             recycler_recipe_instructions.setAdapter(instructionsAdapter);
         }
 
+        /**
+         * Toast message if there is an error.
+         * @param message that will be displayed if there is an error.
+         */
         @Override
         public void didError(String message) {
+
             Toast.makeText(SavedRecipeDetails.this, message, Toast.LENGTH_SHORT).show();
         }
     };

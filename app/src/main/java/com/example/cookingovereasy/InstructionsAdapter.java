@@ -28,6 +28,7 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsViewHo
      * @param list
      */
     public InstructionsAdapter(Context context, List<InstructionsResponse> list) {
+
         this.context = context;
         this.list = list;
     }
@@ -43,6 +44,7 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsViewHo
     @NonNull
     @Override
     public InstructionsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         return new InstructionsViewHolder(LayoutInflater.from(context)
                 .inflate(R.layout.list_instructions, parent, false));
     }
@@ -55,6 +57,7 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsViewHo
      */
     @Override
     public void onBindViewHolder(@NonNull InstructionsViewHolder holder, int position) {
+
         holder.recycler_instruction_steps.setHasFixedSize(true);
         holder.recycler_instruction_steps.setLayoutManager(new LinearLayoutManager(context,
                 LinearLayoutManager.VERTICAL, false));
@@ -78,7 +81,9 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsViewHo
  * the recycler view.
  */
 class InstructionsViewHolder extends RecyclerView.ViewHolder {
+
     RecyclerView recycler_instruction_steps;
+
     public InstructionsViewHolder(@NonNull View itemView) {
         super(itemView);
         recycler_instruction_steps = itemView.findViewById(R.id.recycler_instruction_steps);

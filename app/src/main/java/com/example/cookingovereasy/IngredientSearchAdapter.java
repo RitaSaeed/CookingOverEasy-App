@@ -28,6 +28,7 @@ public class IngredientSearchAdapter extends RecyclerView.Adapter<IngredientSear
     String currentItem;
 
     public IngredientSearchAdapter(Context context, List<Result> list){
+
         this.context = context;
         this.list = list;
     }
@@ -35,11 +36,14 @@ public class IngredientSearchAdapter extends RecyclerView.Adapter<IngredientSear
     @NonNull
     @Override
     public IngredientSearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new IngredientSearchViewHolder(LayoutInflater.from(context).inflate(R.layout.list_ingredient_search, parent, false));
+
+        return new IngredientSearchViewHolder(LayoutInflater.from(context).inflate
+                (R.layout.list_ingredient_search, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull IngredientSearchViewHolder holder, int position) {
+
         holder.textView_title.setText(list.get(position).name);
         holder.textView_title.setSelected(true);
 
@@ -58,6 +62,7 @@ public class IngredientSearchAdapter extends RecyclerView.Adapter<IngredientSear
     }
 
     public void setFilteredList(List<Result> filteredList){
+
         this.list = filteredList;
         notifyDataSetChanged();
     }
@@ -69,18 +74,17 @@ public class IngredientSearchAdapter extends RecyclerView.Adapter<IngredientSear
 }
 
 class IngredientSearchViewHolder extends RecyclerView.ViewHolder{
+
     CardView ingredient_list_container;
     TextView textView_title;
-
     ImageView addToGroceryListIcon;
 
-
     public IngredientSearchViewHolder(@NonNull View itemView){
+
         super(itemView);
+
         ingredient_list_container = itemView.findViewById(R.id.ingredient_list_container);
         textView_title = itemView.findViewById(R.id.textView_title);
-
         addToGroceryListIcon = itemView.findViewById(R.id.addToGroceryListIcon);
-
     }
 }

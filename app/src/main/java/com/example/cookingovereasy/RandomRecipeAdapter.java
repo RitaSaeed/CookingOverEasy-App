@@ -34,6 +34,7 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
      * @param listener listener used for the on click attribute of each recipe
      */
     public RandomRecipeAdapter(Context context, List<Recipe> list, RecipeClickListener listener) {
+
         this.context = context;
         this.list = list;
         this.listener = listener;
@@ -50,7 +51,9 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
     @NonNull
     @Override
     public RandomRecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new RandomRecipeViewHolder(LayoutInflater.from(context).inflate(R.layout.list_random_recipe, parent, false));
+
+        return new RandomRecipeViewHolder(LayoutInflater.from(context).inflate
+                (R.layout.list_random_recipe, parent, false));
     }
 
     /**
@@ -61,6 +64,7 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
      */
     @Override
     public void onBindViewHolder(@NonNull RandomRecipeViewHolder holder, int position) {
+
         holder.textView_title.setText(list.get(position).title);
         holder.textView_title.setSelected(true);
         Picasso.get().load(list.get(position).image).into(holder.imageView_food);
@@ -87,6 +91,7 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
      * @param filteredList
      */
     public void setFilteredList(List<Recipe> filteredList) {
+
         this.list = filteredList;
         notifyDataSetChanged();
     }
@@ -102,7 +107,9 @@ class RandomRecipeViewHolder extends RecyclerView.ViewHolder {
     ImageView imageView_food;
 
     public RandomRecipeViewHolder(@NonNull View itemView) {
+
         super(itemView);
+
         search_list_container = itemView.findViewById(R.id.search_list_container);
         textView_title = itemView.findViewById(R.id.textView_title);
         imageView_food = itemView.findViewById(R.id.imageView_food);

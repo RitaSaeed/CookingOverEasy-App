@@ -16,22 +16,27 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * Class that manages the settings fragment.
+ */
 public class SettingsFragment extends PreferenceFragment {
 
     // instance vars needed for preferences
     String[] dietList;
     String[] allergyList;
     String[] preferredProteins;
-
     // instance vars needed for logout functionality:
     FirebaseUser user;
     FirebaseAuth auth;
 
-    /* onCreate sets up settings fragment layout and includes functionality for logging out,
-    * updating username, and changing diet, allergy, and protein preferences */
+    /** onCreate sets up settings fragment layout and includes functionality for logging out,
+    * updating username, and changing diet, allergy, and protein preferences
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
+
         super.onCreate(savedInstanceState);
+
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         if (user == null) {
@@ -41,7 +46,6 @@ public class SettingsFragment extends PreferenceFragment {
         else {
             addPreferencesFromResource(R.xml.settings);
         }
-
         //code for logout button:
         Preference button = findPreference(getString(R.string.logOutButton));
         button.setOnPreferenceClickListener(preference -> {

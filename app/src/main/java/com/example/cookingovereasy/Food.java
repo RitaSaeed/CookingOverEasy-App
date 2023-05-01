@@ -14,6 +14,7 @@ public class Food {
      * @param titleImage the image to accompany the recipe
      */
     public Food(String heading, int titleImage) {
+
         this.heading = heading;
         this.titleImage = titleImage;
     }

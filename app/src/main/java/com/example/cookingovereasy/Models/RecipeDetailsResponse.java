@@ -2,6 +2,9 @@ package com.example.cookingovereasy.Models;
 
 import java.util.ArrayList;
 
+/**
+ * The object that will hold all the information pertaining to a recipe as retrieved from the API.
+ */
 public class RecipeDetailsResponse {
     public int id;
     public String title;

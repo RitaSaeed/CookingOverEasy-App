@@ -28,6 +28,7 @@ public class InstructionStepAdapter extends RecyclerView.Adapter<InstructionStep
      * @param list list of steps
      */
     public InstructionStepAdapter(Context context, List<Step> list) {
+
         this.context = context;
         this.list = list;
     }
@@ -43,6 +44,7 @@ public class InstructionStepAdapter extends RecyclerView.Adapter<InstructionStep
     @NonNull
     @Override
     public InstructionStepViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         return new InstructionStepViewHolder(LayoutInflater.from(context).
                 inflate(R.layout.list_instructions_steps, parent, false));
     }
@@ -55,9 +57,9 @@ public class InstructionStepAdapter extends RecyclerView.Adapter<InstructionStep
      */
     @Override
     public void onBindViewHolder(@NonNull InstructionStepViewHolder holder, int position) {
+
         holder.textView_instructions_step_number.setText(String.valueOf(list.get(position).number));
         holder.textView_instructions_step_title.setText(list.get(position).step);
-
     }
 
     /**
@@ -78,7 +80,9 @@ class InstructionStepViewHolder extends RecyclerView.ViewHolder {
     TextView textView_instructions_step_number, textView_instructions_step_title;
 
     public InstructionStepViewHolder(@NonNull View itemView) {
+
         super(itemView);
+
         textView_instructions_step_number =
                 itemView.findViewById(R.id.textView_instructions_step_number);
         textView_instructions_step_title =

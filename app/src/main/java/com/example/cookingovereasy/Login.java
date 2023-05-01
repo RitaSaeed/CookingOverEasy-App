@@ -29,7 +29,9 @@ public class Login extends AppCompatActivity {
      */
     @Override
     public void onStart() {
+
         super.onStart();
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         // if there is a current user, send users straight to their home screen
         if(currentUser != null){
@@ -43,14 +45,16 @@ public class Login extends AppCompatActivity {
      * Setup for the creation of the activity.
      * @param savedInstanceState If the activity is being re-initialized after
      *     previously being shut down then this Bundle contains the data it most
-     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.
+     *                           </i></b>
      *
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
@@ -98,7 +102,6 @@ public class Login extends AppCompatActivity {
                 Toast.makeText(Login.this, "Enter password", Toast.LENGTH_SHORT).show();
                 return;
             }
-
             // uses built in signIn method from FirebaseAuth
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {

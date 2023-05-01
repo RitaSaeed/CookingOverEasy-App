@@ -4,6 +4,7 @@ package com.example.cookingovereasy;
  * Represents an ingredient in the grocery list.
  */
 public class Ingredient {
+
     String name;
     boolean isSelected;
 
