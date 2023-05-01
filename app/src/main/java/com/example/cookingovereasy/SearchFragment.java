@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.example.cookingovereasy.Models.RandomRecipeApiResponse;
 import com.example.cookingovereasy.Models.Recipe;
+import com.example.cookingovereasy.Models.SavedRecipe;
 import com.example.cookingovereasy.listeners.RandomRecipeResponseListener;
 import com.example.cookingovereasy.listeners.RecipeClickListener;
 import com.google.common.reflect.TypeToken;
@@ -226,6 +227,7 @@ public class SearchFragment extends Fragment {
             String category = data.getStringExtra("category");
             String name = data.getStringExtra("name");
             int id = data.getIntExtra("id", 0);
+            ((HomePage)getActivity()).addSavedRecipe(new SavedRecipe(category, name, id));
         }
     }
 

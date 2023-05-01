@@ -148,8 +148,8 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
         adapter.notifyItemInserted(adapter.createdCategories.size());
         adapter.notifyDataSetChanged();
 
-        categoryMap.put(categoryName, new ArrayList<>());
-
+        //categoryMap.put(categoryName, new ArrayList<>());
+        ((HomePage)getActivity()).addMapCategory(categoryName);
         saveData();
     }
 
@@ -164,16 +164,19 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
         Gson gson = new Gson();
         String json = gson.toJson(adapter.createdCategories);
         editor.putString("Created Categories", json);
+        json = gson.toJson(categoryMap);
+        editor.putString("ListCategories", json);
         editor.apply();
 
 //        String categories = new Gson().toJson(adapter.createdCategories);
         ((HomePage)getActivity()).setCategories(adapter.createdCategories);
+        ((HomePage)getActivity()).saveData();
     }
 
     /**
      * Loads the user-created categories from a shared preference.
      */
-    private void loadData(){
+    public void loadData(){
         SharedPreferences sp = getContext().getSharedPreferences("preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sp.getString("Created Categories", null);
@@ -183,6 +186,8 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
         if(adapter.createdCategories == null) {
             adapter.createdCategories = new ArrayList<>();
         }
+
+        ((HomePage)getActivity()).setCategories(adapter.createdCategories);
     }
 
     @Override
@@ -195,14 +200,16 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
     @Override
     public void onCategoryClicked(String categoryName) {
         System.out.println(categoryName + "IM HEREEEEEEEEEEEEEEEEEEEEEEEEE");
-        ArrayList<SavedRecipe> categoryItems = categoryMap.get(categoryName); // categoryItems is null rn
-        System.out.println("FIRST ITEM IN BREAKFAST" + categoryItems.get(1).getName());
+        ArrayList<SavedRecipe> categoryItems =
+                ((HomePage)getActivity()).retrieveCategoryItems(categoryName); // categoryItems is null rn
+        //System.out.println("FIRST ITEM IN BREAKFAST" + categoryItems.get(1).getName());
         startActivity(new Intent(getContext(), Subcategory.class)
                     .putExtra("category", categoryName)
                     .putExtra("categoryItems", categoryItems));
     }
 
     public void addRecipeToCategory(SavedRecipe newRecipe) {
+        System.out.println("Added " + newRecipe.getName() + " to " + newRecipe.getCategory());
         categoryMap.get(newRecipe.getCategory()).add(newRecipe);
     }
 }

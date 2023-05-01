@@ -3,14 +3,20 @@ package com.example.cookingovereasy;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.cookingovereasy.Models.SavedRecipe;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The main page of the app, holds the fragments and the navigation bar at the bottom.
@@ -25,6 +31,7 @@ public class HomePage extends AppCompatActivity {
     SettingsFragment settingsFragment = new SettingsFragment();
     ArrayList<Category> categories;
     SavedRecipe currentRecipe;
+    Map<String, ArrayList<SavedRecipe>> categoryMap;
 
     /**
      * Does the bulk of the work for this page, initializes the xml page objects and sets
@@ -40,6 +47,7 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
 
         categories = new ArrayList<>();
+        loadData();
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         getSupportFragmentManager().beginTransaction()
@@ -101,8 +109,10 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void addSavedRecipe(SavedRecipe recipe) {
-        currentRecipe = recipe;
-        cookBookFragment.addRecipeToCategory(currentRecipe);
+        //currentRecipe = recipe;
+        categoryMap.get(recipe.getCategory()).add(recipe);
+        saveData();
+        //cookBookFragment.addRecipeToCategory(currentRecipe);
     }
 
     @Override
@@ -110,5 +120,33 @@ public class HomePage extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    public void addMapCategory(String categoryName) {
+        categoryMap.put(categoryName, new ArrayList<>());
+    }
+
+    public ArrayList<SavedRecipe> retrieveCategoryItems(String categoryName) {
+        return categoryMap.get(categoryName);
+    }
+
+    public void saveData(){
+        SharedPreferences sp = getSharedPreferences("preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor= sp.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(categoryMap);
+        editor.putString("ListCategories", json);
+        editor.apply();
+    }
+
+    public void loadData(){
+        SharedPreferences sp = getSharedPreferences("preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sp.getString("ListCategories", null);
+        Type type = new TypeToken<Map<String, ArrayList<SavedRecipe>>>() {}.getType();
+        categoryMap = gson.fromJson(json, type);
+
+        if (categoryMap == null) {
+            categoryMap = new HashMap<>();
+        }
+    }
 
 }
