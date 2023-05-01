@@ -14,7 +14,7 @@
     app:cardElevation="10dp"
     app:cardPreventCornerOverlap="false"
     android:layout_margin="20dp"
-    android:backgroundTint="@color/backgroundYellow">
+    android:backgroundTint="@color/lightyellow">
     <TextView
         android:id="@+id/categoryName"
         android:layout_width="wrap_content"
