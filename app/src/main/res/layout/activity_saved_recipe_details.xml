@@ -30,14 +30,6 @@
             android:textSize="25sp"
             android:layout_weight="1"
             android:gravity="center"/>
-        <ImageButton
-            android:id="@+id/recipe_details_favorite"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:contentDescription="@string/favoriteRecipe"
-            android:src="@android:drawable/btn_star"
-            android:background="@color/lightyellow"/>
 
     </LinearLayout>
 

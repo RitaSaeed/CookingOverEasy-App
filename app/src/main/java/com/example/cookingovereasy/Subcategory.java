@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cookingovereasy.Models.SavedRecipe;
+import com.example.cookingovereasy.listeners.RecipeClickListener;
 
 import java.util.ArrayList;
 
@@ -38,7 +40,7 @@ public class Subcategory extends AppCompatActivity {
 
         categoryItems.setLayoutManager(new LinearLayoutManager(Subcategory.this,
                 LinearLayoutManager.VERTICAL, false));
-        adapter = new SavedRecipesAdapter(Subcategory.this, recipes);
+        adapter = new SavedRecipesAdapter(Subcategory.this, recipes, recipeClickListener);
         categoryItems.setAdapter(adapter);
         categoryItems.setHasFixedSize(true);
 
@@ -49,4 +51,12 @@ public class Subcategory extends AppCompatActivity {
         backToCategories = findViewById(R.id.backToCategories);
         categoryItems = findViewById(R.id.categoryItems);
     }
+
+    private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
+        @Override
+        public void onRecipeClicked(String id) {
+            startActivity(new Intent(Subcategory.this, SavedRecipeDetails.class)
+                    .putExtra("id", id));
+        }
+    };
 }

@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cookingovereasy.Models.SavedRecipe;
+import com.example.cookingovereasy.listeners.RecipeClickListener;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
@@ -206,11 +207,6 @@ public class CookBookFragment extends Fragment implements CategoryAdapter.EventL
         startActivity(new Intent(getContext(), Subcategory.class)
                     .putExtra("category", categoryName)
                     .putExtra("categoryItems", categoryItems));
-    }
-
-    public void addRecipeToCategory(SavedRecipe newRecipe) {
-        System.out.println("Added " + newRecipe.getName() + " to " + newRecipe.getCategory());
-        categoryMap.get(newRecipe.getCategory()).add(newRecipe);
     }
 }
 
