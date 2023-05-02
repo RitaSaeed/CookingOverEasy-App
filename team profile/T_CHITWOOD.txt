@@ -3,6 +3,21 @@ Junior
 CS-Software Engineering
 
 Sprint 1 - (developer)
-	- Created the login and register screen, connected the app with the firebase authentication system, added the app logo
-Sprint 2-
-Sprint 3-
+	- Created the login and register screen
+	- connected the app with the firebase authentication system
+	- created the functionality that allows users to register an account/login to that account
+	- added the app logo
+	- made app UI throughout development
+
+Sprint 2 - Created the SearchFragment layout, RecipeDetails layout
+	 - added ability for users to search for recipes through SearchFragment
+	 - added ability for users to filter results based on categories from API
+	 - added ability for users to display recipe information in RecipeDetails
+	 - made app UI changes throughout development
+
+Sprint 3 - Created the Subcategory stuff
+	 - Added the system that sends the categories from the CookBook to the recipedetails to
+		be used in the favorites function
+	 - Created the activity that you see when you click a category, as well as the activity
+		when clicking a recipe within the category.
+	 - made app UI changes throughout development
