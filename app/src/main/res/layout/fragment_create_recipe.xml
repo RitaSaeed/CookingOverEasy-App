@@ -32,7 +32,8 @@
             android:text="Recipe Title: "
             android:textColor="@color/black"
             android:textSize="25dp"
-            android:padding="8dp"/>
+            android:padding="8dp"
+            android:background="@color/lightyellow"/>
 
         <EditText
             android:id="@+id/editRecipeTitle"
@@ -52,8 +53,8 @@
             android:text="Ingredients: "
             android:textColor="@color/black"
             android:textSize="25dp"
-            android:padding="8dp"/>
-
+            android:padding="8dp"
+            android:background="@color/lightyellow"/>
 
         <Button
             android:id="@+id/addIngredient"
@@ -61,9 +62,7 @@
             android:layout_height="50dp"
             android:background="@drawable/roundcorneryellow"
             android:text="Add ingredient"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="212dp"
-            tools:layout_editor_absoluteY="101dp" />
+            android:layout_margin="8dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ingredient_recycler"
