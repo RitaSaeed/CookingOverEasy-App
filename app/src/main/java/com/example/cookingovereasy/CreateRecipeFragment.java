@@ -47,10 +47,9 @@ public class CreateRecipeFragment extends Fragment {
 
     ArrayList<Ingredient> myIngredients = new ArrayList<>();
     ArrayList<RecipeStep> mySteps = new ArrayList<>();
-    ArrayList<MyRecipe> myRecipes = new ArrayList<>();
 
-    private RecipeStepAdapter recipeStepAdapter;
-    private MyIngredientAdapter myIngredientAdapter;
+    private CreateRecipeStepAdapter recipeStepAdapter;
+    private CreateIngredientAdapter myIngredientAdapter;
 
     private RecyclerView ingredientRecyclerView;
     private RecyclerView instructionRecyclerView;
@@ -81,14 +80,14 @@ public class CreateRecipeFragment extends Fragment {
         //set up recycler view for ingredients:
         ingredientRecyclerView = view.findViewById(R.id.ingredient_recycler);
         ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        myIngredientAdapter = new MyIngredientAdapter(myIngredients);
+        myIngredientAdapter = new CreateIngredientAdapter(myIngredients);
         ingredientRecyclerView.setAdapter(myIngredientAdapter);
         ingredientRecyclerView.setHasFixedSize(false);
 
         //set up recycler view for recipe steps:
         instructionRecyclerView = view.findViewById(R.id.instruction_recycler);
         instructionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recipeStepAdapter = new RecipeStepAdapter(mySteps);
+        recipeStepAdapter = new CreateRecipeStepAdapter(mySteps);
         instructionRecyclerView.setAdapter(recipeStepAdapter);
         instructionRecyclerView.setHasFixedSize(false);
 
@@ -128,8 +127,6 @@ public class CreateRecipeFragment extends Fragment {
                 ArrayList<RecipeStep> tempRecipeSteps = recipeStepAdapter.stepArrayList;
                 MyRecipe recipe = new MyRecipe(recipeTitle,
                         tempIngredients, tempRecipeSteps);
-                myRecipes.add(recipe);
-
                 Toast.makeText(getActivity().getApplicationContext(),
                         "Recipe Saved!", Toast.LENGTH_SHORT).show();
                 ((HomePage)getActivity()).addCustomRecipe(recipe);
@@ -142,10 +139,20 @@ public class CreateRecipeFragment extends Fragment {
 
     private void clearFields() {
         titleText.setText("");
-//        myIngredients.removeAll(myIngredients);
-//        myIngredientAdapter.notifyDataSetChanged();
-//        mySteps.removeAll(recipeStepAdapter.stepArrayList);
-//        recipeStepAdapter.notifyDataSetChanged();
+//        for (int i = 0; i < myIngredientAdapter.ingredientArrayList.size(); i++) {
+//            myIngredientAdapter.ingredientArrayList.remove(i);
+//            myIngredientAdapter.notifyItemRemoved(i);
+//        }
+        myIngredientAdapter.ingredientArrayList.removeAll(myIngredientAdapter.ingredientArrayList);
+        myIngredientAdapter.notifyDataSetChanged();
+        recipeStepAdapter.stepArrayList.removeAll(recipeStepAdapter.stepArrayList);
+        recipeStepAdapter.notifyDataSetChanged();
+
+
+//        for (int i = 0; i < recipeStepAdapter.stepArrayList.size(); i++) {
+//            recipeStepAdapter.stepArrayList.remove(i);
+//            recipeStepAdapter.notifyItemRemoved(i);
+//        }
     }
 
     private void createIngredientDialog() {

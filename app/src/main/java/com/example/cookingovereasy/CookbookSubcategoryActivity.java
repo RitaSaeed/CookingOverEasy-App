@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cookingovereasy.Models.SavedRecipe;
 import com.example.cookingovereasy.listeners.RecipeClickListener;
@@ -29,7 +30,6 @@ public class CookbookSubcategoryActivity extends AppCompatActivity implements My
         setContentView(R.layout.activity_cookbook_subcategory);
         getViews();
         personalRecipes = (ArrayList<MyRecipe>) getIntent().getSerializableExtra("myRecipes");
-        //cookbookNameHeader.setText(getIntent().getStringExtra(""));
 
         backToCookbook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,8 +53,8 @@ public class CookbookSubcategoryActivity extends AppCompatActivity implements My
     }
 
     @Override
-    public void onMyRecipeClick(MyRecipe recipe) {
+    public void onMyRecipeClick(int position) {
         startActivity(new Intent(CookbookSubcategoryActivity.this, MyRecipeDetails.class)
-                .putExtra("recipe", recipe));
+                .putExtra("recipe", personalRecipes.get(position)));
     }
 }

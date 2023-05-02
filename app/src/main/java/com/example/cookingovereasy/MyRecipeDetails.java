@@ -29,9 +29,8 @@ public class MyRecipeDetails extends AppCompatActivity {
     TextView textView_recipe_name;
     ImageButton myrecipe_details_back;
     RecyclerView recycler_recipe_ingredients, recycler_recipe_instructions;
-    MyIngredientAdapter recipeIngredientsAdapter;
-    RecipeStepAdapter instructionsAdapter;
-    ArrayList<MyRecipe> personalRecipes;
+    CreateIngredientAdapter recipeIngredientsAdapter;
+    CreateRecipeStepAdapter instructionsAdapter;
 
     /**
      * Code that is done on creation of the activity.
@@ -51,20 +50,20 @@ public class MyRecipeDetails extends AppCompatActivity {
         textView_recipe_name.setText(recipe.title);
 
         //set up recycler view for ingredients:
-        recycler_recipe_ingredients = findViewById(R.id.recycler_myrecipe_ingredients);
-        recycler_recipe_ingredients.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recipeIngredientsAdapter = new MyIngredientAdapter(recipe.myIngredients);
+        recycler_recipe_ingredients.setLayoutManager(new
+                LinearLayoutManager(MyRecipeDetails.this,
+                LinearLayoutManager.VERTICAL, false));
+        recipeIngredientsAdapter = new CreateIngredientAdapter(recipe.myIngredients);
         recycler_recipe_ingredients.setAdapter(recipeIngredientsAdapter);
-        recycler_recipe_ingredients.setHasFixedSize(false);
+        recycler_recipe_ingredients.setHasFixedSize(true);
 
         //set up recycler view for recipe steps:
-        recycler_recipe_instructions = findViewById(R.id.recycler_myrecipe_instructions);
-        recycler_recipe_instructions.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        instructionsAdapter = new RecipeStepAdapter(recipe.myInstructions);
+        recycler_recipe_instructions.setLayoutManager(new
+                LinearLayoutManager(MyRecipeDetails.this,
+                LinearLayoutManager.VERTICAL, false));
+        instructionsAdapter = new CreateRecipeStepAdapter(recipe.myInstructions);
         recycler_recipe_instructions.setAdapter(instructionsAdapter);
-        recycler_recipe_instructions.setHasFixedSize(false);
-
-        findViews();
+        recycler_recipe_instructions.setHasFixedSize(true);
 
         // on click listener for the back button, goes back to search fragment
         myrecipe_details_back.setOnClickListener(new View.OnClickListener() {
@@ -73,9 +72,6 @@ public class MyRecipeDetails extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
     }
 
     /**
@@ -83,8 +79,8 @@ public class MyRecipeDetails extends AppCompatActivity {
      */
     private void findViews() {
         textView_recipe_name = findViewById(R.id.textView_myrecipe_name);
-        recycler_recipe_ingredients = findViewById(R.id.recycler_recipe_ingredients);
-        recycler_recipe_instructions = findViewById(R.id.recycler_recipe_instructions);
+        recycler_recipe_ingredients = findViewById(R.id.recycler_myrecipe_ingredients);
+        recycler_recipe_instructions = findViewById(R.id.recycler_myrecipe_instructions);
         myrecipe_details_back = findViewById(R.id.myrecipe_details_back);
     }
 

@@ -40,7 +40,7 @@ public class MyRecipeAdapter extends RecyclerView.Adapter<MyRecipeAdapter.MyView
         holder.rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onMyRecipeClick(recipe);
+                listener.onMyRecipeClick(holder.getAdapterPosition());
 
             }
         });
@@ -66,7 +66,7 @@ public class MyRecipeAdapter extends RecyclerView.Adapter<MyRecipeAdapter.MyView
         }
     }
     public interface MyRecipeListener {
-        void onMyRecipeClick(MyRecipe myrecipe);
+        void onMyRecipeClick(int position);
     }
 }
 

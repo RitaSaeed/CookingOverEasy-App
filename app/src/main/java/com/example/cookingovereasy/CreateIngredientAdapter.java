@@ -1,6 +1,5 @@
 package com.example.cookingovereasy;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class MyIngredientAdapter extends RecyclerView.Adapter<MyIngredientAdapter.MyViewHolder> {
+public class CreateIngredientAdapter extends RecyclerView.Adapter<CreateIngredientAdapter.MyViewHolder> {
     ArrayList<Ingredient> ingredientArrayList;
 
     SharedPreferences pref;
@@ -23,7 +22,7 @@ public class MyIngredientAdapter extends RecyclerView.Adapter<MyIngredientAdapte
      *
      * @param ingredientArrayList an Array List of ingredients that will be displayed.
      */
-    public MyIngredientAdapter(ArrayList<Ingredient> ingredientArrayList) {
+    public CreateIngredientAdapter(ArrayList<Ingredient> ingredientArrayList) {
         this.ingredientArrayList = ingredientArrayList;
     }
 
@@ -37,11 +36,11 @@ public class MyIngredientAdapter extends RecyclerView.Adapter<MyIngredientAdapte
      */
     @NonNull
     @Override
-    public MyIngredientAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CreateIngredientAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_recipe_user_input_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.create_my_recipe_user_input_item, parent, false);
 
-        return new MyIngredientAdapter.MyViewHolder(v);
+        return new CreateIngredientAdapter.MyViewHolder(v);
     }
 
     @Override

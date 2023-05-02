@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.cookingovereasy.Models.SavedRecipe;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -176,6 +177,7 @@ public class HomePage extends AppCompatActivity {
     }
 
     public ArrayList<MyRecipe> getCustomRecipes() {
+        loadData();
         return myCreatedRecipes;
     }
 
