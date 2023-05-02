@@ -32,6 +32,8 @@
             android:text="Recipe Title: "
             android:textColor="@color/black"
             android:textSize="25dp"
+            android:fontFamily="@font/playfair"
+            android:textStyle="bold"
             android:padding="8dp"
             android:background="@color/lightyellow"/>
 
@@ -53,6 +55,8 @@
             android:text="Ingredients: "
             android:textColor="@color/black"
             android:textSize="25dp"
+            android:fontFamily="@font/playfair"
+            android:textStyle="bold"
             android:padding="8dp"
             android:background="@color/lightyellow"/>
 
@@ -63,7 +67,9 @@
             android:background="@drawable/roundcorneryellow"
             android:text="Add ingredient"
             android:layout_margin="8dp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:fontFamily="@font/playfair"
+            android:textStyle="bold"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ingredient_recycler"
@@ -78,6 +84,8 @@
             android:text="Instructions: "
             android:textColor="@color/black"
             android:textSize="25dp"
+            android:fontFamily="@font/playfair"
+            android:textStyle="bold"
             android:padding="8dp"
             android:background="@color/lightyellow"/>
 
@@ -88,7 +96,9 @@
             android:text="Add step"
             android:background="@drawable/roundcorneryellow"
             android:layout_margin="8dp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:fontFamily="@font/playfair"
+            android:textStyle="bold"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/instruction_recycler"
@@ -98,12 +108,15 @@
 
         <Button
             android:id="@+id/saveRecipe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="165dp"
+            android:layout_height="50dp"
             android:text="Save Recipe"
+            android:padding="8dp"
             android:background="@drawable/roundcorneryellow"
             android:layout_margin="8dp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:fontFamily="@font/playfair"
+            android:textStyle="bold"/>
     </LinearLayout>
 
 </LinearLayout>
