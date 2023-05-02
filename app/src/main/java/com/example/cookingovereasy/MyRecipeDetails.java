@@ -29,8 +29,8 @@ public class MyRecipeDetails extends AppCompatActivity {
     TextView textView_recipe_name;
     ImageButton myrecipe_details_back;
     RecyclerView recycler_recipe_ingredients, recycler_recipe_instructions;
-    CreateIngredientAdapter recipeIngredientsAdapter;
-    CreateRecipeStepAdapter instructionsAdapter;
+    MyIngredientAdapter recipeIngredientsAdapter;
+    RecipeStepAdapter instructionsAdapter;
 
     /**
      * Code that is done on creation of the activity.
@@ -53,7 +53,7 @@ public class MyRecipeDetails extends AppCompatActivity {
         recycler_recipe_ingredients.setLayoutManager(new
                 LinearLayoutManager(MyRecipeDetails.this,
                 LinearLayoutManager.VERTICAL, false));
-        recipeIngredientsAdapter = new CreateIngredientAdapter(recipe.myIngredients);
+        recipeIngredientsAdapter = new MyIngredientAdapter(recipe.myIngredients);
         recycler_recipe_ingredients.setAdapter(recipeIngredientsAdapter);
         recycler_recipe_ingredients.setHasFixedSize(true);
 
@@ -61,7 +61,7 @@ public class MyRecipeDetails extends AppCompatActivity {
         recycler_recipe_instructions.setLayoutManager(new
                 LinearLayoutManager(MyRecipeDetails.this,
                 LinearLayoutManager.VERTICAL, false));
-        instructionsAdapter = new CreateRecipeStepAdapter(recipe.myInstructions);
+        instructionsAdapter = new RecipeStepAdapter(recipe.myInstructions);
         recycler_recipe_instructions.setAdapter(instructionsAdapter);
         recycler_recipe_instructions.setHasFixedSize(true);
 
