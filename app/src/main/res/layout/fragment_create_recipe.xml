@@ -12,7 +12,11 @@
         android:text="Create a Recipe:"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textSize="35dp"
+        android:fontFamily="@font/playfair"
+        android:background="@color/lightyellow"
+        android:padding="3dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
