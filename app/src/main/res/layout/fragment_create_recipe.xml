@@ -17,8 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Recipe Tilte: "
+            android:text="Recipe Title: "
             android:textSize="25dp"
+            android:textColor="@color/black"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="1dp"
             tools:layout_editor_absoluteY="4dp" />
@@ -28,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Recipe Title"
+            android:textColor="@color/black"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="13dp"
             tools:layout_editor_absoluteY="44dp" />
@@ -38,6 +40,7 @@
             android:layout_height="wrap_content"
             android:text="Ingredients: "
             android:textSize="25dp"
+            android:textColor="@color/black"
             tools:layout_editor_absoluteX="9dp"
             tools:layout_editor_absoluteY="107dp"
             tools:ignore="MissingConstraints" />
@@ -48,6 +51,7 @@
             android:layout_width="165dp"
             android:layout_height="50dp"
             android:text="Add ingredient"
+            android:background="@drawable/roundcorneryellow"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="212dp"
             tools:layout_editor_absoluteY="101dp" />
