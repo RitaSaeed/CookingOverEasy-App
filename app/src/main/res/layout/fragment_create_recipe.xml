@@ -62,25 +62,14 @@
             android:layout_height="50dp"
             android:background="@drawable/roundcorneryellow"
             android:text="Add ingredient"
-            android:layout_margin="8dp" />
+            android:layout_margin="8dp"
+            android:textColor="@color/black"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ingredient_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="151dp"
-            tools:listitem="@layout/my_recipe_user_input_item" />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="4dp"
-            android:background="@color/white"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="3dp"
-            tools:layout_editor_absoluteY="355dp" />
+            android:padding="10dp" />
 
         <TextView
             android:id="@+id/instructions"
@@ -97,29 +86,24 @@
             android:layout_width="165dp"
             android:layout_height="50dp"
             android:text="Add step"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="202dp"
-            tools:layout_editor_absoluteY="355dp" />
+            android:background="@drawable/roundcorneryellow"
+            android:layout_margin="8dp"
+            android:textColor="@color/black"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/instruction_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="-16dp"
-
-            tools:layout_editor_absoluteY="409dp"
-            tools:listitem="@layout/my_recipe_user_input_item" />
+            android:padding="10dp" />
 
         <Button
             android:id="@+id/saveRecipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save Recipe"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="151dp"
-            tools:layout_editor_absoluteY="637dp" />
+            android:background="@drawable/roundcorneryellow"
+            android:layout_margin="8dp"
+            android:textColor="@color/black"/>
     </LinearLayout>
 
 </LinearLayout>
